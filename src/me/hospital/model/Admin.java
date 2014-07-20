@@ -52,7 +52,7 @@ public class Admin extends Model<Admin> {
 	 * @return
 	 */
 	public List<Permission> getPermissions() {
-		String sql = "select * from permission where id in ( select accessId from role_access where roleId = ?)";
+		String sql = "select * from permission where id in ( select permissionId from role_permission where roleId = ?)";
 		return Permission.dao.find(sql, get("roleId"));
 	}
 	
