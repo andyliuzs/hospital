@@ -1,0 +1,232 @@
+@charset "utf-8";
+/* CSS Document */
+/*全局样式定义*/
+* {
+    margin:0;
+    padding:0;
+}
+
+body {
+    min-height:500px;
+    font: 12px/26px Georgia, "Times New Roman", Times, serif;
+    /*background:#f5f5f5;*/
+} 
+
+li { list-style:none; }
+a { text-decoration:none; }
+
+.input {  }
+input, textarea, select {
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    font-family: inherit;
+    font-size: 100%;
+    line-height: 20px;
+    margin: 0;
+    padding:5px;
+    vertical-align: middle;
+}
+
+
+div.input {
+    height: 20px;
+    line-height: 20px;
+    border: 1px solid #CCCCCC;
+    padding:5px;
+}
+
+option{ height: 20px;}
+select {text-align: center}
+
+.clear { clear:both; }
+.fr{ float: right;}
+.line {
+    height:2px;
+    overflow:hidden;
+    margin:5px 0px;
+}
+
+table {
+
+}
+
+table.table-list {
+
+}
+
+table.table-list td {
+    border-bottom: 1px dotted #929292;
+}
+
+table tr th {
+    line-height: 30px;
+    height: 30px;
+    text-align: center;
+    background-color:#0088cc;
+    padding: 3px;
+}
+
+table tr {
+    height:20px;
+    line-height: 20px;
+}
+
+table tr td {
+    vertical-align: middle;
+    line-height: 20px;
+    padding: 3px;
+}
+
+table td.title {
+    text-align: right;
+    font-size: 15px;
+}
+
+/*
+  css for buttons
+*/
+button {
+    border: 1px solid #CCCCCC;
+    text-align: center;
+    padding: 5px 15px;
+}
+
+.btn {
+    vertical-align: middle;
+    border: 1px solid #CCCCCC;
+    text-align: center;
+    background-color: #0055FF;
+    color: #FFFFFF;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 3px 15px;
+}
+
+.btn-confirm {
+    background-color: #0055FF;
+}
+
+
+.btn-cancel {
+    background-color: #929292;
+}
+
+
+div.color {
+    float:left;
+    width: 30px;
+    height:30px;
+    line-height: 30px;
+    margin-left: 15px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+div.action {
+    margin: 10px 0 15px;
+}
+
+/*
+    css for tabs
+*/
+.tab-wrapper {
+    font-size: 12px;
+    margin: 0px auto;
+    width: 100%;
+}
+
+#tabs {
+    padding: 0px;
+    margin: 0px;
+    width: 400px;
+    height: 25px;
+    line-height: 25px;
+}
+
+#tabs li {
+    float: left;
+    margin-right: 1px;
+    list-style-type: none;
+    height: 25px;
+    line-height: 25px;
+}
+
+#tabs li a {
+    padding: 0 10px;
+    float: left;
+    color: #999;
+    height: 25px;
+    line-height: 25px;
+    text-decoration: none;
+}
+
+#tabs li.current-tab {
+    margin-bottom: -2px;
+    position: relative;
+    height: 25px;
+}
+
+#tabs li.current-tab a {
+    color: #000;
+    line-height: 25px;
+    height: 25px;
+    background-color: #AECBD5;
+}
+
+.tab-content {
+    display: none;
+    width: 100%;
+    color: #474747;
+}
+
+.tab-container {
+    border: 1px solid #aecbd4;
+    padding: 1px;
+    background-color: #fff;
+}
+
+.curr-content {
+    display: block
+}
+
+#publish {
+    padding: 0 20px;
+    color: #000;
+    height: 24px;
+    line-height: 24px;
+    text-decoration: none;
+    display:block;
+    vertical-align: middle;
+    text-align: center;
+    background-color: #AECBD5;
+    margin-right:5px;
+    cursor:pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
