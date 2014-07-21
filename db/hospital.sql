@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 20, 2014 at 07:54 AM
+-- Generation Time: Jul 21, 2014 at 07:37 AM
 -- Server version: 5.6.12-log
 -- PHP Version: 5.4.16
 
@@ -60,7 +60,14 @@ CREATE TABLE IF NOT EXISTS `department` (
   `directorId` int(11) NOT NULL COMMENT '主任ID',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='科室' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='科室' AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `department`
+--
+
+INSERT INTO `department` (`id`, `name`, `desc`, `directorId`) VALUES
+(1, '骨科', '骨科是各大医院最常见的科室之一，主要研究骨骼肌肉系统的解剖、生理与病理，运用药物、手术及物理方法保持和发展这一系统的正常形态与功能', 0);
 
 -- --------------------------------------------------------
 
@@ -83,7 +90,14 @@ CREATE TABLE IF NOT EXISTS `doctor` (
   `doctorcol` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='医生信息表' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='医生信息表' AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `doctor`
+--
+
+INSERT INTO `doctor` (`id`, `account`, `password`, `name`, `roleId`, `sex`, `age`, `desc`, `departmentId`, `del`, `image`, `doctorcol`) VALUES
+(1, 'zhangsan', 'zhangsan', '张三', 2, 1, 45, '张三，骨科主治医生，骨科主任', 1, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -131,20 +145,20 @@ INSERT INTO `permission` (`id`, `name`, `url`, `pid`) VALUES
 (8, '医生管理', NULL, 0),
 (9, '预约处理', NULL, 0),
 (11, '基本信息', '/admin/myinfo', 2),
-(12, '修改密码', '/admin/password', 2),
+(12, '修改密码', '/admin/myinfo/password', 2),
 (13, '科室列表', '/admin/department/index', 6),
 (14, '添加科室', '/admin/department/add', 6),
 (15, '医生列表', '/admin/doctor/index', 8),
 (16, '添加医生信息', '/admin/doctor/add', 8),
 (17, '预约列表', '/admin/register/index', 5),
-(18, '我的预约', '/admin/myregister', 9),
+(18, '我的预约', '/admin/register/process', 9),
 (19, '公告列表', '/admin/post/index', 3),
 (20, '添加公告', '/admin/post/add', 3),
 (21, '评论列表', '/admin/message/index', 4),
 (22, '用户列表', '/admin/user/index', 7),
 (23, '角色列表', '/admin/role/index', 1),
 (24, '添加角色', '/admin/role/add', 1),
-(25, '权限设置', '/admin/permission', 1);
+(25, '权限设置', '/admin/role/permission', 1);
 
 -- --------------------------------------------------------
 
