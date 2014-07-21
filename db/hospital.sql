@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 21, 2014 at 07:37 AM
+-- Generation Time: Jul 21, 2014 at 05:11 PM
 -- Server version: 5.6.12-log
 -- PHP Version: 5.4.16
 
@@ -90,14 +90,23 @@ CREATE TABLE IF NOT EXISTS `doctor` (
   `doctorcol` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='医生信息表' AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='医生信息表' AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `doctor`
 --
 
 INSERT INTO `doctor` (`id`, `account`, `password`, `name`, `roleId`, `sex`, `age`, `desc`, `departmentId`, `del`, `image`, `doctorcol`) VALUES
-(1, 'zhangsan', 'zhangsan', '张三', 2, 1, 45, '张三，骨科主治医生，骨科主任', 1, 1, NULL, NULL);
+(1, 'zhangsan', 'zhangsan', '张三', 2, 1, 45, '张三，骨科主治医生，骨科主任', 1, 1, NULL, NULL),
+(2, 'zhangsan', 'zhangsan', 'zhangsan', 4, 1, 23, '是士大夫士大夫士大夫', 1, 1, 'E:\\workspace\\j2ee\\hospital\\WebRoot\\upload\\', NULL),
+(3, 'lisi', 'lisi', '李四', 3, 1, 45, '这是李四', 1, 1, 'E:\\workspace\\j2ee\\hospital\\WebRoot\\upload\\', NULL),
+(4, 'wangwu', 'wangwu', '王五', 2, 1, 54, '测试一下图片上传', 1, 1, 'uploads/images/c5a03e49-6815-4ef6-914c-e8ce3daac9ec.png', NULL),
+(5, 'wangwu', 'wangwu', '王五', 2, 1, 54, '测试一下图片上传', 1, 1, 'uploads/images/2201324c-ba37-42ec-8f32-018d3d3f5e23.png', NULL),
+(6, 'jingdongshangcheng', 'jingdongshangcheng', '京东商城', 4, 0, 23, '顶顶顶顶顶顶顶顶', 1, 1, '/uploads/images/1405961886822.png', NULL),
+(7, 'jingdongshangcheng', 'jingdongshangcheng', '京东商城', 4, 0, 23, '顶顶顶顶顶顶顶顶', 1, 1, '/uploads/images/1405961989374.png', NULL),
+(8, 'jingdongshangcheng', 'jingdongshangcheng', '京东商城', 4, 0, 23, '顶顶顶顶顶顶顶顶', 1, 1, '/uploads/images/1405962244109.png', NULL),
+(9, 'jingdongshangcheng', 'jingdongshangcheng', '京东商城', 4, 0, 23, '顶顶顶顶顶顶顶顶', 1, 1, '/images//1405962424558.png', NULL),
+(10, 'jingdongshangcheng', 'jingdongshangcheng', '京东商城', 4, 0, 23, '顶顶顶顶顶顶顶顶', 1, 1, '/images/1405962493619.png', NULL);
 
 -- --------------------------------------------------------
 
@@ -202,6 +211,7 @@ CREATE TABLE IF NOT EXISTS `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL COMMENT '角色名',
   `remark` varchar(45) DEFAULT NULL COMMENT '备注',
+  `type` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='角色表' AUTO_INCREMENT=6 ;
@@ -210,12 +220,12 @@ CREATE TABLE IF NOT EXISTS `role` (
 -- Dumping data for table `role`
 --
 
-INSERT INTO `role` (`id`, `name`, `remark`) VALUES
-(1, '管理员', '拥有所有权限'),
-(2, '主任医师', '同时也是部门主任'),
-(3, '副主任医师', '副主任医师'),
-(4, '医生', '普通的医师'),
-(5, '挂号管理员', '只拥有挂号管理的权限');
+INSERT INTO `role` (`id`, `name`, `remark`, `type`) VALUES
+(1, '管理员', '拥有所有权限', 0),
+(2, '主任医师', '同时也是部门主任', 1),
+(3, '副主任医师', '副主任医师', 1),
+(4, '医生', '普通的医师', 1),
+(5, '挂号管理员', '只拥有挂号管理的权限', 0);
 
 -- --------------------------------------------------------
 
