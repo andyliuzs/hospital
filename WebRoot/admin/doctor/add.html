@@ -1,10 +1,86 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>添加医生信息/修改医生信息</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>添加医生信息/修改医生信息</title>
 </head>
 <body>
-	<div>添加医生信息/修改医生信息</div>
+
+	<form name="doctorForm" action="/admin/doctor/save" method="post" enctype="multipart/form-data" >
+		<fieldset>
+			<legend>医生信息</legend>
+			<input type="hidden" name="id" value="" />
+			<h5>说明：录入医生信息成功后，系统自动生成该医生登录的账号和密码，账号和初始密码均为姓名的全拼</h5>
+			<table border="0" cellpadding="2" cellspacing="1" style="width: 90%">
+
+				<tr >
+					<td align="right" width="30%">姓名:</td>
+					<td width="70%">
+						<input name="name" type="text" class="text" size="15" />
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
+						职称:
+					</td>
+					<td>
+						<select name="roleId" >
+							<option selected="selected" value="0">请选择职位</option>
+							<#list roles as role>
+								<option value="${role.id}">${role.name}</option>
+							</#list>
+						</select>
+					</td>
+				</tr>
+
+				<tr>
+					<td align="right">科室:</td>
+					<td>
+						<select name="departmentId" >
+							<option selected="selected" value="0">请选择科室</option>
+							<#list departments as department>
+								<option value="${department.id}">${department.name}</option>
+							</#list>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">性别:</td>
+					<td>
+						<input type="radio" name="sex" checked="checked" value="1" />
+						男
+						<input type="radio" name="sex" value="0" />
+						女
+					</td>
+				</tr>
+				<tr>
+					<td align="right">年龄:</td>
+					<td>
+						<input name="age" type="text" class="text" />
+					</td>
+				</tr>
+
+				<tr>
+					<td align="right">上传头像:</td>
+					<td>
+						<input name="image" type="file" />
+					</td>
+				</tr>
+
+				<tr>
+					<td align="right">医生简介:</td>
+					<td>
+						<textarea name="desc" rows="10" cols="50" ></textarea>
+					</td>
+				</tr>
+
+			</table>
+
+			<input type="submit" value="保存" />
+			<br />
+		</fieldset>
+
+	</form>
+
 </body>
 </html>

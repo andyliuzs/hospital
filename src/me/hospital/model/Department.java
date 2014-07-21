@@ -1,5 +1,7 @@
 package me.hospital.model;
 
+import java.util.List;
+
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Page;
 
@@ -21,6 +23,16 @@ mysql> desc blog;
 @SuppressWarnings("serial")
 public class Department extends Model<Department> {
 	public static final Department dao = new Department();
+	
+	
+	/**
+	 * 返回所有的科室信息
+	 * @return
+	 */
+	public List<Department> getAllDepartments() {
+		return Department.dao.find("select * from department");
+	}
+	
 	
 	/**
 	 * 所有 sql 写在 Model 或 Service 中，不要写在 Controller 中，养成好习惯，有利于大型项目的开发与维护
