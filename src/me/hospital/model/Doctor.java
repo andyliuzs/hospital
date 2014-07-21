@@ -29,9 +29,9 @@ public class Doctor extends Model<Doctor> {
 	
 	public Doctor getByAccountAndPassword(String account, String password){
 		
-		String encodePassword = MD5.digest(password);
+		String encodePassword = password;//MD5.digest(password);
 		
-		System.out.println("encodePassword: " + encodePassword);
+//		System.out.println("encodePassword: " + encodePassword);
 		
         return dao.findFirst("select * from doctor where account = ? and password = ?", account, encodePassword);
     }
@@ -49,8 +49,8 @@ public class Doctor extends Model<Doctor> {
 	 * 获取管理员的所有权限
 	 * @return
 	 */
-	public List<Permission> getAccesses() {
-		String sql = "select * from access where id in ( select accessId from role_access where roleId = ?)";
+	public List<Permission> getPermissions() {
+		String sql = "select * from permission where id in ( select permissionId from role_permission where roleId = ?)";
 		return Permission.dao.find(sql, get("roleId"));
 	}
 	

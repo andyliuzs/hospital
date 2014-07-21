@@ -46,7 +46,7 @@
 		});
 
 		var mSwitch = new MenuSwitch("module-menu");
-		mSwitch.setDefault(0);
+		mSwitch.setDefault(-1);
 		mSwitch.setPrevious(false);
 		mSwitch.init();
 
@@ -88,85 +88,18 @@
 				<div class="menu">
 
 
-					<#list accesses?sort_by("id") as access>
-
+					<#list permissions as permission>
 
 						<div class="module-menu">
-							<label <#if access_index = 0 >class="current-menu"</#if> >${access.name}</label>
-<!-- 							<ul> -->
-<!-- 								<li><a href="#">基本信息</a></li> -->
-<!-- 								<li><a href="#">修改密码</a></li> -->
-<!-- 							</ul> -->
+							<label>${permission.name}</label>
+							<ul>
+								<#list permission.initializeSubPermissions() as sp>
+									<li><a href="${sp.url}" target="content">${sp.name}</a></li>
+								</#list>
+							</ul>
 						</div>
 
 					</#list>
-
-<!-- 					<div class="module-menu"> -->
-<!-- 						<label class="current-menu">我的信息</label> -->
-<!-- 						<ul> -->
-<!-- 							<li><a href="#">基本信息</a></li> -->
-<!-- 							<li><a href="#">修改密码</a></li> -->
-<!-- 						</ul> -->
-<!-- 					</div> -->
-
-<!-- 					<div class="module-menu"> -->
-<!-- 						<label>科室管理</label> -->
-<!-- 						<ul> -->
-<!-- 							<li><a href="#">科室列表</a></li> -->
-<!-- 							<li><a href="#">添加科室</a></li> -->
-<!-- 						</ul> -->
-<!-- 					</div> -->
-
-<!-- 					<div class="module-menu"> -->
-<!-- 						<label>医生管理</label> -->
-<!-- 						<ul> -->
-<!-- 							<li><a href="#">医生列表</a></li> -->
-<!-- 							<li><a href="#">添加医生信息</a></li> -->
-<!-- 						</ul> -->
-<!-- 					</div> -->
-
-<!-- 					<div class="module-menu"> -->
-<!-- 						<label>预约管理</label> -->
-<!-- 						<ul> -->
-<!-- 							<li><a href="#">预约列表</a></li> -->
-<!-- 						</ul> -->
-<!-- 					</div> -->
-
-<!-- 					<div class="module-menu"> -->
-<!-- 						<label>预约管理</label> -->
-<!-- 						<ul> -->
-<!-- 							<li><a href="#">处理预约</a></li> -->
-<!-- 						</ul> -->
-<!-- 					</div> -->
-
-<!-- 					<div class="module-menu"> -->
-<!-- 						<label>公告管理</label> -->
-<!-- 						<ul> -->
-<!-- 							<li><a href="#">公告列表</a></li> -->
-<!-- 							<li><a href="#">添加公告</a></li> -->
-<!-- 						</ul> -->
-<!-- 					</div> -->
-
-<!-- 					<div class="module-menu"> -->
-<!-- 						<label>评论管理</label> -->
-<!-- 						<ul> -->
-<!-- 							<li><a href="#">评论列表</a></li> -->
-<!-- 						</ul> -->
-<!-- 					</div> -->
-<!-- 					<div class="module-menu"> -->
-<!-- 						<label>用户信息</label> -->
-<!-- 						<ul> -->
-<!-- 							<li><a href="#">用户列表</a></li> -->
-<!-- 						</ul> -->
-<!-- 					</div> -->
-<!-- 					<div class="module-menu"> -->
-<!-- 						<label>权限管理</label> -->
-<!-- 						<ul> -->
-<!-- 							<li><a href="#">角色管理</a></li> -->
-<!-- 							<li><a href="#">权限管理</a></li> -->
-<!-- 						</ul> -->
-<!-- 					</div> -->
-
 
 				</div>
 			</div>
@@ -174,7 +107,7 @@
 			<div id="right">
 
 				<iframe width="100%" height="100%" id="content" name="content"
-					frameborder="0" scrolling="auto" src="common/test.html"></iframe>
+					frameborder="0" scrolling="auto" src="welcome.html"></iframe>
 
 			</div>
 		</div>

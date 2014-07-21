@@ -13,12 +13,19 @@ public class SessionInterceptor implements Interceptor {
 
 		Controller controller = ai.getController();
 
-		System.out.println("Before invoking " + ai.getActionKey());
-
-		if (controller.getSessionAttr("admin") != null
-				|| controller.getSessionAttr("doctor") != null) {
+		if ((controller.getSessionAttr("admin") != null || controller
+				.getSessionAttr("doctor") != null)
+				&& controller.getSessionAttr("roleName") != null
+				&& controller.getSessionAttr("permissions") != null) {
+			
+			System.out.println("invoke");
+			
 			ai.invoke();
+			
 		} else {
+			
+			System.out.println("login");
+			
 			controller.setAttr("msg", "请登录本系统");
 			controller.redirect("/admin/login.html");
 		}

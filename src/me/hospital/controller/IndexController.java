@@ -18,27 +18,28 @@ public class IndexController extends Controller {
 
 	public void index() {
 
+		String userName = "";
 		Admin admin = getSessionAttr("admin");
 		if (admin != null) {
 
-			setAttr("userName", admin.get("account"));
-
-			System.out.println("userName: " + admin.get("account"));
+			userName = admin.get("account");
 
 		} else {
 
 			Doctor doctor = getSessionAttr("doctor");
-			setAttr("userName", doctor.get("name"));
 
-			System.out.println("userName: " + doctor.get("name"));
-
+			if (doctor != null) {
+				userName = doctor.get("name");
+			}
 		}
 
-		System.out.println("roleName: " + getSessionAttr("role"));
-		System.out.println("access: " + getSessionAttr("accesses"));
+		System.out.println("userName: " + userName);
+		System.out.println("roleName: " + getSessionAttr("roleName"));
+		System.out.println("permission: " + getSessionAttr("permissions"));
 
-		setAttr("roleName", getSessionAttr("role"));
-		setAttr("accesses", getSessionAttr("accesses"));
+		setAttr("userName", userName);
+		setAttr("roleName", getSessionAttr("roleName"));
+		setAttr("permissions", getSessionAttr("permissions"));
 
 		render("/admin/index.html");
 	}
@@ -49,63 +50,51 @@ public class IndexController extends Controller {
 		String userName = getPara("username");
 		String password = getPara("password");
 
-		System.out.println("------username-------- " + userName);
-		System.out.println("------password-------- " + password);
-
+		getSession().removeAttribute("admin");
+		getSession().removeAttribute("doctor");
+		getSession().removeAttribute("roleName");
+		getSession().removeAttribute("permissions");
+		
 		Admin admin = Admin.dao.getByAccountAndPassword(userName, password);
+		Doctor doctor = Doctor.dao.getByAccountAndPassword(userName, password);
+
+		Role role = null;
+		List<Permission> permissions = null;
 
 		if (admin != null) {
 
-			Role role = admin.getRole();
-
-			// System.out.println("roleName = " + role.getStr("name"));
-
-			List<Permission> accesses = admin.getPermissions();
+			role = admin.getRole();
+			permissions = admin.getPermissions();
 
 			setSessionAttr("admin", admin);
-			setSessionAttr("role", role.getStr("name"));
-			setSessionAttr("accesses", accesses);
 
-			// System.out.println("userName: " + admin.get("account"));
-			// System.out.println("roleName: " + getSessionAttr("role"));
-			// System.out.println("access: " + getSessionAttr("accesses"));
+		} else if (doctor != null) {
 
-			// setAttr("userName", admin.get("account"));
-			// setAttr("roleName", role.getStr("name"));
-			// setAttr("accesses", accesses);
+			role = doctor.getRole();
+			permissions = doctor.getPermissions();
 
-			redirect("/admin/index");
+			setSessionAttr("doctor", doctor);
 
 		} else {
 
-			Doctor doctor = Doctor.dao.getByAccountAndPassword(userName,
-					password);
-			if (doctor != null) {
+			setAttr("msg", "用户名或密码错误");
+			redirect("/admin/login.html");
 
-				Role role = doctor.getRole();
-
-				System.out.println("roleName = " + role.getStr("name"));
-
-				List<Permission> accesses = doctor.getAccesses();
-
-				setSessionAttr("doctor", doctor);
-				setSessionAttr("role", role.getStr("name"));
-				setSessionAttr("accesses", accesses);
-
-				// setAttr("userName", doctor.get("name"));
-				// setAttr("roleName", role.getStr("name"));
-				// setAttr("access", accesses);
-
-				redirect("/admin/index");
-
-			} else {
-
-				System.out.println("ccccccc");
-
-				setAttr("msg", "用户名或密码错误");
-				redirect("/admin/login.html");
-			}
+			return;
 		}
+
+		if (permissions != null && permissions.size() > 0) {
+
+			for (Permission p : permissions) {
+				p.initializeSubPermissions();
+			}
+
+		}
+
+		setSessionAttr("roleName", role.getStr("name"));
+		setSessionAttr("permissions", permissions);
+
+		redirect("/admin/index");
 
 	}
 }

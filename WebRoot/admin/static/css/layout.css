@@ -142,7 +142,7 @@ img {
 
 .module-menu {
 	background: #FFFFFF;
-	border-bottom: 1px solid #B0C4DE;
+	border-bottom: 1px solid #333333;
 }
 
 .module-menu label {
@@ -150,7 +150,7 @@ img {
 	font-size: 13px;
 	color: #DDDDDD;
 	padding: 5px 0 5px 25px;
-	background: #395A84;
+	background-color: #056CA2;
 	cursor: pointer;
 	height: 20px;
 	line-height: 20px;
@@ -158,7 +158,7 @@ img {
 }
 
 .module-menu label.current-menu {
-	background-color: #056CA2;
+	background-color: #395A84;
 }
 
 .module-menu ul {

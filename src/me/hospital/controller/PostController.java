@@ -1,6 +1,6 @@
 package me.hospital.controller;
 
-import me.hospital.model.Admin;
+import me.hospital.model.Post;
 
 import com.jfinal.core.Controller;
 
@@ -10,31 +10,34 @@ import com.jfinal.core.Controller;
  */
 
 public class PostController extends Controller {
+	
+	
 	public void index() {
-		setAttr("blogPage", Admin.dao.paginate(getParaToInt(0, 1), 10));
-		render("blog.html");
+		
+		render("index.html");
 	}
 	
 	public void add() {
-	}
-	
-	public void save() {
-		getModel(Admin.class).save();
-		redirect("/blog");
+		render("add.html");
 	}
 	
 	public void edit() {
-		setAttr("blog", Admin.dao.findById(getParaToInt()));
+		setAttr("post", Post.dao.findById(getParaToInt()));
+	}
+	
+	public void save() {
+		getModel(Post.class).save();
+		redirect("/admin/post");
 	}
 	
 	public void update() {
-		getModel(Admin.class).update();
-		redirect("/blog");
+		getModel(Post.class).update();
+		redirect("/admin/post");
 	}
 	
 	public void delete() {
-		Admin.dao.deleteById(getParaToInt());
-		redirect("/blog");
+		Post.dao.deleteById(getParaToInt());
+		redirect("/admin/post");
 	}
 }
 

@@ -1,7 +1,5 @@
 package me.hospital.controller;
 
-import me.hospital.model.Admin;
-
 import com.jfinal.core.Controller;
 
 /**
@@ -11,31 +9,13 @@ import com.jfinal.core.Controller;
 
 public class DoctorController extends Controller {
 	public void index() {
-		setAttr("blogPage", Admin.dao.paginate(getParaToInt(0, 1), 10));
-		render("blog.html");
+		render("index.html");
 	}
 	
 	public void add() {
+		render("add.html");
 	}
 	
-	public void save() {
-		getModel(Admin.class).save();
-		redirect("/blog");
-	}
-	
-	public void edit() {
-		setAttr("blog", Admin.dao.findById(getParaToInt()));
-	}
-	
-	public void update() {
-		getModel(Admin.class).update();
-		redirect("/blog");
-	}
-	
-	public void delete() {
-		Admin.dao.deleteById(getParaToInt());
-		redirect("/blog");
-	}
 }
 
 
