@@ -54,11 +54,29 @@ public class Doctor extends Model<Doctor> {
 		return Permission.dao.find(sql, get("roleId"));
 	}
 	
+	/**
+	 * 获取科室
+	 */
+	public Department getDepartment() { 
+		 return Department.dao.findById(get("departmentId")); 
+	 } 
+	
+	
+	/**
+	 * 获取所有的医生信息
+	 */
+	public Page<Doctor> getAllDoctor(int pageNumber,int pageSize,String sql){
+
+		System.out.println("sql-------》"+sql);
+		Page<Doctor> doctors = Doctor.dao.paginate(pageNumber, pageSize, "select *", sql);
+		return doctors;
+	}
+	
 	
 	/**
 	 * 所有 sql 写在 Model 或 Service 中，不要写在 Controller 中，养成好习惯，有利于大型项目的开发与维护
 	 */
 	public Page<Doctor> paginate(int pageNumber, int pageSize) {
-		return paginate(pageNumber, pageSize, "select *", "from blog order by id asc");
+		return paginate(pageNumber, pageSize, "select *", "from doctor order by id asc");
 	}
 }
