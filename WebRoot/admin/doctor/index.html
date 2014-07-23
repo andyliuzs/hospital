@@ -1,97 +1,86 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>医生列表</title>
-<script type="text/javascript">
- function doPageSubmit(pageNumber,totalPage){
-	if(pageNumber<=0){
-		document.getElementById("upPage").disabled = true;
-		return false;
-	}else{
-		document.getElementById("upPage").disabled = false;
-	}
-	if(pageNumber>totalPage){
-		document.getElementById("downPage").disabled = true;
-		return false;
-	}else{
-		document.getElementById("downPage").disabled = false;
-	}
-	document.getElementById("pageNumber").value = pageNumber;
-	document.getElementById("pageSize").value = document.getElementById("pageSizeText").value;
-	document.doctorListForm.submit();
- }
- function doPageNumber(){
-	 document.getElementById("pageSize").value = document.getElementById("pageSizeText").value;
-	 document.doctorListForm.submit();
- }
- function deleteDoctor(url){
-	if(confirm('您确定要删除本医生信息？'))
-	location.href = url;
- }
-</script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>医生列表</title>
+	
+	<script type="text/javascript"
+		src="../static/assets/jquery/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="../static/js/common.js"></script>
+	
+	<script type="text/javascript">
+	
+		 function deleteDoctor(url){
+			if(confirm('您确定要删除本医生信息？'))
+			location.href = url;
+		 }
+	</script>
 </head>
 <body>
 
-	<div>搜索</div>
-
 	<form name="searchForm" action="/admin/doctor/search" method="post">
-		<table>
-			<tr>
-				<th>姓名</th>
-				<td><input type="text" name="name" id="name" value="${searchName}"></input></td>
-				<th>职称</th>
-				<td>
-					<select name="roleId">
-						<option value="">请选择职位</option> 
-						<#list roles as role> 
-							<#if role.id == searchRoleId>
-								<option value="${role.id}" selected="selected">${role.name}</option>
-							<#else>
-								<option value="${role.id}">${role.name}</option> 
-							</#if> 
-						</#list>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<th>性别</th>
-				<td>
-					<select name="sex">
-						<option value=""  <#if searchSex== -1 >selected="selected"</#if> >全部</option>
-						<option value="1" <#if searchSex == 1 >selected="selected"</#if> >男</option>
-						<option value="0" <#if searchSex == 0 >selected="selected"</#if> >女</option>
-					</select>
-				</td>
-				<th>科室</th>
-				<td>
-					<select name="departmentId">
-						<option value="">请选择科室</option> 
-						<#list departments as department>
-							<#if department.id == searchDepartmentId>
-								<option value="${department.id}" selected="selected">${department.name}</option>
-							<#else>
-								<option value="${department.id}">${department.name}</option>
-							</#if> 
-						</#list>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2"><input type="submit" name="subButton"
-					id="subButton" value="查询" /> <input type="reset" name="resetButton"
-					id="restButton" value="重置"></td>
-			</tr>
-		</table>
+	
+		<div><span>
+		
+		姓名<input type="text" name="name" id="name" value="${searchName}" ></input>&nbsp;&nbsp;
+		<select name="roleId">
+			<option value="">请选择职位</option> 
+			<#list roles as role> 
+				<#if role.id == searchRoleId>
+					<option value="${role.id}" selected="selected">${role.name}</option>
+				<#else>
+					<option value="${role.id}">${role.name}</option> 
+				</#if> 
+			</#list>
+		</select>
+		
+		<select name="sex">
+			<option value=""  <#if searchSex== -1 >selected="selected"</#if> >性别</option>
+			<option value="1" <#if searchSex == 1 >selected="selected"</#if> >男</option>
+			<option value="0" <#if searchSex == 0 >selected="selected"</#if> >女</option>
+		</select>
+				
+				
+		<select name="departmentId">
+			<option value="">请选择科室</option> 
+			<#list departments as department>
+				<#if department.id == searchDepartmentId>
+					<option value="${department.id}" selected="selected">${department.name}</option>
+				<#else>
+					<option value="${department.id}">${department.name}</option>
+				</#if> 
+			</#list>
+		</select>
+				<input type="submit" name="subButton"
+					id="subButton" value="查询" />		
+		</span>
+		
+		</div>
+		
 	</form>
 
-	<!-- 	<form name="doctorForm" action="/admin/doctor" method="post"> -->
-
+	<style>
+		table {
+			width: 100%;
+		}
+		
+		th {
+			height:25px;
+			line-height:25px;
+		}
+		
+		td{
+			line-height:25px;
+		}
+	</style>
+	
+	
 	<div>医生信息</div>
-	<table border="1" cellspacing="0" cellpadding="0">
+	<table border="1" cellspacing="0" cellpadding="0" >
 		<thead>
 			<th>账号</th>
 			<th>姓名</th>
+			<th>头像</th>
 			<th>性别</th>
 			<th>年龄</th>
 			<th>类别</th>
@@ -103,15 +92,15 @@
 			<#list doctorList.list as doctor>
 			<tr>
 				<td>${doctor.account}</td>
-				<td>${doctor.name}</td> <#if doctor.sex ==1>
-				<td>男</td> <#else>
-				<td>女</td> </#if>
+				<td>${doctor.name}</td> 
+				<td><img src="${(doctor.image)!}" onload="resizeImage(this, 80, 120);" /></td>
+				<td><#if doctor.sex ==1>男<#else>女</#if></td> 
 				<td>${doctor.age}</td>
 				<td>${doctor.getRole().name}</td>
 				<td>${doctor.desc}</td>
 				<td>${doctor.getDepartment().name}</td>
 				<td>&nbsp;&nbsp;&nbsp;<a
-					href="/admin/doctor/goEditPage/${doctor.id}">编辑</a>
+					href="/admin/doctor/edit/${doctor.id}">编辑</a>
 					&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)"
 					onclick="deleteDoctor('/admin/doctor/delete/${doctor.id}')">删除</a>
 				</td>
@@ -131,10 +120,5 @@
 		</span>
 	</div>
 
-
-
-
-
-	<!-- 	</form> -->
 </body>
 </html>

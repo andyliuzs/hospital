@@ -9,26 +9,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import me.hospital.config.CoreConstants;
-import me.hospital.model.Department;
+import me.hospital.interceptor.DoctorInterceptor;
 import me.hospital.model.Doctor;
-import me.hospital.model.Role;
 import me.hospital.util.CN2SpellUtil;
 import me.hospital.util.FileUtil;
 import me.hospital.util.ParamUtil;
+import me.hospital.validator.SaveDoctorValidator;
 
-import com.jfinal.core.ActionInvocation;
+import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
+import com.jfinal.kit.PathKit;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.upload.UploadFile;
 
 /**
- * AdminController 所有 sql 写在 Model 或 Service 中，不要写在 Controller
+ * DoctorController 所有 sql 写在 Model 或 Service 中，不要写在 Controller
  * 中，养成好习惯，有利于大型项目的开发与维护
  */
 
+@Before(DoctorInterceptor.class)
 public class DoctorController extends Controller {
 
 	public void index() {
@@ -42,8 +42,6 @@ public class DoctorController extends Controller {
 			return;
 		}
 
-		System.out.println("page: " + getPara("p"));
-
 		int page = ParamUtil.paramToInt(getPara("p"), 1);
 
 		if (page < 1) {
@@ -53,14 +51,6 @@ public class DoctorController extends Controller {
 		// 医生列表
 		Page<Doctor> doctorList = Doctor.dao.paginate(page, CoreConstants.PAGE_SIZE);
 		setAttr("doctorList", doctorList);
-
-		// 读取所有的医生类（主任医师、副主任医师、医生等）职称
-		List<Role> roles = Role.dao.getRolesByType(CoreConstants.ROLE_DOCTOR_TYPE);
-		setAttr("roles", roles);
-
-		// 读取所有的科室信息，真实医院的科室也分级，这里简化数据，不分级
-		List<Department> departments = Department.dao.getAllDepartments();
-		setAttr("departments", departments);
 
 		// for search
 		setAttr("searchName", "");
@@ -94,7 +84,7 @@ public class DoctorController extends Controller {
 
 			if (!ParamUtil.isEmpty(name)) {
 				sb.append(" and name like ?");
-				query.put("name", name);
+				query.put("name", "%" + name + "%");
 			}
 
 			if (roleId > -1) {
@@ -139,6 +129,8 @@ public class DoctorController extends Controller {
 			}
 
 			String name = query.get("name") == null ? "" : (String) query.get("name");
+			name = name.replace("%", "");
+
 			int roleId = query.get("roleId") == null ? -1 : (Integer) query.get("roleId");
 			int sex = query.get("sex") == null ? -1 : (Integer) query.get("sex");
 			int departmentId = query.get("departmentId") == null ? -1 : (Integer) query
@@ -158,176 +150,84 @@ public class DoctorController extends Controller {
 				queryStr, params.toArray());
 		setAttr("doctorList", doctorList);
 
-		// 读取所有的医生类（主任医师、副主任医师、医生等）职称
-		List<Role> roles = Role.dao.getRolesByType(1);
-		setAttr("roles", roles);
-
-		// 读取所有的科室信息，真实医院的科室也分级，这里简化数据，不分级
-		List<Department> departments = Department.dao.getAllDepartments();
-		setAttr("departments", departments);
-
-		System.out.println("here");
-
 		render("index.html");
 
 	}
 
-	public void page() {
-
-	}
 
 	/**
-	 * 渲染页面，并初始化相关数据
+	 * 添加医生
 	 */
 	public void add() {
 
-		// 读取所有的医生类（主任医师、副主任医师、医生等）职称
-		List<Role> roles = Role.dao.getRolesByType(1);
-		setAttr("roles", roles);
-
-		// 读取所有的科室信息，真实医院的科室也分级，这里简化数据，不分级
-		List<Department> departments = Department.dao.getAllDepartments();
-		setAttr("departments", departments);
-
 		render("add.html");
+		
 	}
 
+	/**
+	 * 添加/修改医生信息处理方法
+	 */
+	@Before(SaveDoctorValidator.class)
 	public void save() {
-		String mHttpUrl=CoreConstants.FILE_ATTACH_PATH;
-	    int maxSize = 10 * 1024 * 1024;              //10M
-	    UploadFile  file = getFile("image", mHttpUrl, maxSize, "utf-8");
-	    //存储文件名称
-	    String newFileName = String.valueOf(System.currentTimeMillis())+"."+FileUtil.getFileExtension(file.getFile());
-	    
-	    //存储路径
-	    String url = mHttpUrl+newFileName;
-	    
-	    file.getFile().renameTo(new File(url));
-		System.out.println("file: " + url);
 
-		// 姓名
-		String name = getPara("name");
-		System.out.println("name: " + name);
+		// 暂时用不到了
+		String contextPath = PathKit.getWebRootPath();
+		String filePath = contextPath + CoreConstants.ATTACHMENGT_AVATAR_PATH;
 
-		// 讲姓名（中文）转换成拼音，作为账号
-		String account = CN2SpellUtil.getInstance().getSpelling(name);
-		System.out.println("account: " + account);
+		FileUtil.createDirectory(new File(filePath));
+		
+		// 上传的头像文件
+		UploadFile file = getFile("doctor.image", filePath, CoreConstants.MAX_FILE_SIZE);
 
+		// 存储文件名称
+		String newFileName = String.valueOf(System.currentTimeMillis()) + "."
+				+ FileUtil.getFileExtension(file.getFile());
+
+		// 存储路径
+		String url = filePath + newFileName;
+
+		file.getFile().renameTo(new File(url));
+		
+		System.out.println("url: " + url);
+		System.out.println("url: " + file.getSaveDirectory());
+		
+		// 保存在数据库中的路径
+		String savePath = CoreConstants.ATTACHMENGT_AVATAR_PATH + newFileName;
+		System.out.println("savePath: " + savePath);
+		
+		Doctor doctor = getModel(Doctor.class);
+		
+		System.out.println("doctor: " + doctor);
+		
+		// 将姓名（中文）转换成拼音，作为账号
+		String account = CN2SpellUtil.getInstance().getSpelling(doctor.getStr("name"));
+		
+		doctor.set("account", account);
 		// 初始密码跟账号相同
-		String password = account;
-		System.out.println("password: " + password);
-
-		// 医生简介
-		String desc = getPara("desc");
-		System.out.println("desc: " + desc);
-
-		// 职称ID
-		int roleId = getParaToInt("roleId", 4);
-
-		// 性别 0：女 1：男
-		int sex = getParaToInt("sex", 1);
-
-		// 年龄
-		int age = getParaToInt("age", 0);
-
-		// 是否被删除 0: 删除 1：未删除
-		// 目前没有回收站功能，因此作用不大，可忽略
-		int del = 1;
-
-		// 科室ID
-		int departmentId = getParaToInt("departmentId", 1);
-
-		System.out.println("roleId: " + roleId);
-		System.out.println("sex: " + sex);
-		System.out.println("age: " + age);
-		System.out.println("del: " + del);
-		System.out.println("departmentId: " + departmentId);
-
-		new Doctor().set("name", name).set("account", account).set("password", password)
-				.set("desc", desc).set("roleId", roleId).set("sex", sex).set("age", age)
-				.set("del", del).set("departmentId", departmentId).set("image", newFileName).save();
+		doctor.set("password", account);
+		
+		// 设置头像路径
+		doctor.set("image", savePath);
+		
+		if (null == doctor.getInt("id")) {
+			doctor.save();
+		} else {
+			doctor.update();
+		}
 
 		redirect("index");
 
 	}
 
 	/**
-	 * 修改医生信息
-	 */
-	public void edit() {
-		String mHttpUrl=CoreConstants.FILE_ATTACH_PATH;
-	    int maxSize = 10 * 1024 * 1024;              //10M
-	    UploadFile  file = getFile("image", mHttpUrl, maxSize, "utf-8");
-	    //存储文件名称
-	    String newFileName = String.valueOf(System.currentTimeMillis())+"."+FileUtil.getFileExtension(file.getFile());
-	    
-	    //存储路径
-	    String url = mHttpUrl+newFileName;
-	    file.getFile().renameTo(new File(url));
-		System.out.println("file: " + url);
-	
-		// 姓名
-		String name = getPara("name");
-		System.out.println("name: " + name);
-
-		// 讲姓名（中文）转换成拼音，作为账号
-		String account = CN2SpellUtil.getInstance().getSpelling(name);
-		System.out.println("account: " + account);
-
-		// 初始密码跟账号相同
-		String password = account;
-		System.out.println("password: " + password);
-
-		// 医生简介
-		String desc = getPara("desc");
-		System.out.println("desc: " + desc);
-
-		// 职称ID
-		int roleId = getParaToInt("roleId", 4);
-
-		// 性别 0：女 1：男
-		int sex = getParaToInt("sex", 1);
-
-		// 年龄
-		int age = getParaToInt("age", 0);
-
-		// 是否被删除 0: 删除 1：未删除
-		// 目前没有回收站功能，因此作用不大，可忽略
-		int del = 1;
-
-		// 科室ID
-		int departmentId = getParaToInt("departmentId", 1);
-
-		System.out.println("roleId: " + roleId);
-		System.out.println("sex: " + sex);
-		System.out.println("age: " + age);
-		System.out.println("del: " + del);
-		System.out.println("departmentId: " + departmentId);
-		Doctor.dao.findById(getParaToInt("doctorId")).set("name", name).set("account", account)
-				.set("password", password).set("desc", desc).set("roleId", roleId).set("sex", sex)
-				.set("age", age).set("del", del).set("departmentId", departmentId)
-				.set("image", newFileName).update();
-
-		redirect("/admin/doctor");
-	}
-
-	/**
 	 * 跳转编辑页面
 	 * 
 	 */
-	public void goEditPage() {
+	public void edit() {
 		int doctorId = getParaToInt(0);
 		setAttr("doctor", Doctor.dao.findById(doctorId));
 
-		// 读取所有的医生类（主任医师、副主任医师、医生等）职称
-		List<Role> roles = Role.dao.getRolesByType(1);
-		setAttr("roles", roles);
-
-		// 读取所有的科室信息，真实医院的科室也分级，这里简化数据，不分级
-		List<Department> departments = Department.dao.getAllDepartments();
-		setAttr("departments", departments);
-
-		render("edit.html");
+		render("add.html");
 	}
 
 	/**
@@ -336,52 +236,45 @@ public class DoctorController extends Controller {
 	public void delete() {
 		int doctorId = getParaToInt(0);
 		Doctor.dao.deleteById(doctorId);
-		// Doctor doctor = Doctor.dao.get(doctorId);
-		// doctor.set("del",1);
-		// doctor.update();
-		redirect("/admin/doctor");
+		redirect("index");
 	}
+
 	/**
 	 * 查看图片
 	 */
-	public void showImage(){
-		System.out.println("*************************this is out put  image function！*****************");
+	public void showImage() {
+		System.out
+				.println("*************************this is out put  image function！*****************");
 		getResponse().setContentType("text/html; charset=UTF-8");
 		getResponse().setContentType("image/jpeg");
-		String mHttpUrl=CoreConstants.FILE_ATTACH_PATH;
 		String fname = Doctor.dao.findById(getPara(0)).getStr("image");
 		OutputStream os = null;
 		FileInputStream fis = null;
-		try
-		{
-		String newpath = new String(fname.getBytes("ISO-8859-1"), "UTF-8");
-		String absolutePath = mHttpUrl + fname;
-		fis = new FileInputStream(absolutePath);
-		 os = getResponse().getOutputStream();
-		int count = 0;
-		byte[] buffer = new byte[1024 * 1024];
-		while ((count = fis.read(buffer)) != -1)
-		os.write(buffer, 0, count);
-		os.flush();
-		}
-		catch (IOException e)
-		{
-		e.printStackTrace();
-		}
-		finally
-		{
-		if (os != null)
-			try {
-				os.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		if (fis != null)
-			try {
-				fis.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		try {
+			
+			String absolutePath = CoreConstants.ATTACHMENGT_AVATAR_PATH + fname;
+			fis = new FileInputStream(absolutePath);
+			os = getResponse().getOutputStream();
+			int count = 0;
+			byte[] buffer = new byte[1024 * 1024];
+			while ((count = fis.read(buffer)) != -1)
+				os.write(buffer, 0, count);
+			os.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (os != null)
+				try {
+					os.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			if (fis != null)
+				try {
+					fis.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 		}
 		renderNull();
 	}

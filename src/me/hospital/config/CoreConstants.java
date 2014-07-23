@@ -20,7 +20,10 @@ public class CoreConstants {
 	// 存放在session中的搜索条件
 	public static final String SEARCH_SESSION_KEY = "search";
 	
-	//文件存放位置
-	public static final String FILE_ATTACH_PATH = "D:\\fileUpload\\";
+	// 上传文件的最大容量
+	public static final int MAX_FILE_SIZE = 10 * 1024 * 1024;
+	
+	// 头像文件的保存路径
+	public static final String ATTACHMENGT_AVATAR_PATH = "/upload/avatar/";
 	
 }

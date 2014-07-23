@@ -35,7 +35,6 @@ public class IndexController extends Controller {
 
 		System.out.println("userName: " + userName);
 		System.out.println("roleName: " + getSessionAttr("roleName"));
-		System.out.println("permission: " + getSessionAttr("permissions"));
 
 		setAttr("userName", userName);
 		setAttr("roleName", getSessionAttr("roleName"));
