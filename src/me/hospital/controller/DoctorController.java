@@ -1,10 +1,15 @@
 package me.hospital.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import me.hospital.config.CoreConstants;
 import me.hospital.model.Department;
@@ -14,6 +19,7 @@ import me.hospital.util.CN2SpellUtil;
 import me.hospital.util.FileUtil;
 import me.hospital.util.ParamUtil;
 
+import com.jfinal.core.ActionInvocation;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.upload.UploadFile;
@@ -150,7 +156,6 @@ public class DoctorController extends Controller {
 		// 医生列表
 		Page<Doctor> doctorList = Doctor.dao.paginate(page, CoreConstants.PAGE_SIZE, "select *",
 				queryStr, params.toArray());
-
 		setAttr("doctorList", doctorList);
 
 		// 读取所有的医生类（主任医师、副主任医师、医生等）职称
@@ -188,24 +193,16 @@ public class DoctorController extends Controller {
 	}
 
 	public void save() {
-
-		// 上传的头像文件
-		UploadFile file = getFile("image", "/images/", 10 * 1024 * 1024);// ,
-																			// "D:/",
-																			// 100
-																			// *
-																			// 1024
-																			// *
-																			// 1024,
-																			// "utf-8"
-
-		String newFileName = System.currentTimeMillis() + "."
-				+ FileUtil.getFileExtension(file.getFile());
-
-		String url = file.getSaveDirectory() + newFileName;
-
-		file.getFile().renameTo(new File(url));
-
+		String mHttpUrl=CoreConstants.FILE_ATTACH_PATH;
+	    int maxSize = 10 * 1024 * 1024;              //10M
+	    UploadFile  file = getFile("image", mHttpUrl, maxSize, "utf-8");
+	    //存储文件名称
+	    String newFileName = String.valueOf(System.currentTimeMillis())+"."+FileUtil.getFileExtension(file.getFile());
+	    
+	    //存储路径
+	    String url = mHttpUrl+newFileName;
+	    
+	    file.getFile().renameTo(new File(url));
 		System.out.println("file: " + url);
 
 		// 姓名
@@ -248,7 +245,7 @@ public class DoctorController extends Controller {
 
 		new Doctor().set("name", name).set("account", account).set("password", password)
 				.set("desc", desc).set("roleId", roleId).set("sex", sex).set("age", age)
-				.set("del", del).set("departmentId", departmentId).set("image", url).save();
+				.set("del", del).set("departmentId", departmentId).set("image", newFileName).save();
 
 		redirect("index");
 
@@ -258,24 +255,17 @@ public class DoctorController extends Controller {
 	 * 修改医生信息
 	 */
 	public void edit() {
-		// 上传的头像文件
-		UploadFile file = getFile("image", "/images/", 10 * 1024 * 1024);// ,
-																			// "D:/",
-																			// 100
-																			// *
-																			// 1024
-																			// *
-																			// 1024,
-																			// "utf-8"
-		String newFileName = "";
-		String url = "";
-		if (file != null) {
-			newFileName = System.currentTimeMillis() + "."
-					+ FileUtil.getFileExtension(file.getFile());
-			url = file.getSaveDirectory() + newFileName;
-			file.getFile().renameTo(new File(url));
-		}
+		String mHttpUrl=CoreConstants.FILE_ATTACH_PATH;
+	    int maxSize = 10 * 1024 * 1024;              //10M
+	    UploadFile  file = getFile("image", mHttpUrl, maxSize, "utf-8");
+	    //存储文件名称
+	    String newFileName = String.valueOf(System.currentTimeMillis())+"."+FileUtil.getFileExtension(file.getFile());
+	    
+	    //存储路径
+	    String url = mHttpUrl+newFileName;
+	    file.getFile().renameTo(new File(url));
 		System.out.println("file: " + url);
+	
 		// 姓名
 		String name = getPara("name");
 		System.out.println("name: " + name);
@@ -316,7 +306,7 @@ public class DoctorController extends Controller {
 		Doctor.dao.findById(getParaToInt("doctorId")).set("name", name).set("account", account)
 				.set("password", password).set("desc", desc).set("roleId", roleId).set("sex", sex)
 				.set("age", age).set("del", del).set("departmentId", departmentId)
-				.set("image", url).update();
+				.set("image", newFileName).update();
 
 		redirect("/admin/doctor");
 	}
@@ -351,5 +341,48 @@ public class DoctorController extends Controller {
 		// doctor.update();
 		redirect("/admin/doctor");
 	}
-
+	/**
+	 * 查看图片
+	 */
+	public void showImage(){
+		System.out.println("*************************this is out put  image function！*****************");
+		getResponse().setContentType("text/html; charset=UTF-8");
+		getResponse().setContentType("image/jpeg");
+		String mHttpUrl=CoreConstants.FILE_ATTACH_PATH;
+		String fname = Doctor.dao.findById(getPara(0)).getStr("image");
+		OutputStream os = null;
+		FileInputStream fis = null;
+		try
+		{
+		String newpath = new String(fname.getBytes("ISO-8859-1"), "UTF-8");
+		String absolutePath = mHttpUrl + fname;
+		fis = new FileInputStream(absolutePath);
+		 os = getResponse().getOutputStream();
+		int count = 0;
+		byte[] buffer = new byte[1024 * 1024];
+		while ((count = fis.read(buffer)) != -1)
+		os.write(buffer, 0, count);
+		os.flush();
+		}
+		catch (IOException e)
+		{
+		e.printStackTrace();
+		}
+		finally
+		{
+		if (os != null)
+			try {
+				os.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		if (fis != null)
+			try {
+				fis.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		renderNull();
+	}
 }
