@@ -20,4 +20,7 @@ public class CoreConstants {
 	// 存放在session中的搜索条件
 	public static final String SEARCH_SESSION_KEY = "search";
 	
+	//文件存放位置
+	public static final String FILE_ATTACH_PATH = "D:\\fileUpload\\";
+	
 }

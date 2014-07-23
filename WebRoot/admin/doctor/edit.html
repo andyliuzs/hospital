@@ -11,6 +11,7 @@
 			<legend>医生信息</legend>
 			<input type="hidden" name="id" value="" />
 			<h5>说明：录入医生信息成功后，系统自动生成该医生登录的账号和密码，账号和初始密码均为姓名的全拼</h5>
+			<div style="float:left" width="50%">
 			<table border="0" cellpadding="2" cellspacing="1" style="width: 90%">
 
 				<tr >
@@ -94,6 +95,10 @@
 			<input type="hidden" value="${doctor.id}" name="doctorId"/>
 			<input type="submit" value="保存" />
 			<br />
+			</div>
+			<div style="float:right" width="30%" height="40%">
+				<image src="/admin/doctor/showImage/${doctor.id}" name="Pic"/>
+			</div>
 		</fieldset>
 
 	</form>
