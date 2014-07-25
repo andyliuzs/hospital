@@ -24,7 +24,7 @@
 		
 		姓名<input type="text" name="name" id="name" value="${searchName}" ></input>&nbsp;&nbsp;
 		<select name="roleId">
-			<option value="">请选择职位</option> 
+			<option value="-1">请选择职位</option> 
 			<#list roles as role> 
 				<#if role.id == searchRoleId>
 					<option value="${role.id}" selected="selected">${role.name}</option>
@@ -35,14 +35,14 @@
 		</select>
 		
 		<select name="sex">
-			<option value=""  <#if searchSex== -1 >selected="selected"</#if> >性别</option>
+			<option value="-1"  <#if searchSex== -1 >selected="selected"</#if> >性别</option>
 			<option value="1" <#if searchSex == 1 >selected="selected"</#if> >男</option>
 			<option value="0" <#if searchSex == 0 >selected="selected"</#if> >女</option>
 		</select>
 				
 				
 		<select name="departmentId">
-			<option value="">请选择科室</option> 
+			<option value="-1">请选择科室</option> 
 			<#list departments as department>
 				<#if department.id == searchDepartmentId>
 					<option value="${department.id}" selected="selected">${department.name}</option>
@@ -113,9 +113,10 @@
 	<div>
 		<span style="margin-left: 10px"> 
 		总共记录 ：${doctorList.totalRow} 条；共${doctorList.totalPage} 页；第 ${doctorList.pageNumber} 页； 
+		<a href="/admin/doctor/?p=1<#if searchPage == 1>&s=1</#if>" >[首页]</a>
 		<a href="/admin/doctor/?p=<#if doctorList.pageNumber lte 1>1<#else>${doctorList.pageNumber - 1}</#if><#if searchPage == 1>&s=1</#if>" >[上一页]</a> 
 		<a href="/admin/doctor/?p=<#if doctorList.pageNumber gte doctorList.totalPage>${doctorList.totalPage}<#else>${doctorList.pageNumber + 1}</#if><#if searchPage == 1>&s=1</#if>" >[下一页]</a> 
-		
+		<a href="/admin/doctor/?p=${doctorList.totalPage}<#if searchPage == 1>&s=1</#if>" >[末页]</a>
 		每页显示${doctorList.pageSize}条数据 
 		</span>
 	</div>

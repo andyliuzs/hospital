@@ -37,6 +37,7 @@ public class CoreConfig extends JFinalConfig {
 		// 加载少量必要配置，随后可用getProperty(...)获取值
 		loadPropertyFile("db_config.txt");
 		me.setDevMode(getPropertyToBoolean("devMode", false));
+
 	}
 	
 	/**
@@ -58,6 +59,8 @@ public class CoreConfig extends JFinalConfig {
 		
 		// 配置ActiveRecord插件
 		ActiveRecordPlugin arp = new ActiveRecordPlugin(c3p0Plugin);
+		arp.setShowSql(true);
+		
 		me.add(arp);
 		
 		 // 配置属性名(字段名)大小写不敏感容器工厂

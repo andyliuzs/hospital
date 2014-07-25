@@ -26,7 +26,7 @@
 					</td>
 					<td>
 						<select name="doctor.roleId" >
-							<option value="0">请选择职位</option>
+							<option value="-1">请选择职位</option>
 							<#list roles as role>
 								<option value="${role.id}" <#if (doctor.roleId)?? && doctor.roleId == role.id >selected="selected"</#if> >${role.name}</option>
 							</#list>
@@ -39,7 +39,7 @@
 					<td align="right">科室:</td>
 					<td>
 						<select name="doctor.departmentId" >
-							<option value="0">请选择科室</option>
+							<option value="-1">请选择科室</option>
 							<#list departments as department>
 								<option value="${department.id}" <#if (doctor.departmentId)?? && doctor.departmentId == department.id >selected="selected"</#if> >${department.name}</option>
 							</#list>

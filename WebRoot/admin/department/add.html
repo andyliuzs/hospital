@@ -1,10 +1,51 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>添加科室/修改科室</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>添加科室信息</title>
 </head>
 <body>
-	<div>添加科室/修改科室</div>
+
+	<form name="doctorForm" action="/admin/department/save" method="post">
+		<fieldset>
+			<legend>科室信息信息</legend>
+			<input type="hidden" name="id" value="" />
+			<table border="0" cellpadding="2" cellspacing="1" style="width: 90%">
+
+				<tr>
+					<td align="right" width="30%">科室名称:</td>
+					<td width="70%">
+						<input name="department.name" type="text" class="text" size="15" value="${(department.name)!}"/>
+						<#if nameMsg??><label style="color:red">${nameMsg}</label></#if>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">科室主任:</td>
+					<td>
+							<select name="department.directorId">
+								<option value="-1">请选择科室主任</option> 
+								<#list doctors as doctor> 
+										<option value="${doctor.id}">${doctor.name}</option> 
+								</#list>
+							</select>
+						<#if doctorMsg??><label style="color:red">${doctorMsg}</label></#if>
+					</td>
+				</tr>
+
+				<tr>
+					<td align="right">科室简介:</td>
+					<td>
+						<textarea name="department.desc" rows="10" cols="50" >${(department.desc)!}</textarea>
+					</td>
+				</tr>
+
+			</table>
+			<input type="hidden" value="${(department.id)!}" name="department.id"/>
+			<input type="submit" value="保存" />
+			<br />
+		</fieldset>
+
+	</form>
+
 </body>
 </html>

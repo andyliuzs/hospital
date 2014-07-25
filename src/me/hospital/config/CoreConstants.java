@@ -1,5 +1,7 @@
 package me.hospital.config;
 
+import java.io.File;
+
 public class CoreConstants {
 
 	// 每页数据条数
@@ -24,6 +26,6 @@ public class CoreConstants {
 	public static final int MAX_FILE_SIZE = 10 * 1024 * 1024;
 	
 	// 头像文件的保存路径
-	public static final String ATTACHMENGT_AVATAR_PATH = "/upload/avatar/";
+	public static final String ATTACHMENGT_AVATAR_PATH = File.separator + "upload" + File.separator + "avatar" + File.separator;
 	
 }

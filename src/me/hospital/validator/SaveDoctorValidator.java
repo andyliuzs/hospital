@@ -16,7 +16,7 @@ public class SaveDoctorValidator extends Validator {
 
 		// 表单中包含文件，所以先调用getFile方法，剩余的参数才可用
 		UploadFile file = controller.getFile();
-		if(file == null) {
+		if (file == null) {
 			addError("imageMsg", "请选择头像！");
 		}
 
@@ -30,25 +30,22 @@ public class SaveDoctorValidator extends Validator {
 		validateRequiredString("doctor.name", "nameMsg", "请输入姓名!");
 
 		// 判断是否选择了职称
-		if (ParamUtil.paramToInt(controller.getPara("doctor.roleId"), 0) == 0) {
+		if (ParamUtil.paramToInt(controller.getPara("doctor.roleId"), -1) == -1) {
 			addError("roleMsg", "请选择职称！");
 		}
 
 		// 判断是否选择了科室
-		if (ParamUtil.paramToInt(controller.getPara("doctor.departmentId"), 0) == 0) {
+		if (ParamUtil.paramToInt(controller.getPara("doctor.departmentId"), -1) == -1) {
 			addError("departmentMsg", "请选择科室！");
 		}
 
 		// 15 ~ 65 岁为合法的年龄
 		validateInteger("doctor.age", 15, 65, "ageMsg", "请输入正确的年龄！");
 
-		
-
 	}
 
 	protected void handleError(Controller controller) {
 
-//		controller.keepPara();
 		controller.keepModel(Doctor.class);
 
 		String actionKey = getActionKey();

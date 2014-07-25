@@ -33,11 +33,18 @@ public class Department extends Model<Department> {
 		return Department.dao.find("select * from department");
 	}
 	
+	/**
+	 * 获取当前科室主任医师的信息
+	 */
+	public Doctor getDirector() {
+		return Doctor.dao.findById(get("directorId"));
+	}
+	
 	
 	/**
 	 * 所有 sql 写在 Model 或 Service 中，不要写在 Controller 中，养成好习惯，有利于大型项目的开发与维护
 	 */
 	public Page<Department> paginate(int pageNumber, int pageSize) {
-		return paginate(pageNumber, pageSize, "select *", "from blog order by id asc");
+		return paginate(pageNumber, pageSize, "select *", "from department order by id asc");
 	}
 }
