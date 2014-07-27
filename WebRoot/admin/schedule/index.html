@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>排班管理</title>
+
+<script type="text/javascript"
+	src="../static/assets/jquery/jquery-1.10.2.min.js"></script>
+
+<script type="text/javascript"
+	src="../static/assets/artDialog/artDialog.js??skin=idialog"></script>
+
+<script type="text/javascript"
+	src="../static/assets/artDialog/plugins/iframeTools.js"></script>
+
+<script type="text/javascript" src="../static/assets/minform/minform.js"></script>
+<script type="text/javascript" src="../static/assets/minform/drcal.js"></script>
+
+<link rel="stylesheet" type="text/css" href="../static/css/calendar.css" />
+
+<script type="text/javascript">
+	
+		var FUTURE_DAYS = new Array();
+		<#list futureDays as day>
+			FUTURE_DAYS[${day_index}] = "${day}";
+		</#list>
+		
+		var FUTURE_PLANS = new Array();
+		<#list futurePlans as plan>
+			FUTURE_PLANS[${plan_index}] = ${plan};
+		</#list>
+	
+		$(document).ready(function(){
+			
+			// 首先关闭弹出框
+			//art.dialog.close();
+			
+			load();
+			
+			$("#department").change(function(){    
+				update();
+			});
+		});
+		
+		
+		// 异步更新已排班的日期的转台
+		function update() {
+			var value = $("#department").children('option:selected').val();
+	        $.ajax({ 
+	        	url: "/admin/schedule/getSchedule/" + value, 
+	        	dataType: "json", 
+	        	success: function(results) { 
+	        		$.each(results.json, function(idx,item){ 
+	        			index = $.inArray(idx, FUTURE_DAYS);
+						if(index != -1) {
+							FUTURE_PLANS[index] = item;
+						} 
+	        		});
+	        		$('#drcal2').html('');
+	        		load();
+	        	}
+	        }); 
+		}
+		
+		
+		// 加载日历
+		function load() {
+			var cal = $.drcal();
+			var index = -1;
+			cal.bind(
+				'drcal.weekRender',
+				function(_, tr) {
+					$('td', tr).each(
+						function(_, td) {
+							$(td).append('<div><p class="daynum">' + $(td).attr('day') + '</p><p class="plan"></p></div>');
+							index = $.inArray($(td).attr('date'), FUTURE_DAYS);
+							if(index != -1) {
+								$(td).addClass('selected');
+								if(FUTURE_PLANS[index] == true) {
+									$(td).find('.plan').html('已排');
+								}
+							} 
+						});
+				}).changeMonth(new Date());
+			
+			cal.delegate('td', 'click', function() {
+				art.dialog.open('/admin/schedule/plan/?depart=' + $('#department').val() + "&date=" + $(this).attr('date'), {width: 600, height: 400,
+		            close: function () {
+		            	update();
+		            }
+				}, false);
+					
+			});
+			
+			$('#drcal2').append(cal);
+		}
+			
+	</script>
+
+</head>
+<body>
+	<div>医生排班</div>
+	科室：
+	<select name="department" id="department">
+		<option value="-1">请选择科室</option> 
+		<#list departments as department>
+			<option value="${department.id}" <#if (departmentId)?? && departmentId == department.id >selected="selected"</#if> >${department.name}</option> 
+		</#list>
+	</select>
+	<#if departmentMsg??><label style="color:red">${departmentMsg}</label></#if>
+
+	<div id="drcal2"></div>
+
+</body>
+</html>

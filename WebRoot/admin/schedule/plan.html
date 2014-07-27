@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>排班管理</title>
+
+<script type="text/javascript"
+	src="../../static/assets/jquery/jquery-1.10.2.min.js"></script>
+
+<script type="text/javascript"
+	src="../../static/assets/jquery/jquery.form.js"></script>
+
+<script type="text/javascript"
+	src="../../static/assets/artDialog/artDialog.js??skin=idialog"></script>
+
+<script type="text/javascript"
+	src="../../static/assets/artDialog/plugins/iframeTools.js"></script>
+
+
+<script type="text/javascript">
+	
+	$(function() {
+
+		$("#plan").click(function() {
+			$.ajax({
+				url : "/admin/schedule/save",
+				data : $('#planForm').serialize(),
+				dataType : "json",
+				error : function(data) {
+					alert("排班失败！");
+					art.dialog.close();
+				},
+				success : function(data) {
+					art.dialog.close();
+				}
+			});
+		});
+
+	});
+	
+</script>
+
+</head>
+<body>
+	<div>开始排班</div>
+	<div>科室：${departmentId}</div>
+	<div>日期：${date}</div>
+
+	<form id="planForm" name="planForm" method="post">
+		<table>
+			<thead>
+				<tr>
+					<th>姓名</th>
+					<th>职位</th>
+					<th>上午可预约</th>
+					<th>下午可预约</th>
+				</tr>
+			</thead>
+			<tbody>
+				<#list doctors2 as doctor>
+				<tr>
+					<td>${doctor.name} <input type="hidden" name="doctorId"
+						value="${doctor.id}" />
+					</td>
+					<td>${doctor.getRole().name}</td>
+					<td><input type="text" name="amTotal"
+						value="${(doctor.getSchedule(date).amTotal)!}" /></td>
+					<td><input type="text" name="pmTotal"
+						value="${(doctor.getSchedule(date).pmTotal)!}" /></td>
+				</tr>
+				</#list>
+			</tbody>
+		</table>
+		<div>
+			<input type="hidden" name="departmentId" value="${departmentId}" />
+			<input type="hidden" name="date" value="${date}" /> 
+			<input type="button" id="plan" value="点击排班" />
+		</div>
+
+	</form>
+
+</body>
+</html>

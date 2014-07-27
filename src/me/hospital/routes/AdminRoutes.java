@@ -8,6 +8,7 @@ import me.hospital.controller.MyInfoController;
 import me.hospital.controller.PostController;
 import me.hospital.controller.RegisterController;
 import me.hospital.controller.RoleController;
+import me.hospital.controller.ScheduleController;
 import me.hospital.controller.UserController;
 
 import com.jfinal.config.Routes;
@@ -43,6 +44,9 @@ public class AdminRoutes extends Routes{
 		
 		// 医生管理
 		add("/admin/doctor", DoctorController.class);
+		
+		// 排班管理
+		add("/admin/schedule", ScheduleController.class);
 	}
 
 }

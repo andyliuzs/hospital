@@ -28,4 +28,7 @@ public class CoreConstants {
 	// 头像文件的保存路径
 	public static final String ATTACHMENGT_AVATAR_PATH = File.separator + "upload" + File.separator + "avatar" + File.separator;
 	
+	// 排班的天数，默认为10天
+	public static final int SCHEDULE_DAYS = 10;
+	
 }

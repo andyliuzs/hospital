@@ -22,8 +22,9 @@ import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.upload.UploadFile;
 
 /**
- * DoctorController 所有 sql 写在 Model 或 Service 中，不要写在 Controller
- * 中，养成好习惯，有利于大型项目的开发与维护
+ * DoctorController
+ * 
+ * 所有 sql 写在 Model 或 Service 中，不要写在 Controller 中，养成好习惯，有利于大型项目的开发与维护
  */
 
 @Before(DoctorInterceptor.class)
@@ -75,7 +76,7 @@ public class DoctorController extends Controller {
 			queryParams.put("roleId", getPara("roleId"));
 			queryParams.put("sex", getPara("sex"));
 			queryParams.put("departmentId", getPara("departmentId"));
-			
+
 			setSessionAttr(CoreConstants.SEARCH_SESSION_KEY, queryParams);
 
 		}
@@ -86,52 +87,51 @@ public class DoctorController extends Controller {
 			page = 1;
 		}
 
-		
 		StringBuilder sb = new StringBuilder();
 		sb.append("from department where id > 0");
-		
+
 		HashMap<String, String> queryParams = getSessionAttr(CoreConstants.SEARCH_SESSION_KEY);
 		List<Object> params = new ArrayList<Object>();
-		
+
 		if (queryParams != null) {
-			
+
 			String name = queryParams.get("name");
-			
+
 			if (!ParamUtil.isEmpty(name)) {
 				sb.append(" and name like ?");
 				params.add("%" + name + "%");
 			}
-			
+
 			int roleId = Integer.parseInt(queryParams.get("roleId"));
 			if (roleId > -1) {
 				sb.append(" and roleId = ?");
 				params.add(roleId);
 			}
-			
+
 			int sex = Integer.parseInt(queryParams.get("sex"));
 			if (sex > -1) {
 				sb.append(" and sex = ?");
 				params.add(sex);
 			}
-			
+
 			int departmentId = Integer.parseInt(queryParams.get("departmentId"));
 			if (departmentId > -1) {
 				sb.append(" and departmentId = ?");
 				params.add(departmentId);
 			}
-			
+
 			setAttr("searchName", name);
 			setAttr("searchRoleId", roleId);
 			setAttr("searchSex", sex);
 			setAttr("searchDepartmentId", departmentId);
 			setAttr("searchPage", CoreConstants.SEARCH_PAGE);
-				
+
 		}
-		
+
 		// 医生列表
 		Page<Doctor> doctorList = Doctor.dao.paginate(page, CoreConstants.PAGE_SIZE, "select *",
 				sb.toString(), params.toArray());
-		
+
 		setAttr("doctorList", doctorList);
 
 		render("index.html");

@@ -10,6 +10,8 @@ import me.hospital.model.Post;
 import me.hospital.model.Register;
 import me.hospital.model.Role;
 import me.hospital.model.RolePermission;
+import me.hospital.model.Schedule;
+import me.hospital.model.ScheduleStatus;
 import me.hospital.model.User;
 import me.hospital.routes.AdminRoutes;
 import me.hospital.routes.HomeRoutes;
@@ -77,6 +79,8 @@ public class CoreConfig extends JFinalConfig {
 		arp.addMapping("role", Role.class);
 		arp.addMapping("role_permission", "roleId", RolePermission.class);
 		arp.addMapping("user", User.class);
+		arp.addMapping("schedule", Schedule.class);
+		arp.addMapping("schedule_status", "departmentId", ScheduleStatus.class);
 		
 		
 	}

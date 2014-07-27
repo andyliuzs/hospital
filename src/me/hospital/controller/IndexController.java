@@ -12,7 +12,9 @@ import com.jfinal.aop.ClearLayer;
 import com.jfinal.core.Controller;
 
 /**
- * CommonController
+ * IndexController
+ * 
+ * 所有 sql 写在 Model 或 Service 中，不要写在 Controller 中，养成好习惯，有利于大型项目的开发与维护
  */
 public class IndexController extends Controller {
 
@@ -53,7 +55,7 @@ public class IndexController extends Controller {
 		getSession().removeAttribute("doctor");
 		getSession().removeAttribute("roleName");
 		getSession().removeAttribute("permissions");
-		
+
 		Admin admin = Admin.dao.getByAccountAndPassword(userName, password);
 		Doctor doctor = Doctor.dao.getByAccountAndPassword(userName, password);
 
@@ -95,5 +97,16 @@ public class IndexController extends Controller {
 
 		redirect("/admin/index");
 
+	}
+
+	/**
+	 * 注销登录
+	 */
+	public void logout() {
+		getSession().removeAttribute("admin");
+		getSession().removeAttribute("doctor");
+		getSession().removeAttribute("roleName");
+		getSession().removeAttribute("permissions");
+		redirect("/admin/index");
 	}
 }
