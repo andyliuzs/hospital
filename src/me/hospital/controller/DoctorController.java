@@ -196,9 +196,17 @@ public class DoctorController extends Controller {
 	 * 删除医生信息
 	 */
 	public void delete() {
-		int doctorId = getParaToInt(0);
-		Doctor.dao.deleteById(doctorId);
-		redirect("index");
+		
+		int doctorId = ParamUtil.paramToInt(getPara(0), -1);
+
+		if(doctorId > -1) {
+			if(Doctor.dao.deleteById(doctorId)) {
+				renderJson("msg", "删除成功！");	
+			}
+		} else {
+			renderJson("msg", "删除失败！");
+		}
+		
 	}
 
 	/**

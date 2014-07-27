@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 27, 2014 at 11:30 AM
+-- Generation Time: Jul 27, 2014 at 04:08 PM
 -- Server version: 5.6.12-log
 -- PHP Version: 5.4.16
 
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 --
 
 INSERT INTO `admin` (`id`, `account`, `password`, `roleId`, `time`) VALUES
-(1, 'admin', 'admin', 1, '1405748002'),
+(1, 'admin', 'admin', 1, '1406474271565'),
 (2, '1', '1', 5, '1405782887');
 
 -- --------------------------------------------------------
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `doctor` (
   `departmentId` int(11) NOT NULL COMMENT '科室ID',
   `del` int(11) DEFAULT NULL COMMENT '是否已删除',
   `image` varchar(100) DEFAULT NULL COMMENT '头像url',
-  `doctorcol` varchar(45) DEFAULT NULL,
+  `time` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='医生信息表' AUTO_INCREMENT=24 ;
@@ -103,30 +103,14 @@ CREATE TABLE IF NOT EXISTS `doctor` (
 -- Dumping data for table `doctor`
 --
 
-INSERT INTO `doctor` (`id`, `account`, `password`, `name`, `roleId`, `sex`, `age`, `desc`, `departmentId`, `del`, `image`, `doctorcol`) VALUES
-(1, 'zhangsan', 'zhangsan', '张三', 2, 1, 45, '张三，骨科主治医生，骨科主任', 1, 1, '/upload/avatar/1406135378531.gif', NULL),
-(2, 'zhangsan', 'zhangsan', 'zhangsan', 4, 0, 23, '是士大夫士大夫士大夫', 1, 1, '/upload/avatar/1406135981348.gif', NULL),
-(3, 'lisi', 'lisi', '李四', 3, 1, 45, '这是李四', 1, 1, '/upload/avatar/1406136867264.gif', NULL),
-(4, 'wangwu', 'wangwu', '王五', 2, 1, 54, '测试一下图片上传', 1, 1, 'uploads/images/c5a03e49-6815-4ef6-914c-e8ce3daac9ec.png', NULL),
-(5, 'wangwu', 'wangwu', '王五', 2, 0, 54, '测试一下图片上传', 1, 1, '/admin/uploads/avatar/1406134725624.gif', NULL),
+INSERT INTO `doctor` (`id`, `account`, `password`, `name`, `roleId`, `sex`, `age`, `desc`, `departmentId`, `del`, `image`, `time`) VALUES
+(1, 'zhangsan', 'zhangsan', '张三', 2, 1, 45, '张三，骨科主治医生，骨科主任', 1, 1, '/upload/avatar/1406135378531.gif', '1406474082577'),
 (6, 'jingdongshangcheng', 'jingdongshangcheng', '京东商城', 4, 0, 23, '顶顶顶顶顶顶顶顶', 1, 1, '/uploads/images/1405961886822.png', NULL),
-(7, 'jingdongshangcheng', 'jingdongshangcheng', '京东商城', 4, 0, 23, '顶顶顶顶顶顶顶顶', 1, 1, '/uploads/images/1405961989374.png', NULL),
-(8, 'jingdongshangcheng', 'jingdongshangcheng', '京东商城', 4, 0, 23, '顶顶顶顶顶顶顶顶', 1, 1, '/uploads/images/1405962244109.png', NULL),
-(9, 'jingdongshangcheng', 'jingdongshangcheng', '京东商城', 4, 0, 23, '顶顶顶顶顶顶顶顶', 1, 1, '/images//1405962424558.png', NULL),
-(10, 'jingdongshangcheng', 'jingdongshangcheng', '京东商城', 4, 0, 23, '顶顶顶顶顶顶顶顶', 1, 1, '/images/1405962493619.png', NULL),
 (11, 'fanyanqiu', 'fanyanqiu', '范彦秋', 2, 0, 45, '1988年毕业于哈尔滨医科大学医学系，研究生学历，现任黑龙江省医学会消化内镜分会委员，佳木斯市医学会消化内镜分会副主任委员，2001年在北京友谊医院进修一年。熟练掌握消化系统急、危、重症病人的抢救治疗，上消化道出血的内镜下注射止血及钛夹止血治疗；肝硬化并食管静脉曲张出血的内镜下套扎止血治疗；胃石症的内镜下碎石治疗；胃肠息肉的内镜切除术及消化道异物取出术等。\r\n', 9, 1, '/admin/uploads/avatar/1406124112441.gif', NULL),
 (12, 'zuohongjia', 'zuohongjia', '栾宏佳', 2, 1, 48, '1988年毕业于哈尔滨医科大学医疗系，现任佳木斯市骨科学会副主任委员，省关节外科专业委员，曾到南京铁道医学院、北医三院、积水潭医院进修。 \r\n     专业特长：擅长对于骨科常见病及疑难病诊断及治疗。对于肌皮瓣的游离移植，全膝、全髋、人工关节置换和人工关节翻修术，腔镜下关节微创手术，颈椎、胸椎、腰椎前后路手术都有较高造诣。\r\n    从医格言：精益求精，尽职尽责。\r\n', 1, 1, '/admin/uploads/avatar/1406128941596.gif', NULL),
-(13, 'wangwu', 'wangwu', '王五', 2, 1, 55, '阿打发打发士大夫沙发沙发是的', 2, NULL, '/admin/uploads/avatar/1406134684164.gif', NULL),
-(14, 'lisi', 'lisi', '李四', 2, 1, 33, 'adasdf', 2, NULL, '/upload/avatar/1406208148371.png', NULL),
-(15, 'lisi', 'lisi', '李四', 2, 1, 33, 'adasdf', 2, NULL, '/upload/avatar/1406208494197.png', NULL),
-(16, 'wangwu', 'wangwu', '王五', 2, 1, 22, 'sssss', 2, NULL, '/upload/avatar/1406208782255.png', NULL),
-(17, 'wangwu', 'wangwu', '王五', 2, 1, 22, 'ssss', 1, NULL, '\\upload\\avatar\\1406209160816.png', NULL),
-(18, 'wangwu', 'wangwu', '王五', 2, 1, 22, 'ssss', 1, NULL, '\\upload\\avatar\\1406209283950.png', NULL),
-(19, 'wangwu', 'wangwu', '王五', 2, 1, 22, 'ssss', 1, NULL, '\\upload\\avatar\\1406209344425.png', NULL),
-(20, 'wangwu', 'wangwu', '王五', 2, 1, 22, 'ssss', 1, NULL, '\\upload\\avatar\\1406209894191.png', NULL),
+(20, 'wangwu', 'wangwu', '王五', 2, 1, 22, 'ssss', 1, NULL, '\\upload\\avatar\\1406209894191.png', '1406475130166'),
 (21, 'zhangsan', 'zhangsan', '张三', 2, 1, 33, '的顶顶顶顶顶', 5, NULL, '\\upload\\avatar\\1406210444103.png', NULL),
-(22, 'maliu', 'maliu', '马六', 4, 1, 55, '的顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶', 6, NULL, '\\upload\\avatar\\1406210542343.png', NULL),
-(23, 'maliu', 'maliu', '马六', 3, 0, 55, 'kkkkkkkkkkkkkkkkkkkkkk', 2, NULL, '\\upload\\avatar\\1406212127441.png', NULL);
+(22, 'maliu', 'maliu', '马六', 2, 1, 55, '的顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶', 1, NULL, '\\upload\\avatar\\1406475076168.png', NULL);
 
 -- --------------------------------------------------------
 

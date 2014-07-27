@@ -23,13 +23,9 @@ public class IndexController extends Controller {
 		String userName = "";
 		Admin admin = getSessionAttr("admin");
 		if (admin != null) {
-
 			userName = admin.get("account");
-
 		} else {
-
 			Doctor doctor = getSessionAttr("doctor");
-
 			if (doctor != null) {
 				userName = doctor.get("name");
 			}
@@ -67,6 +63,11 @@ public class IndexController extends Controller {
 			role = admin.getRole();
 			permissions = admin.getPermissions();
 
+			// 登录时间戳
+			long time = System.currentTimeMillis();
+			admin.set("time", String.valueOf(time));
+			admin.update();
+			
 			setSessionAttr("admin", admin);
 
 		} else if (doctor != null) {
@@ -74,6 +75,11 @@ public class IndexController extends Controller {
 			role = doctor.getRole();
 			permissions = doctor.getPermissions();
 
+			// 登录时间戳
+			long time = System.currentTimeMillis();
+			doctor.set("time", String.valueOf(time));
+			doctor.update();
+			
 			setSessionAttr("doctor", doctor);
 
 		} else {

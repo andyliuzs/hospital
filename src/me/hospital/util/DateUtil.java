@@ -59,4 +59,15 @@ public class DateUtil {
 		return result;
 
 	}
+	
+	/**
+	 * 格式化时间
+	 * @param formatter
+	 * @param time
+	 * @return
+	 */
+	public static String getFormatTime(String format, String time) {
+		SimpleDateFormat formatter = new SimpleDateFormat(format);
+		return formatter.format(Long.parseLong(time));
+	}
 }

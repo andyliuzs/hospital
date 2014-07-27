@@ -10,9 +10,15 @@
 	
 	<script type="text/javascript">
 	
-		 function deleteDoctor(url){
-			if(confirm('您确定要删除本医生信息？'))
-			location.href = url;
+		 function del(url){
+			if(confirm('您确定要删除该医生的信息？')) {
+				
+				$.get(url, function(data) {
+					alert(data.msg);
+					location.reload();
+				});
+				//location.href = url;
+			}
 		 }
 	</script>
 </head>
@@ -35,7 +41,7 @@
 		</select>
 		
 		<select name="sex">
-			<option value="-1"  <#if searchSex== -1 >selected="selected"</#if> >性别</option>
+			<option value="-1" >性别</option>
 			<option value="1" <#if searchSex == 1 >selected="selected"</#if> >男</option>
 			<option value="0" <#if searchSex == 0 >selected="selected"</#if> >女</option>
 		</select>
@@ -102,7 +108,7 @@
 				<td>&nbsp;&nbsp;&nbsp;<a
 					href="/admin/doctor/edit/${doctor.id}">编辑</a>
 					&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)"
-					onclick="deleteDoctor('/admin/doctor/delete/${doctor.id}')">删除</a>
+					onclick="del('/admin/doctor/delete/${doctor.id}')">删除</a>
 				</td>
 			</tr>
 			</#list>

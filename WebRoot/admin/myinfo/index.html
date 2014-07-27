@@ -3,8 +3,66 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>我的信息</title>
+
+<script type="text/javascript" src="static/js/common.js"></script>
 </head>
 <body>
 	<div>我的信息</div>
+	
+	<#if admin??>
+		<table border="1" cellspacing="0" cellpadding="0">
+			<tr>
+				<td>账号：</td>
+				<td>${admin.account}</td>
+			</tr>
+			<tr>
+				<td>角色：</td>
+				<td>${admin.getRole().name}</td>
+			</tr>
+			<tr>
+				<td>最后登录时间：</td>
+				<td><#if time??>${time}</#if></td>
+			</tr>
+		</table>
+	</#if>
+	<#if doctor??>
+		<table border="1" cellspacing="0" cellpadding="0">
+			<tr>
+				<td>账号：</td>
+				<td>${doctor.account}</td>
+				<td rowspan="4"><img src="${doctor.image}" onload="resizeImage(this, 160, 240);"/></td>
+			</tr>
+			<tr>
+				<td>角色：</td>
+				<td>${doctor.getRole().name}</td>
+			</tr>
+			
+			<tr>
+				<td>姓名：</td>
+				<td>${doctor.name}</td>
+			</tr>
+			<tr>
+				<td>性别：</td>
+				<td><#if doctor.sex == 1>男<#else>女</#if></td>
+			</tr>
+			<tr>
+				<td>年龄：</td>
+				<td colspan="2">${doctor.age}</td>
+			</tr>
+			<tr>
+				<td>科室：</td>
+				<td colspan="2">${doctor.getDepartment().name}</td>
+			</tr>
+			<tr>
+				<td>简介：</td>
+				<td colspan="2">${doctor.desc}</td>
+			</tr>
+			<tr>
+				<td>最后登录时间：</td>
+				<td colspan="2">${time}</td>
+			</tr>
+		</table>
+	</#if>
+	
 </body>
 </html>
