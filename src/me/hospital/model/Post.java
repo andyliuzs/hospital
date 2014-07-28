@@ -14,6 +14,6 @@ public class Post extends Model<Post> {
 	public static final Post dao = new Post();
 
 	public Page<Post> paginate(int pageNumber, int pageSize) {
-		return paginate(pageNumber, pageSize, "select *", "from blog order by id asc");
+		return paginate(pageNumber, pageSize, "select *", "from post order by id asc");
 	}
 }
