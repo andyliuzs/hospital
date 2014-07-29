@@ -8,11 +8,14 @@ import java.util.Map;
 import me.hospital.config.CoreConstants;
 import me.hospital.interceptor.DepartmentInterceptor;
 import me.hospital.model.Department;
+import me.hospital.util.FileUtil;
 import me.hospital.util.ParamUtil;
+import me.hospital.validator.SaveDoctorValidator;
 
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.upload.UploadFile;
 
 /**
  * DepartmentController
@@ -22,6 +25,8 @@ import com.jfinal.plugin.activerecord.Page;
 
 @Before(DepartmentInterceptor.class)
 public class DepartmentController extends Controller {
+	
+	
 	public void index() {
 		// 判断当前是否是搜索的数据进行的分页
 		// 如果是搜索的数据，则跳转至search方法处理
@@ -63,7 +68,7 @@ public class DepartmentController extends Controller {
 			Map<String, String> queryParams = new HashMap<String, String>();
 			queryParams.put("name", getPara("name"));
 			queryParams.put("directorId", getPara("directorId"));
-
+			queryParams.put("key", getPara("key"));
 			setSessionAttr(CoreConstants.SEARCH_SESSION_KEY, queryParams);
 
 		}
@@ -95,8 +100,15 @@ public class DepartmentController extends Controller {
 				params.add(directorId);
 			}
 
+			int key = Integer.parseInt(queryParams.get("key"));
+			if (key > -1) {
+				sb.append(" and key = ?");
+				params.add(key);
+			}
+			
 			setAttr("searchName", name);
 			setAttr("searchDirectorId", directorId);
+			setAttr("searchKey", key);
 			setAttr("searchPage", CoreConstants.SEARCH_PAGE);
 
 		}
@@ -111,4 +123,60 @@ public class DepartmentController extends Controller {
 
 	}
 
+	/**
+	 * 添加/修改科室信息处理方法
+	 */
+	@Before(SaveDoctorValidator.class)
+	public void save() {
+
+		UploadFile file = getFile("department.image", "/", CoreConstants.MAX_FILE_SIZE);
+
+		// 保存文件并获取保存在数据库中的路径
+		String savePath = FileUtil.saveAvatarImage(file.getFile());
+
+		Department department = getModel(Department.class);
+		
+		// 设置头像路径
+		department.set("image", savePath);
+
+		if (null == department.getInt("id")) {
+			department.save();
+		} else {
+			department.update();
+		}
+
+		System.out.println("department: " + department);
+
+		redirect("index");
+
+	}
+
+	/**
+	 * 跳转编辑页面
+	 * 
+	 */
+	public void edit() {
+		int departmentId = getParaToInt(0);
+		setAttr("department", Department.dao.findById(departmentId));
+		render("add.html");
+	}
+
+	/**
+	 * 删除科室信息
+	 */
+	public void delete() {
+		
+		int departmentId = ParamUtil.paramToInt(getPara(0), -1);
+
+		if(departmentId > -1) {
+			if(Department.dao.deleteById(departmentId)) {
+				renderJson("msg", "删除成功！");	
+			}
+		} else {
+			renderJson("msg", "删除失败！");
+		}
+		
+	}
+
+	
 }

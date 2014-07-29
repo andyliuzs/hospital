@@ -3,11 +3,9 @@ package me.hospital.routes;
 import me.hospital.controller.DepartmentController;
 import me.hospital.controller.DoctorController;
 import me.hospital.controller.IndexController;
-import me.hospital.controller.MessageController;
 import me.hospital.controller.MyInfoController;
 import me.hospital.controller.PostController;
 import me.hospital.controller.RegisterController;
-import me.hospital.controller.RoleController;
 import me.hospital.controller.ScheduleController;
 import me.hospital.controller.UserController;
 
@@ -21,17 +19,11 @@ public class AdminRoutes extends Routes{
 		// 后台首页
 		add("/admin", IndexController.class);
 		
-		// 角色管理/权限管理
-		add("/admin/role", RoleController.class);
-		
 		// 我的信息
 		add("/admin/myinfo", MyInfoController.class);
 		
 		// 公告管理
 		add("/admin/post", PostController.class);
-		
-		// 评论管理
-		add("/admin/message", MessageController.class);
 		
 		// 预约管理
 		add("/admin/register", RegisterController.class);

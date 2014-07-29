@@ -9,10 +9,14 @@
 	<script type="text/javascript" src="../static/js/common.js"></script>
 	
 	<script type="text/javascript">
-	
-		 function deleteDoctor(url){
-			if(confirm('您确定要删除本科室信息？'))
-			location.href = url;
+		function del(url){
+			if(confirm('您确定要删除本科室信息？科室删除后，该科室下的所有医生信息都将被删除，请谨慎操作！！！')) {
+				
+				$.get(url, function(data) {
+					alert(data.msg);
+					location.reload();
+				});
+			}
 		 }
 	</script>
 </head>
@@ -34,9 +38,14 @@
 			</#list>
 		</select>
 		
+		<select name="key">
+			<option value="-1" >科室级别</option>
+			<option value="1" <#if searchKey == 1 >selected="selected"</#if> >重点科室</option>
+			<option value="0" <#if searchKey == 0 >selected="selected"</#if> >普通科室</option>
+		</select>
 		
-				<input type="submit" name="subButton"
-					id="subButton" value="查询" />		
+		<input type="submit" name="subButton" id="subButton" value="查询" />		
+		
 		</span>
 		
 		</div>
@@ -63,6 +72,8 @@
 	<table border="1" cellspacing="0" cellpadding="0" >
 		<thead>
 			<th>科室名称</th>
+			<th>科室图片</th>
+			<th>科室级别</th>
 			<th>科室描述</th>
 			<th>科室主任</th>
 			<th>操作</th>
@@ -71,12 +82,14 @@
 			<#list departmentList.list as department>
 			<tr>
 				<td>${department.name}</td>
+				<td><img src="${(department.image)!}" onload="resizeImage(this, 80, 120);" /></td>
+				<td><#if department.key == 1>重点科室<#else>普通科室</#if></td> 
 				<td>${department.desc}</td> 
 				<td>${(department.getDirector().name)!}</td>
 				<td>&nbsp;&nbsp;&nbsp;<a
 					href="/admin/department/edit/${department.id}">编辑</a>
 					&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)"
-					onclick="deleteDoctor('/admin/department/delete/${department.id}')">删除</a>
+					onclick="del('/admin/department/delete/${department.id}')">删除</a>
 				</td>
 			</tr>
 			</#list>

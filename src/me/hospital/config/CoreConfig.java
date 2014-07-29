@@ -4,7 +4,6 @@ import me.hospital.interceptor.SessionInterceptor;
 import me.hospital.model.Admin;
 import me.hospital.model.Department;
 import me.hospital.model.Doctor;
-import me.hospital.model.Message;
 import me.hospital.model.Permission;
 import me.hospital.model.Post;
 import me.hospital.model.Register;
@@ -73,7 +72,6 @@ public class CoreConfig extends JFinalConfig {
 		arp.addMapping("permission", Permission.class);
 		arp.addMapping("department", Department.class);
 		arp.addMapping("doctor", Doctor.class);
-		arp.addMapping("message", Message.class);
 		arp.addMapping("post", Post.class);
 		arp.addMapping("register", Register.class);
 		arp.addMapping("role", Role.class);

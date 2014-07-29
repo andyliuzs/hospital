@@ -19,8 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `hospital`
 --
-CREATE DATABASE IF NOT EXISTS `hospital` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `hospital`;
+CREATE DATABASE IF NOT EXISTS `simple_hospital` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `simple_hospital`;
 
 -- --------------------------------------------------------
 
@@ -117,21 +117,6 @@ INSERT INTO `doctor` (`id`, `account`, `password`, `name`, `roleId`, `sex`, `age
 -- --------------------------------------------------------
 
 --
--- Table structure for table `message`
---
-
-CREATE TABLE IF NOT EXISTS `message` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `content` text NOT NULL COMMENT '浏览内容',
-  `time` varchar(45) NOT NULL COMMENT '发布时间',
-  `userId` int(11) NOT NULL COMMENT '发布者ID（用户ID）',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户留言' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `permission`
 --
 
@@ -150,10 +135,8 @@ CREATE TABLE IF NOT EXISTS `permission` (
 --
 
 INSERT INTO `permission` (`id`, `name`, `url`, `pid`) VALUES
-(1, '权限管理', NULL, 0),
 (2, '我的信息', NULL, 0),
 (3, '公告管理', NULL, 0),
-(4, '评论管理', NULL, 0),
 (5, '预约管理', NULL, 0),
 (6, '科室管理', NULL, 0),
 (7, '用户信息', NULL, 0),
@@ -170,11 +153,7 @@ INSERT INTO `permission` (`id`, `name`, `url`, `pid`) VALUES
 (18, '我的预约', '/admin/register/process', 9),
 (19, '公告列表', '/admin/post/index', 3),
 (20, '添加公告', '/admin/post/add', 3),
-(21, '评论列表', '/admin/message/index', 4),
 (22, '用户列表', '/admin/user/index', 7),
-(23, '角色列表', '/admin/role/index', 1),
-(24, '添加角色', '/admin/role/add', 1),
-(25, '权限设置', '/admin/role/permission', 1),
 (26, '医生排班', '/admin/schedule/index', 10);
 
 -- --------------------------------------------------------
@@ -265,7 +244,7 @@ INSERT INTO `role` (`id`, `name`, `remark`, `type`) VALUES
 (2, '主任医师', '同时也是部门主任', 1),
 (3, '副主任医师', '副主任医师', 1),
 (4, '医生', '普通的医师', 1),
-(5, '挂号管理员', '只拥有挂号管理的权限', 0);
+(5, '挂号管理员', '拥有挂号管理和排班管理的权限', 0);
 
 -- --------------------------------------------------------
 
@@ -287,10 +266,10 @@ INSERT INTO `role_permission` (`roleId`, `permissionId`) VALUES
 (1, 2),
 (1, 3),
 (1, 4),
-(1, 5),
 (1, 6),
 (1, 7),
 (1, 8),
+(1, 10),
 (2, 2),
 (2, 9),
 (3, 2),
