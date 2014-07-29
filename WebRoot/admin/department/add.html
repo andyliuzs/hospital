@@ -22,16 +22,42 @@
 				<tr>
 					<td align="right">科室主任:</td>
 					<td>
-							<select name="department.directorId">
-								<option value="-1">请选择科室主任</option> 
+						<select name="department.directorId">
+							<option value="-1">请选择科室主任</option> 
 								<#list doctors as doctor> 
-										<option value="${doctor.id}">${doctor.name}</option> 
+									<option value="${doctor.id}" <#if (department.directorId)?? && department.directorId == doctor.id >selected="selected"</#if> >${doctor.name}</option> 
 								</#list>
-							</select>
-						<#if doctorMsg??><label style="color:red">${doctorMsg}</label></#if>
+						</select>
 					</td>
 				</tr>
 
+				<tr>
+					<td align="right">重点科室:</td>
+					<td>
+					
+					<#if (department.key)?? && department.key == 1 >
+						<input type="radio" name="department.key"  value="1" />
+							是
+						<input type="radio" name="department.key" checked="checked" value="0" />
+							否
+					<#else>
+						<input type="radio" name="department.key" checked="checked" value="1" />
+							是
+						<input type="radio" name="department.key"  value="0" />
+							否	
+					</#if>
+					
+					</td>
+				</tr>
+
+				<tr>
+					<td align="right">科室图片:</td>
+					<td>
+						<input name="department.image" type="file" />
+						<#if imageMsg??><label style="color:red">${imageMsg}</label></#if>
+					</td>
+				</tr>
+				
 				<tr>
 					<td align="right">科室简介:</td>
 					<td>

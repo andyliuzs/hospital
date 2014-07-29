@@ -1,4 +1,4 @@
-package cn.iver.validator;
+package me.hospital.validator;
 
 import com.jfinal.core.Controller;
 import com.jfinal.validate.Validator;
@@ -8,7 +8,7 @@ import com.jfinal.validate.Validator;
  * Author: andy
  * Date: 14-3-28
  */
-public class PostValidator extends Validator {
+public class SavePostValidator extends Validator {
     @Override
     protected void validate(Controller c) {
         validateString("post.content", 1, 8000, "msg", "不能为空且长度不超过8000");
