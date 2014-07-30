@@ -47,6 +47,7 @@ public class DepartmentController extends Controller {
 		setAttr("departmentList", departmentList);
 		setAttr("searchName", "");
 		setAttr("searchDirectorId", -1);
+		setAttr("searchKey", -1);
 		setAttr("searchPage", CoreConstants.NOT_SEARCH_PAGE);
 		render("index.html");
 	}
@@ -102,7 +103,7 @@ public class DepartmentController extends Controller {
 
 			int key = Integer.parseInt(queryParams.get("key"));
 			if (key > -1) {
-				sb.append(" and key = ?");
+				sb.append(" and department.key = ?");
 				params.add(key);
 			}
 			
