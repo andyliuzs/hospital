@@ -6,7 +6,9 @@ import me.hospital.model.Admin;
 import me.hospital.model.Doctor;
 import me.hospital.model.Permission;
 import me.hospital.model.Role;
+import me.hospital.validator.LoginValidator;
 
+import com.jfinal.aop.Before;
 import com.jfinal.aop.ClearInterceptor;
 import com.jfinal.aop.ClearLayer;
 import com.jfinal.core.Controller;
@@ -28,7 +30,7 @@ public class IndexController extends Controller {
 			Doctor doctor = getSessionAttr("doctor");
 			if (doctor != null) {
 				userName = doctor.get("name");
-			}
+			} 
 		}
 
 		System.out.println("userName: " + userName);
@@ -43,6 +45,13 @@ public class IndexController extends Controller {
 
 	@ClearInterceptor(ClearLayer.ALL)
 	public void login() {
+		render("/admin/login.html");
+	}
+	
+	
+	@ClearInterceptor(ClearLayer.ALL)
+	@Before(LoginValidator.class)
+	public void process() {
 
 		String userName = getPara("username");
 		String password = getPara("password");
@@ -84,8 +93,9 @@ public class IndexController extends Controller {
 
 		} else {
 
-			setAttr("msg", "用户名或密码错误");
-			redirect("/admin/login.html");
+			setAttr("errorMsg", "用户名或密码错误！");
+			keepPara("username");
+			render("login.html");
 
 			return;
 		}

@@ -24,10 +24,8 @@ public class SessionInterceptor implements Interceptor {
 			
 		} else {
 			
-			System.out.println("login");
-			
 			controller.setAttr("msg", "请登录本系统");
-			controller.redirect("/admin/login.html");
+			controller.redirect("/admin/login");
 		}
 
 	}

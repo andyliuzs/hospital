@@ -1,18 +1,52 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>管理系统</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>管理系统</title>
+	<link rel="stylesheet" href="./static/css/login.css" type="text/css"/>
+	<style></style>
 
 </head>
 
 <body>
-	<form name="loginForm" action="/admin/login" method="post">
-		
-		<input type="text" name="username" />
-		<input type="password" name="password" />
-		<input type="submit" value="Submit" />
-	
+	<form name="loginForm" action="/admin/process" method="post">
+		<div class="login">
+			<div class="title">
+				<p>XXX医院预约挂号系统后台登录</p>
+			</div>
+			<div class="content">
+
+				<div>
+					<label for="username">账号</label>&nbsp;&nbsp;
+					<input type="text" name="username" size="25" value="${username!}"/>
+					<#if nameMsg??>
+					<label style="color:#FD8D66">${nameMsg}</label>
+					</#if>
+				</div>
+				<div>
+					<label for="password">密码</label>&nbsp;&nbsp;
+					<input type="password" name="password" size="25" value="${password!}"/>
+					<#if passwordMsg??>
+					<label style="color:#FD8D66">${passwordMsg}</label>
+					</#if>
+
+				</div>
+				
+				<div style="margin:auto">
+					<#if errorMsg??>
+					<label style="color:#FD8D66">${errorMsg}</label>
+					</#if>
+
+				</div>
+
+			</div>
+			
+			<div class="bottom">
+				<input type="submit" value="登录" />
+
+			</div>
+
+		</div>
 	</form>
 </body>
 </html>
