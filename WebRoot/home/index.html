@@ -1,11 +1,13 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 	<title>首页</title>
 
 	<link rel="stylesheet" href="./static/css/home.css" type="text/css"></head>
 	<script type="text/javascript" src="./static/js/jquery-1.10.2.min.js"></script>
-
+	<script type="text/javascript" src="./static/js/common.js"></script>
 
 <body>
 
@@ -13,10 +15,7 @@
 		<div class="header">
 			<p class="logo"></p>
 			<p class="login">
-				<a href="">登录</a>
-				&nbsp;|&nbsp;
-				<a href="">注册</a>
-
+				<a href="">登录</a>|<a href="">注册</a>
 			</p>
 		</div>
 
@@ -57,17 +56,141 @@
 
 			<div class="content">
 
-				<div class="doctor">
-					<h5>推荐专家</h5>
-					<div>推荐医生</div>
+				<div class="doctor-wrapper">
+					<h5><a href="">推荐专家</a></h5>
+					<div>
+						<ul>
+							<li>
+								<div class="point-content">
+									<div class="point-image">
+										<a href=""><img src="./static/image/demo_1.jpg" onload="resizeImage(this, 100, 100)" /></a>
+									</div>
+									<div class="point-desc">
+										<p><a href="" class="name">王菊莉</a><span class="role">主任医师</span></p>
+										<div class="clear"></div>
+										<p>兼市医学科学研究所副所长、佳大教授、硕士生导师，中国抗癫痫协会理事、省抗癫痫协会理事、市抗癫痫协会...</p>
+									</div>
+								</div>
+								<div class="point-content">
+									<div class="point-image">
+										<a href=""><img src="./static/image/demo_2.gif" onload="resizeImage(this, 100, 100)" /></a>
+									</div>
+									<div class="point-desc">
+										<p><a href="" class="name">陈　虹</a><span class="role">主任医师</span></p>
+										<div class="clear"></div>
+										<p>现任佳木斯大学兼职教授，省神经内科专业委员，市神经内科专业第一副主任委员...</p>
+									</div>
+								</div>
+								<div class="clear"></div>
+							</li>
+							<li>
+								<div class="point-content">
+									<div class="point-image">
+										<a href=""><img src="./static/image/demo_3.jpg" onload="resizeImage(this, 100, 100)" /></a>
+									</div>
+									<div class="point-desc">
+										<p><a href="" class="name">毕成杰</a><span class="role">主任医师</span></p>
+										<div class="clear"></div>
+										<p>专业特长：应用中医中药及中西医结合治疗血液系统常见病及多发病。如：再生障碍性贫血、血小板减少性...</p>
+									</div>
+								</div>
+
+								<div class="point-content">
+									<div class="point-image">
+										<a href=""><img src="./static/image/demo_4.gif" onload="resizeImage(this, 100, 100)" /></a>
+									</div>
+									<div class="point-desc">
+										<p><a href="" class="name">李　志</a><span class="role">主任医师</span></p>
+										<div class="clear"></div>
+										<p>从事血液科工作27年，专业范围是血液科疾病的治疗。血液科疾病包括：红细胞疾病、白细胞疾病...</p>
+									</div>
+								</div>
+								<div class="clear"></div>
+							</li>
+						</ul>
+					</div>
 				</div>
-				<div class="department">
-					<h5>重点科室</h5>
-					<div>这里是重点科室</div>
+				<div class="department-wrapper">
+					<h5><a href="">重点科室</a></h5>
+					<div>
+						<ul>
+							<li>
+								<div class="point-content">
+									<div class="point-image">
+										<a href=""><img src="./static/image/demo_5.jpg" onload="resizeImage(this, 100, 100)" /></a>
+									</div>
+									<div class="point-desc">
+										<p><a href="" class="name">口腔外科</a></p>
+										<div class="clear"></div>
+										<p>中心医院颌面外科创立至今已40多年，是黑龙江省为数不多的颌面外科专科之一，是佳木斯地区颌面外科...</p>
+									</div>
+								</div>
+								<div class="point-content">
+									<div class="point-image">
+										<a href=""><img src="./static/image/demo_6.gif" onload="resizeImage(this, 100, 100)" /></a>
+									</div>
+									<div class="point-desc">
+										<p><a href="" class="name">肿瘤内科</a></p>
+										<div class="clear"></div>
+										<p>肿瘤内科开展术前新辅助化疗、术后辅助化疗；对各种中晚期恶性肿瘤的化疗及综合治疗，如肺癌、乳腺癌...</p>
+									</div>
+								</div>
+								<div class="clear"></div>
+							</li>
+							<li>
+								<div class="point-content">
+									<div class="point-image">
+										<a href=""><img src="./static/image/demo_7.jpg" onload="resizeImage(this, 100, 100)" /></a>
+									</div>
+									<div class="point-desc">
+										<p><a href="" class="name">中医科</a></p>
+										<div class="clear"></div>
+										<p>中医科现有医师4名，其中主任医师2名，主治医师1名，医师1名。科主任黄晓华主任医师，1993年毕业于黑...</p>
+									</div>
+								</div>
+
+								<div class="point-content">
+									<div class="point-image">
+										<a href=""><img src="./static/image/demo_8.gif" onload="resizeImage(this, 100, 100)" /></a>
+									</div>
+									<div class="point-desc">
+										<p><a href="" class="name">肛肠科</a></p>
+										<div class="clear"></div>
+										<p>肛肠科以结肠、直肠及肛门疾病为诊治范围，依托三级甲等医院综合实力，全面开展结直肠肛门外科疾病的...</p>
+									</div>
+								</div>
+								<div class="clear"></div>
+							</li>
+						</ul>
+					</div>
 				</div>
-				<div class="guide">
-					<h5>就医指南</h5>
-					<div>就医指南</div>
+				<div class="guide-wrapper">
+					<h5><a href="">就医指南</a></h5>
+					<div class="guide-list">
+						<ul>
+							<li>
+								<p><a href="" class="title">特邀北京著名眼科专家于9月29日来本院作手术！</a><span class="date">2013-09-06</span></p>
+								<div class="clear"></div>	
+							</li>
+							<li>
+								<p><a href="" class="title">特邀北京著名眼科专家于9月29日来本院作手术！</a><span class="date">2013-09-06</span></p>
+								<div class="clear"></div>		
+							</li>
+							<li>
+								<p><a href="" class="title">特邀北京著名眼科专家于9月29日来本院作手术！</a><span class="date">2013-09-06</span></p>
+								<div class="clear"></div>		
+							</li>
+							<li>
+								<p><a href="" class="title">特邀北京著名眼科专家于9月29日来本院作手术！</a><span class="date">2013-09-06</span></p>
+								<div class="clear"></div>		
+							</li>
+							<li>
+								<p><a href="" class="title">特邀北京著名眼科专家于9月29日来本院作手术！</a><span class="date">2013-09-06</span></p>
+								<div class="clear"></div>		
+							</li>
+		
+						</ul>
+					</div>
 
 				</div>
 
