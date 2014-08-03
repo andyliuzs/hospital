@@ -1,5 +1,5 @@
 ﻿/* reset */
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,nav ul,nav li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,nav ul,nav li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;font-size:100%;border:0;font:inherit;vertical-align:baseline;}
 article, aside, details, figcaption, figure,footer, header, hgroup, menu, nav, section {display: block;}
 ol,ul{list-style:none;margin:0px;padding:0px;font-family: Helvetica,Arial,Verdana,sans-serif;}
 blockquote,q{quotes:none;}
@@ -7,6 +7,15 @@ blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}
 table{border-collapse:collapse;border-spacing:0;}
 /* start editing from here */
 a{text-decoration:none;}
+
+input[type=text], input[type=password]{
+	border: 1px solid #CCCCCC;
+	/*height: 25px;
+	li*/ne-height: 25px;
+	font-size: 14px;
+	padding: 3px;
+}
+
 
 .clear {
 	clear: both;
@@ -41,7 +50,7 @@ a{text-decoration:none;}
 	background: url(../image/logo.png);
 }
 
-.login {
+.favorite {
 	float: right;
 	/*width: 260px;*/
 	height: 35px;
@@ -51,14 +60,14 @@ a{text-decoration:none;}
 	text-align: center;
 }
 
-.login a {
+.favorite a {
 	
 	padding: 2px 10px;
 	color: #4B7EB2;
 
 }
 
-.login a:hover {
+.favorite a:hover {
 	color: #43BB3E;
 }
 
@@ -124,6 +133,7 @@ a{text-decoration:none;}
 	display:block;
 	width: 80px;
 	height: 25px;
+	color: #4B7EB2;
 	line-height: 25px;
 	text-align: center;
 	margin-left: 15px;
@@ -141,9 +151,6 @@ a{text-decoration:none;}
 	width: 700px;
 	
 }
-
-
-
 
 .point-content {
 	float: left;
@@ -172,7 +179,7 @@ a{text-decoration:none;}
 	float: left;
 	margin-left: 10px;
 	width: 220px;
-	color: #898989;
+	color: #565656;
 	font-size: 14px;
 }
 
@@ -219,10 +226,10 @@ a{text-decoration:none;}
 
 .guide-wrapper p {
 	width: 680px;
-
 	height: 30px;
 	line-height: 30px;
 	margin-left: 20px;
+	font-size: 14px;
 }
 
 .guide-wrapper p a.title {
@@ -247,36 +254,190 @@ a{text-decoration:none;}
 	float: right;
 	width: 260px;
 	height: 500px;
-	background-color: #f26779;
 }
 
 /* 关于我们*/
-.about {
+.login-wrapper {
 	width: 100%;
-	height: 200px;
-	background-color: #f241c9;
+	/*height: 150px;*/
+}
+
+.login {
+	width: 240px;
+	margin: 10px;
+}
+
+.login-submit {
+	margin-top: 10px;
+}
+
+.login-submit a {
+	color: blue;
+	font-size: 14px;
 }
 
 
 /* 最新公告 */
-.news {
+.news-wrapper {
 	width:100%;
-	height: 300px;
-	background-color: #AAAAAA;
+	margin-top: 20px;
 }
 
+.news-list {
+	width: 240px;
+	margin: 5px 10px 0;
+	font-size: 14px;
+}
+
+.news-list p {
+	height: 30px;
+	line-height: 30px;
+}
+
+.news-list p a.title {
+	float: left;
+	color: #565656;
+
+}
+
+.news-list p a:hover {
+	color: #7D4791;
+}
+
+
 /* 联系方式 */
-.contact {
+.contact-wrapper {
+	margin-top: 20px;
 	width: 100%;
-	height: 150px;
-	background-color: #d346a1;
+}
+
+.contact {
+	width: 240px;
+	margin: 10px;
+	font-size: 14px;
 }
 
 /* 底部 */
 .footer {
 	margin-top: 10px;
 	width: 100%;
-	height: 70px;
-	background-color:#CCCCCC;
+	height: 45px;
+	background-color:#E7F1F0;
 
 }
+
+.footer p {
+	height: 45px;
+	line-height: 45px;
+	text-align: center;
+	font-size: 14px;
+	color: #565656;
+}
+
+
+/* intro.html 医院简介 */
+
+.intro-wrapper {
+	width: 100%;
+	margin-top: 10px;
+}
+
+.intro-title {
+	margin-top: 15px;
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	font-size: 24px;
+}
+
+.intro-content {
+	width: 920px;
+	margin: 10px 20px;
+}
+
+/* 列表样式 */
+.content-list {
+	width: 680px;
+	margin: 10px;
+	/*background-color: #cccccc;*/
+}
+
+.content-list table {
+	width: 100%;
+	color: #565656;
+}
+
+.content-list table th {
+	height: 35px;
+	line-height: 35px;
+}
+
+.content-list table tr {
+	border-bottom: 1px solid #EEEEEE;
+}
+
+.content-list table tr td{
+	height: 35px;
+	line-height: 35px;
+}
+
+/* 分页样式 */
+.content-page{
+	margin-top: 25px;
+}
+
+div.digg {
+	padding: 3px; 
+	margin: 3px; 
+	text-align: center;
+}
+
+div.digg a {
+	border: 1px solid #aaaadd; 
+	padding: 2px 5px; 
+	margin: 2px; 
+	color: #000099; 
+	text-decoration: none;
+}
+
+div.digg a:hover {
+	border: 1px solid #4B7EB2; 
+	color: #000; 
+}
+
+div.digg a:active {
+	border: 1px solid #4B7EB2; 
+	color: #000; 
+}
+
+div.digg span.current {
+	border: 1px solid #4B7EB2; 
+	padding: 2px 5px;  
+	font-weight: bold; 
+	margin: 2px; 
+	color: #fff; 
+	background-color: #4B7EB2;
+}
+
+div.digg span.disabled {
+	border-right: 1px solid #eee; 
+	padding: 2px 5px; 
+	margin: 2px; 
+	color: #ddd; 
+}
+
+
+
+/* news.html 新闻中心 */
+
+
+/* department.html 科室介绍 */
+
+
+/* doctor.html 名医荟萃 */
+
+
+/* research.html 科研教学 */
+
+
+/* register.html 预约挂号 */
