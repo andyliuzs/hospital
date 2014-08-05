@@ -36,3 +36,18 @@
 	padding: 0 10px;
 }
 
+.post-title {
+	height: 35px;
+	line-height: 35px;
+}
+
+.post-content {
+	margin-top: 10px;
+}
+
+.post-submit {
+	margin-top: 10px;
+	width: 960px;
+	text-align: center;
+}
+

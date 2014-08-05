@@ -221,7 +221,7 @@ public class DoctorController extends Controller {
 		FileInputStream fis = null;
 		try {
 
-			String absolutePath = CoreConstants.ATTACHMENGT_AVATAR_PATH + fname;
+			String absolutePath = CoreConstants.ATTACHMENT_AVATAR_PATH + fname;
 			fis = new FileInputStream(absolutePath);
 			os = getResponse().getOutputStream();
 			int count = 0;

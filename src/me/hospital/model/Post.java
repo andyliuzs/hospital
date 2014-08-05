@@ -13,7 +13,24 @@ import com.jfinal.plugin.activerecord.Page;
 public class Post extends Model<Post> {
 	public static final Post dao = new Post();
 
+	/**
+	 * 获取当前文章的分类信息
+	 * 
+	 * @return
+	 */
+	public PostCategory getCategory() {
+		return PostCategory.dao.findById(get("cid"));
+	}
+
+	/**
+	 * 分页获取数据
+	 * 
+	 * @param pageNumber
+	 * @param pageSize
+	 * @return
+	 */
 	public Page<Post> paginate(int pageNumber, int pageSize) {
-		return paginate(pageNumber, pageSize, "select *", "from post order by id asc");
+		return paginate(pageNumber, pageSize, "select *",
+				"from post order by id asc");
 	}
 }

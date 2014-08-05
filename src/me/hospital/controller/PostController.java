@@ -9,12 +9,15 @@ import me.hospital.config.CoreConstants;
 import me.hospital.interceptor.PostInterceptor;
 import me.hospital.model.Admin;
 import me.hospital.model.Post;
+import me.hospital.model.PostCategory;
+import me.hospital.util.FileUtil;
 import me.hospital.util.ParamUtil;
 import me.hospital.validator.SavePostValidator;
 
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.upload.UploadFile;
 
 /**
  * PostController
@@ -51,6 +54,11 @@ public class PostController extends Controller {
 
 	
 	public void add() {
+		
+		List<PostCategory> categories = PostCategory.dao.getCategories();
+		
+		setAttr("categories", categories);
+		
 		render("add.html");
 	}
 	
@@ -164,5 +172,33 @@ public class PostController extends Controller {
 		render("index.html");
 
 	}
+	
+	/**
+	 * 上传图片
+	 */
+	public void uploadImage() {
+		
+		System.out.println("uploadImage");
+		// 选择保存目录
+	    String fetch = getPara("fetch");
+	    if (ParamUtil.isEmpty(fetch)) {
+	    	System.out.println("aaa");
+	        renderNull();
+	        return;
+	    }
+	    
+	    
+	    System.out.println("bbb");
+//		UploadFile file = getFile("upfile", "/",
+//				CoreConstants.MAX_FILE_SIZE);
+//
+//		// 保存文件并获取保存在数据库中的路径
+//		String savePath = FileUtil.saveUploadImage(file.getFile());
+//		
+//		System.out.println("savePath: " + savePath);
+		
+		renderJson(new String[] { "original", "url", "title", "state" });
+	}
+	
 }
 

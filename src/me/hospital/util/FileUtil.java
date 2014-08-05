@@ -17,7 +17,7 @@ public class FileUtil {
 	public static String saveAvatarImage(File file) {
 
 		String contextPath = PathKit.getWebRootPath();
-		String filePath = contextPath + CoreConstants.ATTACHMENGT_AVATAR_PATH;
+		String filePath = contextPath + CoreConstants.ATTACHMENT_AVATAR_PATH;
 
 		// 路径不存在的话，创建该路径
 		FileUtil.createDirectory(new File(filePath));
@@ -36,12 +36,47 @@ public class FileUtil {
 		}
 
 		// 保存在数据库中的路径
-		String savePath = CoreConstants.ATTACHMENGT_AVATAR_PATH + newFileName;
+		String savePath = CoreConstants.ATTACHMENT_AVATAR_PATH + newFileName;
 
 		return savePath;
 
 	}
 
+	public static String saveUploadImage(File file) {
+		String contextPath = PathKit.getWebRootPath();
+		String filePath = contextPath + CoreConstants.ATTACHMENT_IMAGE_PATH;
+
+		// 路径不存在的话，创建该路径
+		FileUtil.createDirectory(new File(filePath));
+
+		// 存储文件名称
+		String newFileName = String.valueOf(System.currentTimeMillis()) + "."
+				+ FileUtil.getFileExtension(file);
+
+		// 存储路径
+		String url = filePath + newFileName;
+
+		if (file.renameTo(new File(url))) {
+
+			// 文件保存到指定位置后，删除源文件
+			file.delete();
+		}
+
+		// 保存在数据库中的路径
+		String savePath = CoreConstants.ATTACHMENT_IMAGE_PATH + newFileName;
+
+		return savePath;
+	}
+	
+	/**
+	 * 获取文件名
+	 * @param file
+	 * @return
+	 */
+	public static String getFileName(File file) {
+		return file.getName();
+	}
+	
 	/**
 	 * 获取文件的扩展名
 	 * 

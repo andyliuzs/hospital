@@ -1,10 +1,96 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>用户信息列表</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>用户列表</title>
+	
+	<link rel="stylesheet" type="text/css" href="../static/css/data.css" />
+	<script type="text/javascript"
+		src="../static/assets/jquery/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="../static/js/common.js"></script>
+	
+	<script type="text/javascript">
+		function del(url){
+			if(confirm('您确定要删除本用户信息？')) {
+				
+				$.get(url, function(data) {
+					alert(data.msg);
+					location.reload();
+				});
+			}
+		 }
+	</script>
+	
 </head>
 <body>
-	<div>用户信息列表</div>
+
+	<div class="search-box">
+		<form name="searchForm" action="/admin/user/search" method="post">
+			<span>用户名称：
+				<input type="text" name="name" id="name" value="${searchName!}" />&nbsp;
+				<select name="sex">
+					<option value="-1" <#if searchSex == -1>selected="selected"</#if>>请选择用户性别</option> 
+					<option value="0" <#if searchSex == 0>selected="selected"</#if>>女</option>
+					<option value="1" <#if searchSex == 1>selected="selected"</#if>>男</option> 
+				</select>
+				用户地址：
+				<input type="text" name="address" id="address" value="${searchAddress!}" />&nbsp;
+				用户手机号：
+				<input type="text" name="phone" id="phone" value="${searchPhone!}" />&nbsp;
+
+				<input type="submit" name="subButton" id="subButton" value="查询" />		
+			</span>
+		</form>
+	</div>
+	
+	<div class="data-box">
+		<table cellspacing="0" cellpadding="0" >
+			<thead>
+				<th width="80">用户账号</th>
+				<th width="100">用户姓名</th>
+				<th width="80">用户性别</th>
+				<th width="80">用户年龄</th>
+				<th width="80">身份证号</th>
+				<th>用户地址</th>
+				<th width="80">用户电话</th>
+				<th width="80">QQ号码</th>
+				<th width="80">登录时间</th>
+				<th width="120">操作</th>
+			</thead>
+			<tbody>
+				<#list userList.list as user>
+				<tr>
+					<td align="center">${user.account}</td>
+					<td align="center">${user.name}</td>
+					<td align="center"><#if user.sex == 0>女<#else>男</#if></td>
+					<td align="center">${user.age}</td>
+					<td align="center">${user.identity}</td>
+					<td align="center">${user.address}</td>
+					<td align="center">${user.phone}</td>
+					<td align="center">${user.qq}</td>
+					<td align="center">${user.time}</td>
+					
+					<td align="center"><a
+						href="/admin/user/edit/${user.id}">编辑</a>
+						&nbsp;&nbsp;<a href="javascript:void(0)"
+						onclick="del('/admin/user/delete/${user.id}')">删除</a>
+					</td>
+				</tr>
+				</#list>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="page-box">
+		<span style="margin-left: 10px"> 
+		共${userList.totalRow}条记录&nbsp;共${userList.totalPage}页  每页${userList.pageSize}条数据  当前第${userList.pageNumber}页     
+		<a href="/admin/user/?p=1<#if searchPage == 1>&s=1</#if>" >[首页]</a>
+		<a href="/admin/user/?p=<#if userList.pageNumber lte 1>1<#else>${userList.pageNumber - 1}</#if><#if searchPage == 1>&s=1</#if>" >[上一页]</a> 
+		<a href="/admin/user/?p=<#if userList.pageNumber gte userList.totalPage>${userList.totalPage}<#else>${userList.pageNumber + 1}</#if><#if searchPage == 1>&s=1</#if>" >[下一页]</a> 
+		<a href="/admin/user/?p=${userList.totalPage}<#if searchPage == 1>&s=1</#if>" >[末页]</a>
+		 
+		</span>
+	</div>
+
 </body>
 </html>

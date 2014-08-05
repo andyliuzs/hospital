@@ -14,6 +14,6 @@ public class User extends Model<User> {
 	public static final User dao = new User();
 
 	public Page<User> paginate(int pageNumber, int pageSize) {
-		return paginate(pageNumber, pageSize, "select *", "from blog order by id asc");
+		return paginate(pageNumber, pageSize, "select *", "from user order by id asc");
 	}
 }

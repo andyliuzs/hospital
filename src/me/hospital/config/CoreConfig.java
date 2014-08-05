@@ -6,6 +6,7 @@ import me.hospital.model.Department;
 import me.hospital.model.Doctor;
 import me.hospital.model.Permission;
 import me.hospital.model.Post;
+import me.hospital.model.PostCategory;
 import me.hospital.model.Register;
 import me.hospital.model.Role;
 import me.hospital.model.RolePermission;
@@ -73,6 +74,7 @@ public class CoreConfig extends JFinalConfig {
 		arp.addMapping("department", Department.class);
 		arp.addMapping("doctor", Doctor.class);
 		arp.addMapping("post", Post.class);
+		arp.addMapping("post_category", PostCategory.class);
 		arp.addMapping("register", Register.class);
 		arp.addMapping("role", Role.class);
 		arp.addMapping("role_permission", "roleId", RolePermission.class);

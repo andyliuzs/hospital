@@ -26,7 +26,10 @@ public class CoreConstants {
 	public static final int MAX_FILE_SIZE = 10 * 1024 * 1024;
 	
 	// 头像文件的保存路径
-	public static final String ATTACHMENGT_AVATAR_PATH = File.separator + "upload" + File.separator + "avatar" + File.separator;
+	public static final String ATTACHMENT_AVATAR_PATH = File.separator + "upload" + File.separator + "avatar" + File.separator;
+	
+	// 图片文件保存路径（用UEditor上传的图片）
+	public static final String ATTACHMENT_IMAGE_PATH = File.separator + "upload" + File.separator + "images" + File.separator;
 	
 	// 排班的天数，默认为10天
 	public static final int SCHEDULE_DAYS = 10;
