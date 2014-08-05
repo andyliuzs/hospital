@@ -1,6 +1,10 @@
 package me.hospital.util;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
 
 import me.hospital.config.CoreConstants;
 
@@ -67,16 +71,17 @@ public class FileUtil {
 
 		return savePath;
 	}
-	
+
 	/**
 	 * 获取文件名
+	 * 
 	 * @param file
 	 * @return
 	 */
 	public static String getFileName(File file) {
 		return file.getName();
 	}
-	
+
 	/**
 	 * 获取文件的扩展名
 	 * 
@@ -124,6 +129,42 @@ public class FileUtil {
 			return true;
 		} else {
 			return false;
+		}
+	}
+
+	/**
+	 * 复制文件
+	 * 
+	 * @param s
+	 * @param t
+	 */
+	public static void copyFile(File s, File t) {
+
+		FileInputStream fi = null;
+		FileOutputStream fo = null;
+		FileChannel in = null;
+		FileChannel out = null;
+
+		try {
+			fi = new FileInputStream(s);
+			fo = new FileOutputStream(t);
+			// 得到对应的文件通道
+			in = fi.getChannel();
+			// 得到对应的文件通道
+			out = fo.getChannel();
+			// 连接两个通道，并且从in通道读取，然后写入out通道
+			in.transferTo(0, in.size(), out);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				fi.close();
+				in.close();
+				fo.close();
+				out.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

@@ -40,7 +40,10 @@
 	height: 35px;
 	line-height: 35px;
 }
-
+.post-category {
+	height: 35px;
+	line-height: 35px;
+}
 .post-content {
 	margin-top: 10px;
 }

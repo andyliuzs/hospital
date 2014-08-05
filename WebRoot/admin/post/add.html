@@ -2,53 +2,53 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>添加公告信息/修改公告信息</title>
-	<link rel="stylesheet" type="text/css" href="../static/css/data.css" />
-	<script type="text/javascript" src="../static/assets/jquery/jquery-1.10.2.min.js"></script>
-	<script type="text/javascript" src="../static/assets/ueditor/ueditor.config.js"></script>
-	<script type="text/javascript" src="../static/assets/ueditor/ueditor.all.min.js"></script>
+	<title>添加/修改公告信息</title>
+	<link rel="stylesheet" type="text/css" href="/admin/static/css/data.css" />
+	<script type="text/javascript" src="/admin/static/assets/ueditor/ueditor.config.js"></script>
+	<script type="text/javascript" src="/admin/static/assets/ueditor/ueditor.all.js"></script>
 	
 	<script type="text/javascript">
+		
 		var URL = "/admin/static/assets/ueditor/"
-		$(document).ready(function() {
-			//实例化编辑器
-// 			var ue = UE.getEditor('editor');
+		
+		window.onload = function() {
+			
 			var editor = UE.getEditor('editor', {
-		        imageUrl: "/admin/post/uploadImage",
-		        imagePath: "/upload/",
 		        
-		        imageActionName: "uploadImage", /* 执行上传图片的action名称 */
-		        imageFieldName: "upfile", /* 提交的图片表单名称 */
-		        imageMaxSize: 2048000, /* 上传大小限制，单位B */
-		        imageAllowFiles: [".png", ".jpg", ".jpeg", ".gif", ".bmp"], /* 上传图片格式显示 */
-
+				imageUrl: "/admin/post/uploadImage",
+		        imagePath: "",
+		        imageFieldName: "upfile"
+		        
 		    });
-		});
+		};
 		
 	</script>
 </head>
 <body>
 
-	<form name="postForm" action="/admin/post/save" method="post"  enctype="multipart/form-data">
+	<form name="postForm" action="/admin/post/save" method="post">
 		<input type="hidden" name="id" value="" />
 		
 		<div class="post-title">
 			<label for="post.title">标题</label>
 			<input name="post.title" type="text" class="text" size="77" value="${(post.title)!}" /> 
 			<#if titleMsg??> <label style="color: red">${titleMsg}</label></#if>
-			
+		</div>
+		<div class="post-category">
+			<label for="post.cid">分类</label>
 			<select name="post.cid">
 				<option value="-1">请选择分类</option> 
 				<#list categories as category> 
 					<option value="${category.id}" <#if (post.cid)?? && post.cid == category.id >selected="selected"</#if> >${category.name}</option> 
 				</#list>
 			</select>
-			
 			<#if categoryMsg??> <label style="color: red">${categoryMsg}</label></#if>
-			
+			&nbsp;&nbsp;&nbsp;
+			<#if contentMsg??> <label style="color: red">${contentMsg}</label></#if>
 		</div>
 		<div class="post-content">
-			<textarea id="editor" name="post.content"
+			
+			<textarea id="editor" name="content"
 						style="width: 960px;height: 500px;">${(post.content)!}</textarea>
 		</div>
 		
@@ -57,9 +57,6 @@
 			<input type="submit" value="保存" />
 		</div>
 	</form>
-
-	
-
 
 </body>
 </html>

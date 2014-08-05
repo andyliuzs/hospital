@@ -1,5 +1,6 @@
 package me.hospital.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,10 +10,11 @@ import me.hospital.config.CoreConstants;
 import me.hospital.interceptor.PostInterceptor;
 import me.hospital.model.Admin;
 import me.hospital.model.Post;
-import me.hospital.model.PostCategory;
 import me.hospital.util.FileUtil;
 import me.hospital.util.ParamUtil;
 import me.hospital.validator.SavePostValidator;
+
+import org.apache.commons.lang3.StringEscapeUtils;
 
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
@@ -26,8 +28,7 @@ import com.jfinal.upload.UploadFile;
  */
 @Before(PostInterceptor.class)
 public class PostController extends Controller {
-	
-	
+
 	public void index() {
 		// 判断当前是否是搜索的数据进行的分页
 		// 如果是搜索的数据，则跳转至search方法处理
@@ -43,41 +44,63 @@ public class PostController extends Controller {
 		if (page < 1) {
 			page = 1;
 		}
+
 		// 读取所有的公告列表。
-		Page<Post> postList =Post.dao.paginate(page, CoreConstants.PAGE_SIZE);
+		Page<Post> postList = Post.dao.paginate(page, CoreConstants.PAGE_SIZE);
+
+		// 格式化时间
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String formatDate = null;
+		for (Post post : postList.getList()) {
+			formatDate = post.getStr("time");
+			post.set("time", formatter.format(Long.parseLong(formatDate)));
+		}
+
 		setAttr("postList", postList);
+
 		setAttr("searchTitle", "");
-		setAttr("searchAuthor", "");
+		setAttr("searchCategory", -1);
 		setAttr("searchPage", CoreConstants.NOT_SEARCH_PAGE);
+
 		render("index.html");
 	}
 
-	
 	public void add() {
-		
-		List<PostCategory> categories = PostCategory.dao.getCategories();
-		
-		setAttr("categories", categories);
-		
 		render("add.html");
 	}
-	
+
 	/**
 	 * 跳转编辑页面
 	 * 
 	 */
 	public void edit() {
 		int postId = getParaToInt(0);
-		setAttr("post", Post.dao.findById(postId));
+		Post post = Post.dao.findById(postId);
+		String content = post.getStr("content");
+		post.set("content", StringEscapeUtils.unescapeHtml4(content));
+		setAttr("post", post);
 		render("add.html");
 	}
-	
+
 	@Before(SavePostValidator.class)
 	public void save() {
-		Post post  = getModel(Post.class);
-		Admin admin  = (Admin)getSession().getAttribute("admin");
+
+		Post post = getModel(Post.class);
+
+		String content = getPara("content");
+
+		content = StringEscapeUtils.escapeHtml4(content);
+
+		post.set("content", content);
+
+		Admin admin = (Admin) getSession().getAttribute("admin");
+
 		post.set("author", admin.get("account"));
+
 		post.set("del", 1);
+
+		post.set("time", String.valueOf(System.currentTimeMillis()));
+
 		if (null == post.getInt("id")) {
 			post.save();
 		} else {
@@ -89,25 +112,25 @@ public class PostController extends Controller {
 		redirect("index");
 
 	}
-	
+
 	public void update() {
 		getModel(Post.class).update();
 		redirect("/admin/post");
 	}
-	
+
 	public void delete() {
-	
+
 		int postId = ParamUtil.paramToInt(getPara(0), -1);
 
-		if(postId > -1) {
-			if(Post.dao.deleteById(postId)) {
-				renderJson("msg", "删除成功！");	
+		if (postId > -1) {
+			if (Post.dao.deleteById(postId)) {
+				renderJson("msg", "删除成功！");
 			}
 		} else {
 			renderJson("msg", "删除失败！");
 		}
 	}
-	
+
 	/**
 	 * 搜索
 	 */
@@ -120,7 +143,7 @@ public class PostController extends Controller {
 
 			Map<String, String> queryParams = new HashMap<String, String>();
 			queryParams.put("title", getPara("title"));
-			queryParams.put("author", getPara("author"));
+			queryParams.put("category", getPara("category"));
 
 			setSessionAttr(CoreConstants.SEARCH_SESSION_KEY, queryParams);
 
@@ -146,59 +169,59 @@ public class PostController extends Controller {
 				sb.append(" and title like ?");
 				params.add("%" + title + "%");
 			}
-			
-			String author  = getPara("author");
-			if (!ParamUtil.isEmpty(author)) {
-				if(!"-1".equals(author)){
-					sb.append(" and author like ?");
-					params.add("%" + author + "%");
-				}
+
+			int cid = Integer.parseInt(queryParams.get("category"));
+			if (cid > -1) {
+				sb.append(" and cid = ?");
+				params.add(cid);
 			}
-			
+
 			setAttr("searchTitle", title);
-			setAttr("searchAuthor", author);
+			setAttr("searchCategory", cid);
 			setAttr("searchPage", CoreConstants.SEARCH_PAGE);
 
 		}
-		
-		
 
 		// 公告信息列表
 		Page<Post> postList = Post.dao.paginate(page, CoreConstants.PAGE_SIZE, "select *",
 				sb.toString(), params.toArray());
+
+		// 格式化时间
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String formatDate = null;
+		for (Post post : postList.getList()) {
+			formatDate = post.getStr("time");
+			post.set("time", formatter.format(Long.parseLong(formatDate)));
+		}
 
 		setAttr("postList", postList);
 
 		render("index.html");
 
 	}
-	
+
 	/**
 	 * 上传图片
 	 */
 	public void uploadImage() {
-		
-		System.out.println("uploadImage");
-		// 选择保存目录
-	    String fetch = getPara("fetch");
-	    if (ParamUtil.isEmpty(fetch)) {
-	    	System.out.println("aaa");
-	        renderNull();
-	        return;
-	    }
-	    
-	    
-	    System.out.println("bbb");
-//		UploadFile file = getFile("upfile", "/",
-//				CoreConstants.MAX_FILE_SIZE);
-//
-//		// 保存文件并获取保存在数据库中的路径
-//		String savePath = FileUtil.saveUploadImage(file.getFile());
-//		
-//		System.out.println("savePath: " + savePath);
-		
-		renderJson(new String[] { "original", "url", "title", "state" });
-	}
-	
-}
 
+		UploadFile file = getFile("upfile", CoreConstants.ATTACHMENT_TEMP_PATH,
+				CoreConstants.MAX_FILE_SIZE);
+
+		// 保存文件并获取保存在数据库中的路径
+		String savePath = FileUtil.saveUploadImage(file.getFile());
+
+		String pictitle = getPara("pictitle");
+
+		Map<String, String> result = new HashMap<String, String>();
+
+		result.put("original", pictitle);
+		result.put("url", savePath);
+		result.put("title", pictitle);
+		result.put("state", "SUCCESS");
+
+		renderJson(result);
+
+	}
+
+}

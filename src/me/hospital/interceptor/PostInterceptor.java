@@ -2,7 +2,7 @@ package me.hospital.interceptor;
 
 import java.util.List;
 
-import me.hospital.model.Admin;
+import me.hospital.model.PostCategory;
 
 import com.jfinal.aop.Interceptor;
 import com.jfinal.core.ActionInvocation;
@@ -19,9 +19,9 @@ public class PostInterceptor implements Interceptor {
 		
 		ai.invoke();
 		
-		// 读取所有的管理员帐号
-		List<Admin> authors = Admin.dao.find("select account from admin ");
-		controller.setAttr("authors", authors);
-
+		// 读取所有的公告分类
+		List<PostCategory> categories = PostCategory.dao.getCategories();
+		controller.setAttr("categories", categories);
+		
 	}
 }

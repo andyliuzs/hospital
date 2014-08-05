@@ -153,7 +153,7 @@ public class DoctorController extends Controller {
 	@Before(SaveDoctorValidator.class)
 	public void save() {
 
-		UploadFile file = getFile("doctor.image", "/", CoreConstants.MAX_FILE_SIZE);
+		UploadFile file = getFile("doctor.image", CoreConstants.ATTACHMENT_TEMP_PATH, CoreConstants.MAX_FILE_SIZE);
 
 		// 保存文件并获取保存在数据库中的路径
 		String savePath = FileUtil.saveAvatarImage(file.getFile());
