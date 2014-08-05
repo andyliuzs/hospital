@@ -1,6 +1,7 @@
 package me.hospital.routes;
 
-import me.hospital.controller.HomeController;
+
+import me.hospital.home.HomeController;
 
 import com.jfinal.config.Routes;
 

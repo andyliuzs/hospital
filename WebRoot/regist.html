@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<title>用户注册</title>
+
+	<link rel="stylesheet" href="./static/css/home.css" type="text/css"></head>
+	<script type="text/javascript" src="./static/js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="./static/js/common.js"></script>
+
+<body>
+
+	<div class="wrapper">
+		<div class="header">
+			<p class="logo"></p>
+			<p class="favorite">
+				<a href="">点击收藏</a>
+			</p>
+		</div>
+
+		<div class="nav">
+			<ul>
+				<li>
+					<a href="index.html" class="current">首&nbsp;&nbsp;页</a>
+				</li>
+				<li>
+					<a href="intro.html">医院简介</a>
+				</li>
+				<li>
+					<a href="news.html">新闻中心</a>
+				</li>
+				<li>
+					<a href="department.html">科室介绍</a>
+				</li>
+				<li>
+					<a href="doctor.html">名医荟萃</a>
+				</li>
+				<li>
+					<a href="research.html">科研教学</a>
+				</li>
+				<li>
+					<a href="register.html">预约挂号</a>
+				</li>
+			</ul>
+		</div>
+		<div class="clear"></div>
+		<!-- 图片展示 -->
+		<div class="gallery"></div>
+
+		<div class="container">
+
+			<div class="regist-wrapper">
+
+				<form name="registForm" method="post" action="">
+					<fieldset>
+						<legend>用户注册</legend>
+						<table>
+							<tr>
+								<td width="150" class="title">
+									<label for="account">账号</label>
+								</td>
+								<td>
+									<input type="text" name="account" size="25"/>
+									<span style="color:red">*</span>
+								</td>
+
+							</tr>
+							<tr>
+								<td class="title">
+									<label for="password">密码</label>
+								</td>
+								<td>
+									<input type="text" name="password" size="25" />
+									<span style="color:red">*</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="title">
+									<label for="password2">确认密码</label>
+								</td>
+								<td>
+									<input type="text" name="password2" size="25" />
+									<span style="color:red">*</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="title">
+									<label for="name">姓名</label>
+								</td>
+								<td>
+									<input type="text" name="name" size="15" />
+									<span style="color:red">*</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="title">
+									<label for="sex">性别</label>
+								</td>
+								<td>
+									<input type="radio" name="sex" checked="checked" value="1" />
+									男
+									<input type="radio" name="sex"  value="0" />
+									女
+								</td>
+							</tr>
+							<tr>
+								<td class="title">
+									<label for="age">年龄</label>
+								</td>
+								<td>
+									<input type="text" name="age" size="5"/>
+									<span style="color:red">*</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="title">
+									<label for="identity">身份证号</label>
+								</td>
+								<td>
+									<input type="text" name="identity" size="35" />
+									<span style="color:red">*</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="title">
+									<label for="phone">电话</label>
+								</td>
+								<td>
+									<input type="text" name="phone" size="25" />
+									<span style="color:red">*</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="title">
+									<label for="email">邮箱</label>
+								</td>
+								<td>
+									<input type="text" name="email" size="25" />
+								</td>
+							</tr>
+							<tr>
+								<td class="title">
+									<label for="address">地址</label>
+								</td>
+								<td>
+									<input type="text" name="address" size="45" />
+								</td>
+							</tr>
+							<tr>
+								<td class="title">
+									<label for="qq">QQ</label>
+								</td>
+								<td>
+									<input type="text" name="qq" size="25" />
+								</td>
+							</tr>
+
+						</table>
+						<div class="regist">
+
+							<input type="submit" value="注册" />
+							<input type="reset" value="重置" />
+
+						</div>
+					</fieldset>
+				</form>
+			</div>
+
+		</div>
+		<div class="clear"></div>
+		<div class="footer">
+
+			<p>
+				佳木斯中心医院  &#169	 All Rights Reserved
+			</p>
+
+		</div>
+
+	</div>
+</body>
+</html>

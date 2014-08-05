@@ -1,0 +1,38 @@
+
+.search-box {
+	height: 45px;
+	line-height: 45px;
+	border: 1px solid #CCCCCC;
+	padding: 0 10px;
+}
+
+.data-box {
+	margin-top: 15px;
+}
+
+.data-box table {
+	width: 100%;
+	border: 1px solid #CCCCCC;
+	font-weight: normal;
+}
+		
+.data-box table th {
+	height: 35px;
+	line-height: 35px;
+	color: #EEEEEE;
+	background-color: #056CA2;
+}
+
+.data-box table td{
+	border: 1px solid #CCCCCC;
+	line-height: 25px;
+}
+
+.page-box {
+	margin-top: 15px;
+	height: 45px;
+	line-height: 45px;
+	border: 1px solid #CCCCCC;
+	padding: 0 10px;
+}
+

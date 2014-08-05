@@ -2,6 +2,8 @@ package me.hospital.model;
 
 import java.util.List;
 
+import me.hospital.config.CoreConstants;
+
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Page;
 
@@ -19,7 +21,7 @@ public class Department extends Model<Department> {
 	 * 
 	 * @return
 	 */
-	public List<Department> getAllDepartments() {
+	public List<Department> getDepartments() {
 		return Department.dao.find("select * from department");
 	}
 
@@ -33,7 +35,7 @@ public class Department extends Model<Department> {
 	/**
 	 * 获取当前科室下所有的医生信息
 	 */
-	public List<Doctor> getAllDoctors() {
+	public List<Doctor> getDoctors() {
 		return getDoctors(Integer.parseInt(String.valueOf(get("id"))));
 	}
 
@@ -47,7 +49,16 @@ public class Department extends Model<Department> {
 		return Doctor.dao.find("select * from doctor where departmentId = ?", departmentId);
 	}
 
+	/**
+	 * 根据排序值获取首页要显示的科室
+	 * @return
+	 */
+	public List<Department> getRecommends() {
+		return Department.dao.find("select * from department where recommend = 1 order by sort desc limit 0, ?", CoreConstants.RECOMMEND_DEPARTMENT_SIZE);
+	}
+	
+	
 	public Page<Department> paginate(int pageNumber, int pageSize) {
-		return paginate(pageNumber, pageSize, "select *", "from department order by id asc");
+		return paginate(pageNumber, pageSize, "select *", "from department order by sort desc");
 	}
 }

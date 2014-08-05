@@ -25,6 +25,8 @@ public class SaveDoctorValidator extends Validator {
 		System.out.println("departmentId: " + controller.getPara("doctor.departmentId"));
 		System.out.println("sex: " + controller.getPara("doctor.sex"));
 		System.out.println("age: " + controller.getPara("doctor.age"));
+		System.out.println("recommend: " + controller.getPara("doctor.recommend"));
+		System.out.println("sort: " + controller.getPara("doctor.sort"));
 
 		// 是否填写了姓名
 		validateRequiredString("doctor.name", "nameMsg", "请输入姓名!");
@@ -40,8 +42,11 @@ public class SaveDoctorValidator extends Validator {
 		}
 
 		// 15 ~ 65 岁为合法的年龄
-		validateInteger("doctor.age", 15, 65, "ageMsg", "请输入正确的年龄！");
+		validateInteger("doctor.age", 15, 65, "ageMsg", "年龄在15~65岁之间！");
 
+		// 0 ~ 1000 之间的整数为合法排序值
+		validateInteger("doctor.sort", 0, 1000, "sortMsg", "请输入0~1000之间的整数");
+		
 	}
 
 	protected void handleError(Controller controller) {

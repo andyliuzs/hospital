@@ -6,7 +6,7 @@
 </head>
 <body>
 
-	<form name="doctorForm" action="/admin/department/save" method="post">
+	<form name="doctorForm" action="/admin/department/save" method="post" enctype="multipart/form-data" >
 		<fieldset>
 			<legend>科室信息信息</legend>
 			<input type="hidden" name="id" value="" />
@@ -35,15 +35,15 @@
 					<td align="right">重点科室:</td>
 					<td>
 					
-					<#if (department.key)?? && department.key == 1 >
-						<input type="radio" name="department.key"  value="1" />
+					<#if (department.recommend)?? && department.recommend == 1 >
+						<input type="radio" name="department.recommend" checked="checked" value="1" />
 							是
-						<input type="radio" name="department.key" checked="checked" value="0" />
+						<input type="radio" name="department.recommend" value="0" />
 							否
 					<#else>
-						<input type="radio" name="department.key" checked="checked" value="1" />
+						<input type="radio" name="department.recommend" value="1" />
 							是
-						<input type="radio" name="department.key"  value="0" />
+						<input type="radio" name="department.recommend" checked="checked" value="0" />
 							否	
 					</#if>
 					
@@ -57,7 +57,14 @@
 						<#if imageMsg??><label style="color:red">${imageMsg}</label></#if>
 					</td>
 				</tr>
-				
+				<tr>
+					<td align="right">排序值:</td>
+					<td>
+						<div><label>[0-1000之间的整数，数值越大，排序越靠前，默认为0]</label></div>
+						<input name="department.sort" type="text" value="${(department.sort)!}"/>
+						<#if sortMsg??><label style="color:red">${sortMsg}</label></#if>
+					</td>
+				</tr>
 				<tr>
 					<td align="right">科室简介:</td>
 					<td>

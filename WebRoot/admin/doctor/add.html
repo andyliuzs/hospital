@@ -80,7 +80,32 @@
 						<#if imageMsg??><label style="color:red">${imageMsg}</label></#if>
 					</td>
 				</tr>
-
+				<tr>
+					<td align="right">是否推荐:</td>
+					<td>
+					
+					<#if (doctor.recommend)?? && doctor.recommend == 0 >
+						<input type="radio" name="doctor.recommend"  value="1" />
+							是
+						<input type="radio" name="doctor.recommend" checked="checked" value="0" />
+							否
+					<#else>
+						<input type="radio" name="doctor.recommend" checked="checked" value="1" />
+							是
+						<input type="radio" name="doctor.recommend"  value="0" />
+							否
+					</#if>
+					
+					</td>
+				</tr>	
+				<tr>
+					<td align="right">排序值:</td>
+					<td>
+						<div><label>[0-1000之间的整数，数值越大，排序越靠前，默认为0]</label></div>
+						<input name="doctor.sort" type="text" value="${(doctor.sort)!}"/>
+						<#if sortMsg??><label style="color:red">${sortMsg}</label></#if>
+					</td>
+				</tr>
 				<tr>
 					<td align="right">医生简介:</td>
 					<td>

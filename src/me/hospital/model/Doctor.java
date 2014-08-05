@@ -2,6 +2,8 @@ package me.hospital.model;
 
 import java.util.List;
 
+import me.hospital.config.CoreConstants;
+
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Page;
 
@@ -52,6 +54,14 @@ public class Doctor extends Model<Doctor> {
 	}
 
 	/**
+	 * 根据排序值获取首页显示的医生
+	 * @return
+	 */
+	public List<Doctor> getRecommends() {
+		return Doctor.dao.find("select * from doctor where recommend = 1 order by sort desc limit 0, ?", CoreConstants.RECOMMEND_DOCTOR_SIZE);
+	}
+	
+	/**
 	 * 获取当天的排班信息
 	 */
 	public Schedule getSchedule(String date) {
@@ -60,6 +70,6 @@ public class Doctor extends Model<Doctor> {
 	}
 
 	public Page<Doctor> paginate(int pageNumber, int pageSize) {
-		return paginate(pageNumber, pageSize, "select *", "from doctor order by id asc");
+		return paginate(pageNumber, pageSize, "select *", "from doctor order by sort desc");
 	}
 }

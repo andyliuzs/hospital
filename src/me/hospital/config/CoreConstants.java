@@ -31,4 +31,10 @@ public class CoreConstants {
 	// 排班的天数，默认为10天
 	public static final int SCHEDULE_DAYS = 10;
 	
+	// 首页显示的医生的数量
+	public static final int RECOMMEND_DOCTOR_SIZE = 4;
+	
+	// 首页显示的科室的数量
+	public static final int RECOMMEND_DEPARTMENT_SIZE = 4;
+	
 }

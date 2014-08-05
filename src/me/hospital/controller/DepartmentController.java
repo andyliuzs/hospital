@@ -10,7 +10,7 @@ import me.hospital.interceptor.DepartmentInterceptor;
 import me.hospital.model.Department;
 import me.hospital.util.FileUtil;
 import me.hospital.util.ParamUtil;
-import me.hospital.validator.SaveDoctorValidator;
+import me.hospital.validator.SaveDepartmentValidator;
 
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;
@@ -127,7 +127,7 @@ public class DepartmentController extends Controller {
 	/**
 	 * 添加/修改科室信息处理方法
 	 */
-	@Before(SaveDoctorValidator.class)
+	@Before(SaveDepartmentValidator.class)
 	public void save() {
 
 		UploadFile file = getFile("department.image", "/", CoreConstants.MAX_FILE_SIZE);
@@ -136,6 +136,8 @@ public class DepartmentController extends Controller {
 		String savePath = FileUtil.saveAvatarImage(file.getFile());
 
 		Department department = getModel(Department.class);
+		
+		System.out.println("savePath: " + savePath);
 		
 		// 设置头像路径
 		department.set("image", savePath);

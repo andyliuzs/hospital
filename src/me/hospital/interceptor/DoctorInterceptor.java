@@ -26,7 +26,7 @@ public class DoctorInterceptor implements Interceptor {
 		controller.setAttr("roles", roles);
 
 		// 读取所有的科室信息，真实医院的科室也分级，这里简化数据，不分级
-		List<Department> departments = Department.dao.getAllDepartments();
+		List<Department> departments = Department.dao.getDepartments();
 		controller.setAttr("departments", departments);
 
 	}

@@ -1,5 +1,5 @@
 ﻿/* reset */
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,nav ul,nav li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;font-size:100%;border:0;font:inherit;vertical-align:baseline;}
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,nav ul,nav li,form,label,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;font-size:100%;border:0;font:inherit;vertical-align:baseline;}
 article, aside, details, figcaption, figure,footer, header, hgroup, menu, nav, section {display: block;}
 ol,ul{list-style:none;margin:0px;padding:0px;font-family: Helvetica,Arial,Verdana,sans-serif;}
 blockquote,q{quotes:none;}
@@ -441,3 +441,48 @@ div.digg span.disabled {
 
 
 /* register.html 预约挂号 */
+
+/* regist.html 用户注册 */
+.regist-wrapper {
+	/*background-color: orange;*/
+	width: 900px;
+	margin: auto;
+}
+
+.regist-wrapper fieldset {
+	border: 1px solid #DDDDDD;
+}
+
+.regist-wrapper legend {
+	color: #565656;
+}
+
+.regist-wrapper table tr {
+	height: 35px;
+	line-height: 35px;
+}
+
+.regist-wrapper table tr td.title {
+	text-align: right;
+
+}
+
+.regist-wrapper table tr td.title label {
+	/*display: block;*/
+	margin-right: 15px;
+}
+
+.regist-wrapper .regist {
+	margin-top: 15px;
+	width:100%;
+	background-color: #DDDDDD;
+	height: 45px;
+	line-height: 45px;
+	text-align: center;
+}
+
+.regist-wrapper .regist input {
+	width: 60px;
+	height: 25px;
+}
+

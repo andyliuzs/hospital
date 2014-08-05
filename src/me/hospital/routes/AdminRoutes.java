@@ -1,8 +1,8 @@
 package me.hospital.routes;
 
+import me.hospital.controller.AdminController;
 import me.hospital.controller.DepartmentController;
 import me.hospital.controller.DoctorController;
-import me.hospital.controller.IndexController;
 import me.hospital.controller.MyInfoController;
 import me.hospital.controller.PostController;
 import me.hospital.controller.RegisterController;
@@ -17,7 +17,7 @@ public class AdminRoutes extends Routes{
 	public void config() {
 
 		// 后台首页
-		add("/admin", IndexController.class);
+		add("/admin", AdminController.class);
 		
 		// 我的信息
 		add("/admin/myinfo", MyInfoController.class);

@@ -32,7 +32,7 @@ public class ScheduleController extends Controller {
 		int departmentId = ParamUtil.paramToInt(getPara(0), -1);
 
 		// 读取所有的科室信息，真实医院的科室也分级，这里简化数据，不分级
-		List<Department> departments = Department.dao.getAllDepartments();
+		List<Department> departments = Department.dao.getDepartments();
 		setAttr("departments", departments);
 
 		// 获取未来10天，组合成list
