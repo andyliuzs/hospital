@@ -420,7 +420,7 @@ input[type=text], input[type=password]{
 
 
 
-/* news.html 新闻中心 */
+/* news_detail.html 新闻详情 */
 .news-detail {
 	width: 660px;
 	margin: 10px 20px;
@@ -445,10 +445,58 @@ input[type=text], input[type=password]{
 	color: #565656;
 }
 
-/* department.html 科室介绍 */
+/* doctor.html && department.html */
+.doctor-list {
+	width: 900px;
+	margin: 30px 30px;
+}
 
+.doctor-image {
+	float: left;
+}
 
-/* doctor.html 名医荟萃 */
+.doctor-image a {
+	display: block;
+	width: 120px;
+	height: 120px;
+}
+
+.doctor-image a img {
+	margin: 0;
+	padding: 0;
+}
+
+.doctor-desc {
+	float: left;
+	margin-left: 10px;
+	width: 770px;
+	color: #565656;
+	font-size: 14px;
+}
+
+.doctor-desc p a.name {
+	display: block;
+	float: left;
+	height: 25px;
+	line-height: 25px;
+	/*padding: 5px 0;*/
+	font-size: 16px;
+	color: #4B7EB2;
+}
+
+.doctor-desc p span.role {
+	display: block;
+	float: right;
+	height: 25px;
+	line-height: 25px;
+	font-size: 14px;
+	color: #4B7EB2;
+}
+
+.doctor-desc .desc {
+	margin-top: 10px;
+} 
+
 
 
 /* research.html 科研教学 */
