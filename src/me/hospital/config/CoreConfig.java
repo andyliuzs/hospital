@@ -1,6 +1,6 @@
 package me.hospital.config;
 
-import me.hospital.interceptor.SessionInterceptor;
+import me.hospital.interceptor.admin.SessionInterceptor;
 import me.hospital.model.Admin;
 import me.hospital.model.Department;
 import me.hospital.model.Doctor;
@@ -23,6 +23,7 @@ import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
 import com.jfinal.core.JFinal;
+import com.jfinal.ext.handler.FakeStaticHandler;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.activerecord.CaseInsensitiveContainerFactory;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
@@ -98,7 +99,8 @@ public class CoreConfig extends JFinalConfig {
 	 * 配置处理器
 	 */
 	public void configHandler(Handlers me) {
-		
+//		me.add(new FakeStaticHandler());
+		me.add(new FakeStaticHandler());
 	}
 	
 	/**

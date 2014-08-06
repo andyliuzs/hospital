@@ -1,4 +1,4 @@
-package me.hospital.controller;
+package me.hospital.controller.admin;
 
 import com.jfinal.core.Controller;
 

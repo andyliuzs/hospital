@@ -1,4 +1,4 @@
-package me.hospital.controller;
+package me.hospital.controller.admin;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 import me.hospital.config.CoreConstants;
-import me.hospital.interceptor.DoctorInterceptor;
+import me.hospital.interceptor.admin.DoctorInterceptor;
 import me.hospital.model.Doctor;
 import me.hospital.util.CN2SpellUtil;
 import me.hospital.util.FileUtil;
 import me.hospital.util.ParamUtil;
-import me.hospital.validator.SaveDoctorValidator;
+import me.hospital.validator.admin.SaveDoctorValidator;
 
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;

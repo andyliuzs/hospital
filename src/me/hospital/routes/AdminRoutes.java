@@ -1,13 +1,13 @@
 package me.hospital.routes;
 
-import me.hospital.controller.AdminController;
-import me.hospital.controller.DepartmentController;
-import me.hospital.controller.DoctorController;
-import me.hospital.controller.MyInfoController;
-import me.hospital.controller.PostController;
-import me.hospital.controller.RegisterController;
-import me.hospital.controller.ScheduleController;
-import me.hospital.controller.UserController;
+import me.hospital.controller.admin.AdminController;
+import me.hospital.controller.admin.DepartmentController;
+import me.hospital.controller.admin.DoctorController;
+import me.hospital.controller.admin.MyInfoController;
+import me.hospital.controller.admin.PostController;
+import me.hospital.controller.admin.RegisterController;
+import me.hospital.controller.admin.ScheduleController;
+import me.hospital.controller.admin.UserController;
 
 import com.jfinal.config.Routes;
 

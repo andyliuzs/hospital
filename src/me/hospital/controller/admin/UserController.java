@@ -1,4 +1,4 @@
-package me.hospital.controller;
+package me.hospital.controller.admin;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,7 +9,7 @@ import java.util.Map;
 import me.hospital.config.CoreConstants;
 import me.hospital.model.User;
 import me.hospital.util.ParamUtil;
-import me.hospital.validator.SaveUserValidator;
+import me.hospital.validator.admin.SaveUserValidator;
 
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;

@@ -1,10 +1,10 @@
-package me.hospital.controller;
+package me.hospital.controller.admin;
 
 import me.hospital.model.Admin;
 import me.hospital.model.Doctor;
 import me.hospital.util.DateUtil;
 import me.hospital.util.ParamUtil;
-import me.hospital.validator.UpdatePasswordValidator;
+import me.hospital.validator.admin.UpdatePasswordValidator;
 
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;

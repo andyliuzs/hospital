@@ -1,4 +1,6 @@
-package me.hospital.home;
+package me.hospital.controller.home;
+
+import me.hospital.interceptor.home.HomeInterceptor;
 
 import com.jfinal.aop.Before;
 import com.jfinal.aop.ClearInterceptor;
@@ -11,13 +13,13 @@ import com.jfinal.core.Controller;
  * 所有 sql 写在 Model 或 Service 中，不要写在 Controller 中，养成好习惯，有利于大型项目的开发与维护
  */
 @ClearInterceptor(ClearLayer.ALL)
-public class HomeController extends Controller {
+public class DepartmentController extends Controller {
 
 	@Before(HomeInterceptor.class)
 	public void index() {
 
-		render("index.html");
+		render("/department.html");
 
 	}
-
+	
 }

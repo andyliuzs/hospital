@@ -1,4 +1,4 @@
-package me.hospital.controller;
+package me.hospital.controller.admin;
 
 import me.hospital.config.CoreConstants;
 import me.hospital.util.FileUtil;

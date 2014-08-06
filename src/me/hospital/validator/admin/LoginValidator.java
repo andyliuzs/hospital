@@ -1,4 +1,4 @@
-package me.hospital.validator;
+package me.hospital.validator.admin;
 
 import com.jfinal.core.Controller;
 import com.jfinal.validate.Validator;

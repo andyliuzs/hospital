@@ -1,4 +1,4 @@
-package me.hospital.validator;
+package me.hospital.validator.admin;
 
 import me.hospital.model.User;
 

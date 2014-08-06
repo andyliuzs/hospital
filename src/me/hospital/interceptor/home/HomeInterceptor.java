@@ -1,4 +1,4 @@
-package me.hospital.home;
+package me.hospital.interceptor.home;
 
 import java.util.List;
 

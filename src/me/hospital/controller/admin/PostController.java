@@ -1,4 +1,4 @@
-package me.hospital.controller;
+package me.hospital.controller.admin;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 import me.hospital.config.CoreConstants;
-import me.hospital.interceptor.PostInterceptor;
+import me.hospital.interceptor.admin.PostInterceptor;
 import me.hospital.model.Admin;
 import me.hospital.model.Post;
 import me.hospital.util.FileUtil;
 import me.hospital.util.ParamUtil;
-import me.hospital.validator.SavePostValidator;
+import me.hospital.validator.admin.SavePostValidator;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 

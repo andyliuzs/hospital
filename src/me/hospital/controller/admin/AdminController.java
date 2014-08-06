@@ -1,4 +1,4 @@
-package me.hospital.controller;
+package me.hospital.controller.admin;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import me.hospital.model.Admin;
 import me.hospital.model.Doctor;
 import me.hospital.model.Permission;
 import me.hospital.model.Role;
-import me.hospital.validator.LoginValidator;
+import me.hospital.validator.admin.LoginValidator;
 
 import com.jfinal.aop.Before;
 import com.jfinal.aop.ClearInterceptor;
@@ -124,5 +124,10 @@ public class AdminController extends Controller {
 		getSession().removeAttribute("roleName");
 		getSession().removeAttribute("permissions");
 		redirect("/admin/index");
+	}
+	
+	
+	public void welcome() {
+		render("welcome.html");
 	}
 }

@@ -1,4 +1,4 @@
-package me.hospital.controller;
+package me.hospital.controller.admin;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 import me.hospital.config.CoreConstants;
-import me.hospital.interceptor.DepartmentInterceptor;
+import me.hospital.interceptor.admin.DepartmentInterceptor;
 import me.hospital.model.Department;
 import me.hospital.util.FileUtil;
 import me.hospital.util.ParamUtil;
-import me.hospital.validator.SaveDepartmentValidator;
+import me.hospital.validator.admin.SaveDepartmentValidator;
 
 import com.jfinal.aop.Before;
 import com.jfinal.core.Controller;

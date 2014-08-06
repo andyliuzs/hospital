@@ -1,4 +1,4 @@
-package me.hospital.interceptor;
+package me.hospital.interceptor.admin;
 
 import com.jfinal.aop.Interceptor;
 import com.jfinal.core.ActionInvocation;
@@ -17,8 +17,6 @@ public class SessionInterceptor implements Interceptor {
 				.getSessionAttr("doctor") != null)
 				&& controller.getSessionAttr("roleName") != null
 				&& controller.getSessionAttr("permissions") != null) {
-			
-			System.out.println("invoke");
 			
 			ai.invoke();
 			

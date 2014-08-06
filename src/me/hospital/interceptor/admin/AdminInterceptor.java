@@ -1,4 +1,4 @@
-package me.hospital.interceptor;
+package me.hospital.interceptor.admin;
 
 import com.jfinal.aop.Interceptor;
 import com.jfinal.core.ActionInvocation;

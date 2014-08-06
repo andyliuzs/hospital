@@ -1,4 +1,4 @@
-package me.hospital.interceptor;
+package me.hospital.interceptor.admin;
 
 import java.util.List;
 
