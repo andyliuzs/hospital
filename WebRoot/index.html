@@ -5,9 +5,31 @@
 
 	<title>首页</title>
 
-	<link rel="stylesheet" href="./static/css/home.css" type="text/css" />
-	<script type="text/javascript" src="./static/js/jquery-1.10.2.min.js"></script>
-	<script type="text/javascript" src="./static/js/common.js" ></script>
+	<link rel="stylesheet" href="/static/css/home.css" type="text/css" />
+	<script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="/static/js/common.js" ></script>
+	
+	<script type="text/javascript">
+	
+		//页面加载之后,设置.样式.  
+		$(function(){  
+		    
+			//使用id选择器;例如:tab对象->tr->td对象.  
+		    $(".point-desc p.desc").each(function(i){  
+		         //获取td当前对象的文本,如果长度大于25;  
+		         if($(this).text().length > 50){  
+	                //给td设置title属性,并且设置td的完整值.给title属性.  
+		    		$(this).attr("title", "点击图片或科室名称查看详情");//$(this).text());  
+	                //获取td的值,进行截取。赋值给text变量保存.  
+		    		var text = $(this).text().substring(0, 50) + "...";  
+	                //重新为td赋值;  
+	                $(this).text(text);  
+		         }  
+	        });  
+		});  
+	
+	</script>
+	
 </head>
 <body>
 
@@ -56,7 +78,7 @@
 			<div class="content">
 
 				<div class="doctor-wrapper">
-					<h5><a href="">推荐专家</a></h5>
+					<h5><a href="doctor.html">推荐专家</a></h5>
 					<div>
 						<#list doctors as doctor>
 							<div class="point-content">
@@ -66,71 +88,15 @@
 								<div class="point-desc">
 									<p><a href="" class="name">${doctor.name}</a><span class="role">${doctor.getRole().name}</span></p>
 									<div class="clear"></div>
-									<p>${doctor.desc}</p>
+									<p class="desc">${doctor.desc}</p>
 								</div>
 							</div>
 						</#list>
-					
-					
-					
-					
-					
-					
-					
-<!-- 						<ul> -->
-<!-- 							<li> -->
-<!-- 								<div class="point-content"> -->
-<!-- 									<div class="point-image"> -->
-<!-- 										<a href=""><img src="./static/image/demo_1.jpg" onload="resizeImage(this, 100, 100)" /></a> -->
-<!-- 									</div> -->
-<!-- 									<div class="point-desc"> -->
-<!-- 										<p><a href="" class="name">王菊莉</a><span class="role">主任医师</span></p> -->
-<!-- 										<div class="clear"></div> -->
-<!-- 										<p>兼市医学科学研究所副所长、佳大教授、硕士生导师，中国抗癫痫协会理事、省抗癫痫协会理事、市抗癫痫协会...</p> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="point-content"> -->
-<!-- 									<div class="point-image"> -->
-<!-- 										<a href=""><img src="./static/image/demo_2.gif" onload="resizeImage(this, 100, 100)" /></a> -->
-<!-- 									</div> -->
-<!-- 									<div class="point-desc"> -->
-<!-- 										<p><a href="" class="name">陈　虹</a><span class="role">主任医师</span></p> -->
-<!-- 										<div class="clear"></div> -->
-<!-- 										<p>现任佳木斯大学兼职教授，省神经内科专业委员，市神经内科专业第一副主任委员...</p> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="clear"></div> -->
-<!-- 							</li> -->
-<!-- 							<li> -->
-<!-- 								<div class="point-content"> -->
-<!-- 									<div class="point-image"> -->
-<!-- 										<a href=""><img src="./static/image/demo_3.jpg" onload="resizeImage(this, 100, 100)" /></a> -->
-<!-- 									</div> -->
-<!-- 									<div class="point-desc"> -->
-<!-- 										<p><a href="" class="name">毕成杰</a><span class="role">主任医师</span></p> -->
-<!-- 										<div class="clear"></div> -->
-<!-- 										<p>专业特长：应用中医中药及中西医结合治疗血液系统常见病及多发病。如：再生障碍性贫血、血小板减少性...</p> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-
-<!-- 								<div class="point-content"> -->
-<!-- 									<div class="point-image"> -->
-<!-- 										<a href=""><img src="./static/image/demo_4.gif" onload="resizeImage(this, 100, 100)" /></a> -->
-<!-- 									</div> -->
-<!-- 									<div class="point-desc"> -->
-<!-- 										<p><a href="" class="name">李　志</a><span class="role">主任医师</span></p> -->
-<!-- 										<div class="clear"></div> -->
-<!-- 										<p>从事血液科工作27年，专业范围是血液科疾病的治疗。血液科疾病包括：红细胞疾病、白细胞疾病...</p> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="clear"></div> -->
-<!-- 							</li> -->
-<!-- 						</ul> -->
 					</div>
 				</div>
 				<div class="clear"></div>
 				<div class="department-wrapper">
-					<h5><a href="">重点科室</a></h5>
+					<h5><a href="department.html">重点科室</a></h5>
 					<div>
 						<#list departments as department>
 							<div class="point-content">
@@ -140,60 +106,10 @@
 								<div class="point-desc">
 									<p><a href="" class="name">${department.name}</a></p>
 									<div class="clear"></div>
-									<p>${department.desc}</p>
+									<p class="desc">${department.desc}</p>
 								</div>
 							</div>
 						</#list>
-					
-<!-- 						<ul> -->
-<!-- 							<li> -->
-<!-- 								<div class="point-content"> -->
-<!-- 									<div class="point-image"> -->
-<!-- 										<a href=""><img src="./static/image/demo_5.jpg" onload="resizeImage(this, 100, 100)" /></a> -->
-<!-- 									</div> -->
-<!-- 									<div class="point-desc"> -->
-<!-- 										<p><a href="" class="name">口腔外科</a></p> -->
-<!-- 										<div class="clear"></div> -->
-<!-- 										<p>中心医院颌面外科创立至今已40多年，是黑龙江省为数不多的颌面外科专科之一，是佳木斯地区颌面外科...</p> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="point-content"> -->
-<!-- 									<div class="point-image"> -->
-<!-- 										<a href=""><img src="./static/image/demo_6.gif" onload="resizeImage(this, 100, 100)" /></a> -->
-<!-- 									</div> -->
-<!-- 									<div class="point-desc"> -->
-<!-- 										<p><a href="" class="name">肿瘤内科</a></p> -->
-<!-- 										<div class="clear"></div> -->
-<!-- 										<p>肿瘤内科开展术前新辅助化疗、术后辅助化疗；对各种中晚期恶性肿瘤的化疗及综合治疗，如肺癌、乳腺癌...</p> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="clear"></div> -->
-<!-- 							</li> -->
-<!-- 							<li> -->
-<!-- 								<div class="point-content"> -->
-<!-- 									<div class="point-image"> -->
-<!-- 										<a href=""><img src="./static/image/demo_7.jpg" onload="resizeImage(this, 100, 100)" /></a> -->
-<!-- 									</div> -->
-<!-- 									<div class="point-desc"> -->
-<!-- 										<p><a href="" class="name">中医科</a></p> -->
-<!-- 										<div class="clear"></div> -->
-<!-- 										<p>中医科现有医师4名，其中主任医师2名，主治医师1名，医师1名。科主任黄晓华主任医师，1993年毕业于黑...</p> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-
-<!-- 								<div class="point-content"> -->
-<!-- 									<div class="point-image"> -->
-<!-- 										<a href=""><img src="./static/image/demo_8.gif" onload="resizeImage(this, 100, 100)" /></a> -->
-<!-- 									</div> -->
-<!-- 									<div class="point-desc"> -->
-<!-- 										<p><a href="" class="name">肛肠科</a></p> -->
-<!-- 										<div class="clear"></div> -->
-<!-- 										<p>肛肠科以结肠、直肠及肛门疾病为诊治范围，依托三级甲等医院综合实力，全面开展结直肠肛门外科疾病的...</p> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="clear"></div> -->
-<!-- 							</li> -->
-<!-- 						</ul> -->
 					</div>
 				</div>
 				<div class="clear"></div>
@@ -232,7 +148,7 @@
 				<div class="login-wrapper">
 					<h5>用户登录</h5>
 					<div class="login">
-						<form name="loginForm" method="post" action="" >
+						<form name="loginForm" method="post" action="/login" >
 							<ul>
 								<li>
 									<label for="username">账号</label>
@@ -240,7 +156,7 @@
 								</li>
 								<li>
 									<label for="username">密码</label>
-									<input type="text" name="password"/>
+									<input type="password" name="password"/>
 								</li>
 
 							</ul>
@@ -252,10 +168,10 @@
 					</div>
 				</div>
 
-				<div class="news-wrapper">
+				<div class="post-wrapper">
 					<h5>公告列表</h5>
 
-					<div class="news-list">
+					<div class="post-list">
 						<ul>
 							<li>
 								<p><a href="" class="title">我院胸外科在本地区设立首家肺癌...</a></p>

@@ -13,6 +13,22 @@ import com.jfinal.plugin.activerecord.Page;
 public class User extends Model<User> {
 	public static final User dao = new User();
 
+	
+	/**
+	 * 根据账号和密码判断是否登录成功
+	 * @param account
+	 * @param password
+	 * @return
+	 */
+	public User getByAccountAndPassword(String account, String password) {
+		return dao.findFirst("select * from user where account = ? and password = ?", account,
+				password);
+	}
+	
+	
+	
+	
+	
 	public Page<User> paginate(int pageNumber, int pageSize) {
 		return paginate(pageNumber, pageSize, "select *", "from user order by id asc");
 	}

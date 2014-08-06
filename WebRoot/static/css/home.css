@@ -1,4 +1,4 @@
-ï»¿/* reset */
+/* reset */
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,nav ul,nav li,form,label,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;font-size:100%;border:0;font:inherit;vertical-align:baseline;}
 article, aside, details, figcaption, figure,footer, header, hgroup, menu, nav, section {display: block;}
 ol,ul{list-style:none;margin:0px;padding:0px;font-family: Helvetica,Arial,Verdana,sans-serif;}
@@ -29,13 +29,13 @@ input[type=text], input[type=password]{
 	background:#fff;
 	filter:progid:DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=4);/*ie*/
 	-moz-box-shadow: 2px 2px 10px #909090;/*firefox*/
-	-webkit-box-shadow: 2px 2px 10px #909090;/*safariæˆ–chrome*/
-	box-shadow:2px 2px 10px #909090;/*operaæˆ–ie9*/
+	-webkit-box-shadow: 2px 2px 10px #909090;/*safari»òchrome*/
+	box-shadow:2px 2px 10px #909090;/*opera»òie9*/
 
 
 }
 
-/* é¡¶éƒ¨ */
+/* ¶¥²¿ */
 .header{
 	width: 100%;
 	height: 60px;
@@ -71,7 +71,7 @@ input[type=text], input[type=password]{
 	color: #43BB3E;
 }
 
-/* å¯¼èˆª */
+/* µ¼º½ */
 .nav {
 	margin-top: 10px;
 }
@@ -112,7 +112,7 @@ input[type=text], input[type=password]{
 	color: #43BB3E;
 }
 
-/* å›¾ç‰‡å±•ç¤º */
+/* Í¼Æ¬Õ¹Ê¾ */
 .gallery {
 	width: 940px;
 	height: 200px;
@@ -124,7 +124,7 @@ input[type=text], input[type=password]{
 	border-radius: 10px; 
 }
 
-/* å†…å®¹ */
+/* ÄÚÈİ */
 .container {
 	margin-top: 5px;
 }
@@ -145,7 +145,7 @@ input[type=text], input[type=password]{
 	color: #4B7EB2;
 }
 
-/* å·¦ä¾§å†…å®¹ */
+/* ×ó²àÄÚÈİ */
 .content {
 	float:left;
 	width: 700px;
@@ -202,18 +202,18 @@ input[type=text], input[type=password]{
 	color: #4B7EB2;
 }
 
-/* åŒ»ç”Ÿä»‹ç» */
+/* Ò½Éú½éÉÜ */
 .doctor-wrapper {
 	width: 100%;
 }
 
-/* ç§‘å®¤ç®€ä»‹ */
+/* ¿ÆÊÒ¼ò½é */
 .department-wrapper {
 	width: 100%;
 	margin-top: 25px;
 }
 
-/* å°±åŒ»æŒ‡å— */
+/* ¾ÍÒ½Ö¸ÄÏ */
 .guide-wrapper {
 	width: 100%;
 	margin-top: 25px;
@@ -249,14 +249,14 @@ input[type=text], input[type=password]{
 }
 
 
-/* ä¾§è¾¹æ  */
+/* ²à±ßÀ¸ */
 .sidebar {
 	float: right;
 	width: 260px;
 	height: 500px;
 }
 
-/* å…³äºæˆ‘ä»¬*/
+/* ¹ØÓÚÎÒÃÇ*/
 .login-wrapper {
 	width: 100%;
 	/*height: 150px;*/
@@ -277,35 +277,38 @@ input[type=text], input[type=password]{
 }
 
 
-/* æœ€æ–°å…¬å‘Š */
-.news-wrapper {
+/* ×îĞÂ¹«¸æ */
+.post-wrapper {
 	width:100%;
 	margin-top: 20px;
 }
 
-.news-list {
+.post-list {
 	width: 240px;
 	margin: 5px 10px 0;
 	font-size: 14px;
 }
 
-.news-list p {
+.post-list p {
 	height: 30px;
 	line-height: 30px;
 }
 
-.news-list p a.title {
+.post-list p a.title {
 	float: left;
 	color: #565656;
 
 }
 
-.news-list p a:hover {
+.post-list p a:hover {
 	color: #7D4791;
 }
 
+.post-list P a.current {
+	color: #4B7EB2;
+}
 
-/* è”ç³»æ–¹å¼ */
+/* ÁªÏµ·½Ê½ */
 .contact-wrapper {
 	margin-top: 20px;
 	width: 100%;
@@ -317,7 +320,7 @@ input[type=text], input[type=password]{
 	font-size: 14px;
 }
 
-/* åº•éƒ¨ */
+/* µ×²¿ */
 .footer {
 	margin-top: 10px;
 	width: 100%;
@@ -335,7 +338,7 @@ input[type=text], input[type=password]{
 }
 
 
-/* intro.html åŒ»é™¢ç®€ä»‹ */
+/* intro.html Ò½Ôº¼ò½é */
 
 .intro-wrapper {
 	width: 100%;
@@ -355,16 +358,16 @@ input[type=text], input[type=password]{
 	margin: 10px 20px;
 }
 
-/* åˆ—è¡¨æ ·å¼ */
+/* ÁĞ±íÑùÊ½ */
 .content-list {
-	width: 680px;
-	margin: 10px;
-	/*background-color: #cccccc;*/
+	width: 660px;
+	margin: 10px 20px;
 }
 
 .content-list table {
 	width: 100%;
 	color: #565656;
+	font-size: 14px;
 }
 
 .content-list table th {
@@ -381,68 +384,79 @@ input[type=text], input[type=password]{
 	line-height: 35px;
 }
 
-/* åˆ†é¡µæ ·å¼ */
-.content-page{
-	margin-top: 25px;
+
+/* ·ÖÀàÁĞ±í */
+.category-wrapper {
+	width:100%;
+	margin-top: 20px;
 }
 
-div.digg {
-	padding: 3px; 
-	margin: 3px; 
+.category-list {
+	width: 240px;
+	margin: 5px 10px 0;
+	font-size: 14px;
+}
+.category-list h5 {
 	text-align: center;
 }
-
-div.digg a {
-	border: 1px solid #aaaadd; 
-	padding: 2px 5px; 
-	margin: 2px; 
-	color: #000099; 
-	text-decoration: none;
+.category-list p {
+	height: 30px;
+	line-height: 30px;
 }
 
-div.digg a:hover {
-	border: 1px solid #4B7EB2; 
-	color: #000; 
+.category-list p a.title {
+	float: left;
+	color: #565656;
+	margin-left: 15px;
 }
 
-div.digg a:active {
-	border: 1px solid #4B7EB2; 
-	color: #000; 
+.category-list p a:hover {
+	color: #7D4791;
 }
 
-div.digg span.current {
-	border: 1px solid #4B7EB2; 
-	padding: 2px 5px;  
-	font-weight: bold; 
-	margin: 2px; 
-	color: #fff; 
-	background-color: #4B7EB2;
-}
-
-div.digg span.disabled {
-	border-right: 1px solid #eee; 
-	padding: 2px 5px; 
-	margin: 2px; 
-	color: #ddd; 
+.category-list P a.current {
+	color: #4B7EB2;
 }
 
 
 
-/* news.html æ–°é—»ä¸­å¿ƒ */
+/* news.html ĞÂÎÅÖĞĞÄ */
+.news-detail {
+	width: 660px;
+	margin: 10px 20px;
+}
+
+.news-title {
+	margin: auto;
+	height: 45px;
+	line-height: 45px;
+	text-align: center;
+	border-bottom: 1px solid #DDDDDD;
+}
+
+.news-content {
+	margin-top: 20px;
+}
+
+.news-info {
+	margin-top: 10px;
+	text-align: center;
+	font-size: 14px;
+	color: #565656;
+}
+
+/* department.html ¿ÆÊÒ½éÉÜ */
 
 
-/* department.html ç§‘å®¤ä»‹ç» */
+/* doctor.html ÃûÒ½ÜöİÍ */
 
 
-/* doctor.html ååŒ»èŸèƒ */
+/* research.html ¿ÆÑĞ½ÌÑ§ */
 
 
-/* research.html ç§‘ç ”æ•™å­¦ */
+/* register.html Ô¤Ô¼¹ÒºÅ */
 
-
-/* register.html é¢„çº¦æŒ‚å· */
-
-/* regist.html ç”¨æˆ·æ³¨å†Œ */
+/* regist.html ÓÃ»§×¢²á */
 .regist-wrapper {
 	/*background-color: orange;*/
 	width: 900px;
@@ -485,4 +499,52 @@ div.digg span.disabled {
 	width: 60px;
 	height: 25px;
 }
+
+/* ·ÖÒ³ÑùÊ½ */
+.content-page{
+	margin-top: 25px;
+	text-align: center;
+	font-size: 14px;
+}
+
+div.digg {
+	padding: 3px; 
+	margin: 3px; 
+	text-align: center;
+}
+
+div.digg a {
+	border: 1px solid #aaaadd; 
+	padding: 2px 5px; 
+	margin: 2px; 
+	color: #000099; 
+	text-decoration: none;
+}
+
+div.digg a:hover {
+	border: 1px solid #4B7EB2; 
+	color: #000; 
+}
+
+div.digg a:active {
+	border: 1px solid #4B7EB2; 
+	color: #000; 
+}
+
+div.digg span.current {
+	border: 1px solid #4B7EB2; 
+	padding: 2px 5px;  
+	font-weight: bold; 
+	margin: 2px; 
+	color: #fff; 
+	background-color: #4B7EB2;
+}
+
+div.digg span.disabled {
+	border-right: 1px solid #eee; 
+	padding: 2px 5px; 
+	margin: 2px; 
+	color: #ddd; 
+}
+
 

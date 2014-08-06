@@ -33,4 +33,15 @@ public class Post extends Model<Post> {
 		return paginate(pageNumber, pageSize, "select *",
 				"from post order by id asc");
 	}
+
+	/**
+	 * 带分类分页获取数据
+	 */
+	public Page<Post> paginate(int pageNumber, int pageSize, int cid) {
+
+		return paginate(pageNumber, pageSize, "select *",
+				"from post where cid = ? order by id asc", cid);
+
+	}
+
 }
