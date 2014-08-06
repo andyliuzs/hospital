@@ -1,82 +1,58 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>首页</title>
-
 	<link rel="stylesheet" href="/static/css/home.css" type="text/css" />
 	<script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="/static/js/common.js" ></script>
-	
 	<script type="text/javascript">
 	
 		//页面加载之后,设置.样式.  
 		$(function(){  
 		    
-			//使用id选择器;例如:tab对象->tr->td对象.  
 		    $(".point-desc p.desc").each(function(i){  
-		         //获取td当前对象的文本,如果长度大于25;  
 		         if($(this).text().length > 50){  
-	                //给td设置title属性,并且设置td的完整值.给title属性.  
 		    		$(this).attr("title", "点击图片或科室名称查看详情");//$(this).text());  
-	                //获取td的值,进行截取。赋值给text变量保存.  
 		    		var text = $(this).text().substring(0, 50) + "...";  
-	                //重新为td赋值;  
 	                $(this).text(text);  
 		         }  
 	        });  
+		
+		    $(".post-list li a").each(function(i){  
+		         if($(this).text().length > 15){  
+		    		$(this).attr("title", $(this).text());  
+		    		var text = $(this).text().substring(0, 15) + "...";  
+	                $(this).text(text);  
+		         }  
+	        }); 
+	        
 		});  
 	
 	</script>
-	
 </head>
 <body>
-
 	<div class="wrapper">
 		<div class="header">
 			<p class="logo"></p>
-			<p class="favorite">
-				<a href="">点击收藏</a>
-			</p>
+			<p class="favorite"><a href="">点击收藏</a></p>
 		</div>
-
 		<div class="nav">
 			<ul>
-				<li>
-					<a href="index.html" class="current">首&nbsp;&nbsp;页</a>
-				</li>
-				<li>
-					<a href="intro.html">医院简介</a>
-				</li>
-				<li>
-					<a href="news.html">新闻中心</a>
-				</li>
-				<li>
-					<a href="department.html">科室介绍</a>
-				</li>
-				<li>
-					<a href="doctor.html">名医荟萃</a>
-				</li>			
-				<li>
-					<a href="research.html">科研教学</a>
-				</li>
-				<li>
-					<a href="register.html">预约挂号</a>
-				</li>
+				<li><a href="index.html" class="current">首&nbsp;&nbsp;页</a></li>
+				<li><a href="intro.html">医院简介</a></li>
+				<li><a href="news.html">新闻中心</a></li>
+				<li><a href="department.html">科室介绍</a></li>
+				<li><a href="doctor.html">名医荟萃</a></li>
+				<li><a href="research.html">科研教学</a></li>
+				<li><a href="register.html">预约挂号</a></li>
 			</ul>
 		</div>
 		<div class="clear"></div>
 		<!-- 图片展示 -->
-		<div class="gallery">
-		
-
-		</div>
-
+		<div class="gallery"></div>
 		<div class="container">
-
 			<div class="content">
-
 				<div class="doctor-wrapper">
 					<h5><a href="doctor.html">推荐专家</a></h5>
 					<div>
@@ -117,32 +93,15 @@
 					<h5><a href="">就医指南</a></h5>
 					<div class="guide-list">
 						<ul>
-							<li>
-								<p><a href="" class="title">就诊流程图[图]</a><span class="date">2013-09-06</span></p>
-								<div class="clear"></div>	
-							</li>
-							<li>
-								<p><a href="" class="title">入出院流程图[图]</a><span class="date">2013-09-06</span></p>
-								<div class="clear"></div>		
-							</li>
-							<li>
-								<p><a href="" class="title">医保患者入院流程</a><span class="date">2013-09-06</span></p>
-								<div class="clear"></div>		
-							</li>
-							<li>
-								<p><a href="" class="title">门诊住院综合楼楼层分布情况 [图]</a><span class="date">2013-09-06</span></p>
-								<div class="clear"></div>		
-							</li>
-							<li>
-								<p><a href="" class="title">医疗服务价格项目表</a><span class="date">2013-09-06</span></p>
-								<div class="clear"></div>		
-							</li>
-		
+							<#list guides as guide>
+								<li>
+									<p><a href="/news/detail/${guide.cid}-${guide.id}" class="title">${guide.title}</a><span class="date">${guide.time}</span></p>
+									<div class="clear"></div>	
+								</li>
+							</#list>
 						</ul>
 					</div>
-
 				</div>
-
 			</div>
 			<div class="sidebar">
 				<div class="login-wrapper">
@@ -167,58 +126,19 @@
 						</form>
 					</div>
 				</div>
-
 				<div class="post-wrapper">
-					<h5>公告列表</h5>
-
+					<h5><a href="/news/4">公告通知</a></h5>
 					<div class="post-list">
 						<ul>
-							<li>
-								<p><a href="" class="title">我院胸外科在本地区设立首家肺癌...</a></p>
-								<div class="clear"></div>	
-							</li>
-							<li>
-								<p><a href="" class="title">我院健康体检中心喜迎三八妇女节...</a></p>
-								<div class="clear"></div>	
-							</li>
-							<li>
-								<p><a href="" class="title">我院已正式启动预约诊疗服务</a></p>
-								<div class="clear"></div>	
-							</li>
-							<li>
-								<p><a href="" class="title">佳木斯市中心医院60周年院庆优惠...</a></p>
-								<div class="clear"></div>	
-							</li>
-							<li>
-								<p><a href="" class="title">我院癫痫中心特邀专家举办大型会...</a></p>
-								<div class="clear"></div>	
-							</li>
-							<li>
-								<p><a href="" class="title">我院眼科特邀北京专家9月29日来...</a></p>
-								<div class="clear"></div>	
-							</li>
-							<li>
-								<p><a href="" class="title">我院再次被评为国家三级甲等医院...</a></p>
-								<div class="clear"></div>	
-							</li>
-							<li>
-								<p><a href="" class="title">曹洪涛院长在会上作激情洋溢的讲...</a></p>
-								<div class="clear"></div>	
-							</li>
-							<li>
-								<p><a href="" class="title">我院开展首例化学消融治疗肥厚型...</a></p>
-								<div class="clear"></div>	
-							</li>
-							<li>
-								<p><a href="" class="title">我院医疗队深入绥滨县开展义诊活...</a></p>
-								<div class="clear"></div>	
-							</li>
-		
+							<#list notices as notice>
+								<li>
+									<p><a href="/news/detail/${notice.cid}-${notice.id}" class="title">${notice.title}</a></p>
+									<div class="clear"></div>	
+								</li>
+							</#list>
 						</ul>
 					</div>
-		
 				</div>
-
 				<div class="contact-wrapper">
 					<h5>联系方式</h5>
 					<div class="contact">
@@ -228,20 +148,12 @@
 						<p>乘车路线：乘2路、4路、13路、15路、17路到中心医院下车即是</p>
 					</div>
 				</div>
-
 			</div>
-
 		</div>
 		<div class="clear"></div>
 		<div class="footer">
-			
-				<p>
-					佳木斯中心医院  &#169	 All Rights Reserved 
-				</p>
-			
-			
+			<p>佳木斯中心医院  &#169	 All Rights Reserved</p>
 		</div>
-
 	</div>
 </body>
 </html>

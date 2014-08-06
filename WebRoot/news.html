@@ -2,16 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
 <title>新闻中心</title>
-
 <link rel="stylesheet" href="/static/css/home.css" type="text/css" />
-
 <script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="/static/js/common.js"></script>
 </head>
 <body>
-
 	<div class="wrapper">
 		<div class="header">
 			<p class="logo"></p>
@@ -19,7 +15,6 @@
 				<a href="">点击收藏</a>
 			</p>
 		</div>
-
 		<div class="nav">
 			<ul>
 				<li><a href="/index.html">首&nbsp;&nbsp;页</a></li>
@@ -34,9 +29,7 @@
 		<div class="clear"></div>
 		<!-- 图片展示 -->
 		<div class="gallery"></div>
-
 		<div class="container">
-
 			<div class="content">
 				<div class="content-list">
 					<table border="1" cellspacing="0" cellpadding="0">
@@ -47,62 +40,50 @@
 						</thead>
 						<tbody>
 							<#list newsList.list as news>
-								<tr>
-									<td>
-										<a href="/news/detail/${cid}-${news.id}" target="blank">${news.title}</a>
-									</td>
-									<td align="center">${news.time}</td>
-									<td align="center">${news.hits}</td>
-								</tr>
+							<tr>
+								<td><a href="/news/detail/${cid}-${news.id}" target="blank">${news.title}</a>
+								</td>
+								<td align="center">${news.time}</td>
+								<td align="center">${news.hits}</td>
+							</tr>
 							</#list>
 						</tbody>
 					</table>
 				</div>
 				<div class="content-page">
 					<p>
-						<span> 总共${newsList.totalRow}条记录  共${newsList.totalPage}页  当前第${newsList.pageNumber}页 每页显示${newsList.pageSize}条数据
-						<a href="/news/${cid}-1">[首页]</a>
-							<a
-							href="/news/${cid}-<#if newsList.pageNumber lte 1>1<#else>${newsList.pageNumber - 1}</#if>">[上一页]</a>
-							<a
-							href="/news/${cid}-<#if newsList.pageNumber gte newsList.totalPage>${newsList.totalPage}<#else>${newsList.pageNumber + 1}</#if>">[下一页]</a>
-							<a
-							href="/news/${cid}-${newsList.totalPage}">[末页]</a>
-							
+						<span> 
+							总共${newsList.totalRow}条记录 共${newsList.totalPage}页 当前第${newsList.pageNumber}页 每页显示${newsList.pageSize}条数据 
+							<a href="/news/${cid}-1">[首页]</a> 
+							<a href="/news/${cid}-<#if newsList.pageNumber lte 1>1<#else>${newsList.pageNumber - 1}</#if>" >[上一页]</a> 
+							<a href="/news/${cid}-<#if newsList.pageNumber gte newsList.totalPage>${newsList.totalPage}<#else>${newsList.pageNumber + 1}</#if>">[下一页]</a>
+							<a href="/news/${cid}-${newsList.totalPage}">[末页]</a>
 						</span>
 					</p>
 				</div>
 			</div>
 			<div class="sidebar">
-
 				<div class="category-wrapper">
 					<h5>新闻分类</h5>
-
 					<div class="category-list">
 						<ul>
 							<#list newsTypes as type>
-								<li>
-									<p>
-										<a href="/news/${type.id}" class="title <#if cid?? && cid == type.id>current</#if>">${type.name}</a>
-									</p>
-									<div class="clear"></div>
-								</li> 
-							</#list>
+							<li>
+								<p>
+									<a href="/news/${type.id}"
+										class="title <#if cid?? && cid == type.id>current</#if>">${type.name}</a>
+								</p>
+								<div class="clear"></div>
+							</li> </#list>
 						</ul>
 					</div>
-
 				</div>
-
 			</div>
-
 		</div>
 		<div class="clear"></div>
 		<div class="footer">
-
 			<p>佳木斯中心医院 &#169 All Rights Reserved</p>
-
 		</div>
-
 	</div>
 </body>
 </html>

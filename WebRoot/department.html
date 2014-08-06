@@ -2,82 +2,86 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-	<title>首页</title>
-
-	<link rel="stylesheet" href="./static/css/home.css" type="text/css"></head>
-	<script type="text/javascript" src="./static/js/jquery-1.10.2.min.js"></script>
-	<script type="text/javascript" src="./static/js/common.js"></script>
-
+	<title>科室介绍</title>
+	<link rel="stylesheet" href="/static/css/home.css" type="text/css" />
+	<script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="/static/js/common.js"></script>
+	<script type="text/javascript">
+	
+		//页面加载之后,设置.样式.  
+		$(function(){  
+		    
+			//使用id选择器;例如:tab对象->tr->td对象.  
+		    $(".doctor-desc p.desc").each(function(i){  
+		         //获取td当前对象的文本,如果长度大于200;  
+		         if($(this).text().length > 200){  
+	                //给td设置title属性,并且设置td的完整值. 给title属性.  
+		    		$(this).attr("title", "点击图片或科室名称查看详情"); 
+	                //获取td的值, 进行截取, 赋值给text变量保存.  
+		    		var text = $(this).text().substring(0, 200) + "...";  
+	                //重新为td赋值;  
+	                $(this).text(text);  
+		         }  
+	        });  
+		});  
+	
+	</script>
+</head>
 <body>
-
 	<div class="wrapper">
 		<div class="header">
 			<p class="logo"></p>
-			<p class="favorite">
-				<a href="">点击收藏</a>
-			</p>
+			<p class="favorite"><a href="">点击收藏</a></p>
 		</div>
-
 		<div class="nav">
 			<ul>
-				<li>
-					<a href="index.html">首&nbsp;&nbsp;页</a>
-				</li>
-				<li>
-					<a href="intro.html">医院简介</a>
-				</li>
-				<li>
-					<a href="news.html">新闻中心</a>
-				</li>
-				<li>
-					<a href="department.html" class="current">科室介绍</a>
-				</li>
-				<li>
-					<a href="doctor.html">名医荟萃</a>
-				</li>
-				<li>
-					<a href="research.html">科研教学</a>
-				</li>
-				<li>
-					<a href="register.html">预约挂号</a>
-				</li>
+				<li><a href="/index.html">首&nbsp;&nbsp;页</a></li>
+				<li><a href="/intro.html">医院简介</a></li>
+				<li><a href="/news.html">新闻中心</a></li>
+				<li><a href="/department.html" class="current">科室介绍</a></li>
+				<li><a href="/doctor.html">名医荟萃</a></li>
+				<li><a href="/research.html">科研教学</a></li>
+				<li><a href="/register.html">预约挂号</a></li>
 			</ul>
 		</div>
 		<div class="clear"></div>
 		<!-- 图片展示 -->
 		<div class="gallery"></div>
-
 		<div class="container">
 			<div class="doctor-list">
-				<div class="doctor-item">
-					<div class="doctor-image">
-						<a href=""><img src="/static/image/demo_5.jpg" onload="resizeImage(this, 120, 120)" /></a>
-					</div>
-					<div class="doctor-desc">
-						<p><a href="" class="name">骨科</a></p>
-						<p><span class="role">重点学科（普通学科的话，就不显示了）</span></p>
+				<#list departments.list as department>
+					<div class="doctor-item">
+						<div class="doctor-image">
+							<a href="/department/detail/${department.id}"><img src="${(department.image)!}" onload="resizeImage(this, 120, 120)" /></a>
+						</div>
+						<div class="doctor-desc">
+							<p><a href="/department/detail/${department.id}" class="name">${(department.name)!}</a></p>
+							<p><span class="role"><#if department.recommend == 1>重点学科</#if></span></p>
+							<div class="clear"></div>
+							<p class="desc">${(department.desc)!}</p>
+						</div>
 						<div class="clear"></div>
-						<p class="desc">骨外科建科已有35年，为综合性骨专业科室，现分为骨一和骨二两个病区，开放床位88张。全科共有48名医护人员，现有医生22名，其中主任医师5名，副主任医师5名，博士1名，硕士2名，专业护士26名。副主任医师以上的10名医生，全部都曾分别在北京积水潭医院骨科、北京大学第三医院、中国人民解放军总医院骨科（北京301医院）进修过。现骨科医疗专业技术水平已处在全地区的前列，全科医护人员都具有高超的医疗技术，都有全心全意为患者服务的观念</p>
 					</div>
-				</div>
+					<div class="clear"></div>
+				</#list>
 			</div>
 			<div class="clear"></div>
 			<div class="content-page">
 				<p>
-					<span>总共条记录  共页  当前第页 每页显示条数据 </span>
+					<span> 
+						总共${departments.totalRow}条记录 共${departments.totalPage}页 当前第${departments.pageNumber}页 每页显示${departments.pageSize}条数据
+						<a href="/department/1" >[首页]</a>
+						<a href="/department/<#if departments.pageNumber lte 1>1<#else>${departments.pageNumber - 1}</#if>" >[上一页]</a> 
+						<a href="/department/<#if departments.pageNumber gte departments.totalPage>${departments.totalPage}<#else>${departments.pageNumber + 1}</#if>" >[下一页]</a> 
+						<a href="/department/${departments.totalPage}" >[末页]</a>
+					</span>
 				</p>
 			</div>
 		</div>
 		<div class="clear"></div>
 		<div class="footer">
-
-			<p>
-				佳木斯中心医院  &#169	 All Rights Reserved
-			</p>
-
+			<p>佳木斯中心医院  &#169	 All Rights Reserved</p>
 		</div>
-
 	</div>
 </body>
 </html>

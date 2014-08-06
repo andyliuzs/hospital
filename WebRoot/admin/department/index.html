@@ -19,6 +19,24 @@
 				});
 			}
 		 }
+		
+		//页面加载之后,设置.样式.  
+		$(function(){  
+		    
+			//使用id选择器;例如:tab对象->tr->td对象.  
+		    $(".data-box table td p.desc").each(function(i){  
+		         //获取td当前对象的文本,如果长度大于150;  
+		         if($(this).text().length > 150){  
+	                //给td设置title属性,并且设置td的完整值. 给title属性.  
+		    		$(this).attr("title", $(this).text()); 
+	                //获取td的值, 进行截取, 赋值给text变量保存.  
+		    		var text = $(this).text().substring(0, 150) + "...";  
+	                //重新为td赋值;  
+	                $(this).text(text);  
+		         }  
+	        });  
+		});  
+	
 	</script>
 	
 </head>
@@ -49,10 +67,10 @@
 	</div>
 	
 	<div class="data-box">
-		<table cellspacing="0" cellpadding="0" >
+		<table cellspacing="0" cellpadding="0" class="small-size">
 			<thead>
-				<th width="80">科室名称</th>
 				<th width="100">科室图片</th>
+				<th width="80">科室名称</th>
 				<th width="80">科室级别</th>
 				<th>科室描述</th>
 				<th width="80">科室主任</th>
@@ -61,19 +79,19 @@
 			</thead>
 			<tbody>
 				<#list departmentList.list as department>
-				<tr>
-					<td align="center">${department.name}</td>
-					<td align="center"><img src="${(department.image)!}" onload="resizeImage(this, 80, 120);" /></td>
-					<td align="center"><#if department.recommend == 1>重点科室<#else>普通科室</#if></td> 
-					<td>${department.desc}</td> 
-					<td align="center">${(department.getDirector().name)!}</td>
-					<td align="center">${department.sort}</td>
-					<td align="center"><a
-						href="/admin/department/edit/${department.id}">编辑</a>
-						&nbsp;&nbsp;<a href="javascript:void(0)"
-						onclick="del('/admin/department/delete/${department.id}')">删除</a>
-					</td>
-				</tr>
+					<tr>
+						<td align="center"><img src="${(department.image)!}" onload="resizeImage(this, 70, 70);" /></td>
+						<td align="center">${department.name}</td>
+						<td align="center"><#if department.recommend == 1>重点<#else>普通</#if></td> 
+						<td><p class="desc">${department.desc}</p></td> 
+						<td align="center">${(department.getDirector().name)!}</td>
+						<td align="center">${department.sort}</td>
+						<td align="center">
+							<a href="/admin/department/edit/${department.id}">编辑</a>
+							&nbsp;&nbsp;
+							<a href="javascript:void(0)" onclick="del('/admin/department/delete/${department.id}')">删除</a>
+						</td>
+					</tr>
 				</#list>
 			</tbody>
 		</table>

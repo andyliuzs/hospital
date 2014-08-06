@@ -3,7 +3,7 @@ package me.hospital.config;
 public class CoreConstants {
 
 	// 每页数据条数
-	public static final int PAGE_SIZE = 5;
+	public static final int PAGE_SIZE = 15;
 
 	// 角色的类型，管理类型
 	public static final int ROLE_MANAGER_TYPE = 0;

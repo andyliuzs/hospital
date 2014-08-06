@@ -59,6 +59,6 @@ public class Department extends Model<Department> {
 	
 	
 	public Page<Department> paginate(int pageNumber, int pageSize) {
-		return paginate(pageNumber, pageSize, "select *", "from department order by sort desc");
+		return paginate(pageNumber, pageSize, "select *", "from department order by recommend desc, sort desc");
 	}
 }

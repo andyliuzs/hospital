@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>详情</title>
+	<title>科室信息</title>
 	<link rel="stylesheet" href="/static/css/home.css" type="text/css"/>
 	<script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="/static/js/common.js"></script>
@@ -17,8 +17,8 @@
 			<ul>
 				<li><a href="/index.html">首&nbsp;&nbsp;页</a></li>
 				<li><a href="/intro.html">医院简介</a></li>
-				<li><a href="/news.html" class="current">新闻中心</a></li>
-				<li><a href="/department.html">科室介绍</a></li>
+				<li><a href="/news.html">新闻中心</a></li>
+				<li><a href="/department.html" class="current">科室介绍</a></li>
 				<li><a href="/doctor.html">名医荟萃</a></li>
 				<li><a href="/research.html">科研教学</a></li>
 				<li><a href="/register.html">预约挂号</a></li>
@@ -29,28 +29,22 @@
 		<div class="gallery"></div>
 		<div class="container">
 			<div class="content">
-				<div class="news-detail">
-					<h4 class="news-title">${news.title}</h4>
-					<p class="news-info">作者:${news.author}　发布时间：${news.time}  点击量：${news.hits}</p>
-					<div class="news-content">
-						${news.content}
+				<div class="department-detail">
+					<h4 class="department-title">${department.name}</h4>
+					<div class="department-info">
+						<div class="info">
+							<p>
+								<#if department.recommend == 1>重点科室</#if>
+								&nbsp;&nbsp;
+								<#if (department.getDirector().name)??>主任：${department.getDirector().name}</#if>
+							</p>
+						</div>
+						<div class="image">
+							<img src="${(department.image)!}" />
+						</div>
 					</div>
-				</div>
-			</div>
-			<div class="sidebar">
-				<div class="category-wrapper">
-					<h5>新闻分类</h5>
-					<div class="category-list">
-						<ul>
-							<#list newsTypes as type>
-								<li>
-									<p>
-										<a href="/news/${type.id}" class="title <#if cid?? && cid == type.id>current</#if>">${type.name}</a>
-									</p>
-									<div class="clear"></div>
-								</li> 
-							</#list>
-						</ul>
+					<div class="department-content">
+						${department.desc}
 					</div>
 				</div>
 			</div>

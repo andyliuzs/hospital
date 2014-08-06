@@ -9,16 +9,16 @@ import com.jfinal.core.ActionInvocation;
 import com.jfinal.core.Controller;
 
 /**
- * NewsInterceptor
+ * ResearchInterceptor
  */
-public class NewsInterceptor implements Interceptor {
+public class ResearchInterceptor implements Interceptor {
 
 	public void intercept(ActionInvocation ai) {
 		Controller controller = ai.getController();
 
 		ai.invoke();
 
-		List<PostCategory> newsTypes = PostCategory.dao.getSubCategoriesById(1);
+		List<PostCategory> newsTypes = PostCategory.dao.getSubCategoriesById(2);
 		controller.setAttr("newsTypes", newsTypes);
 
 	}

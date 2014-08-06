@@ -26,8 +26,8 @@ public class NewsController extends Controller {
 
 	public void index() {
 
-		// 默认查询第一类
-		int cid = ParamUtil.paramToInt(getPara(0), 1);
+		// 默认查询新闻中心分类的第一个子类
+		int cid = ParamUtil.paramToInt(getPara(0), 3);
 		int page = ParamUtil.paramToInt(getPara(1), 1);
 		
 		if (page < 1) {

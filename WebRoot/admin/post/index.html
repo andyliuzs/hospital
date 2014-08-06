@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>公告列表</title>
+<title>文章列表</title>
 <link rel="stylesheet" type="text/css" href="../static/css/data.css" />
 <script type="text/javascript"
 	src="../static/assets/jquery/jquery-1.10.2.min.js"></script>
@@ -10,7 +10,7 @@
 
 <script type="text/javascript">
 	function del(url) {
-		if (confirm('您确定要删除该公告的信息？')) {
+		if (confirm('您确定要删除该文章的信息？')) {
 
 			$.get(url, function(data) {
 				alert(data.msg);
@@ -46,10 +46,11 @@
 	</div>
 
 	<div class="data-box">
-		<table cellspacing="0" cellpadding="0">
+		<table cellspacing="0" cellpadding="0" class="small-size">
 			<thead>
-				<th width="100">类别</th>
+				
 				<th>标题</th>
+				<th width="100">类别</th>
 				<th width="120">作者</th>
 				<th width="160">时间</th>
 				<th width="80">点击量</th>
@@ -57,33 +58,30 @@
 			</thead>
 			<tbody>
 				<#list postList.list as post>
-				<tr>
-					<td align="center">${post.getCategory().name}</td>
-					<td>${post.title}</td>
-					<td align="center">${post.author}</td>
-					<td align="center">${post.time}</td>
-					<td align="center">${post.hits}</td>
-					<td align="center">
-						<a href="/admin/post/edit/${post.id}">编辑</a> 
-						&nbsp;&nbsp;
-						<a href="javascript:void(0)" onclick="del('/admin/post/delete/${post.id}')">删除</a>
-					</td>
-				</tr>
+					<tr>
+						<td><span class="title">${post.title}</span></td>
+						<td align="center">${post.getCategory().name}</td>
+						<td align="center">${post.author}</td>
+						<td align="center">${post.time}</td>
+						<td align="center">${post.hits}</td>
+						<td align="center">
+							<a href="/admin/post/edit/${post.id}">编辑</a> 
+							&nbsp;&nbsp;
+							<a href="javascript:void(0)" onclick="del('/admin/post/delete/${post.id}')">删除</a>
+						</td>
+					</tr>
 				</#list>
 			</tbody>
 		</table>
 	</div>
 
 	<div class="page-box">
-		<span style="margin-left: 10px"> 总共记录 ：${postList.totalRow}
-			条；共${postList.totalPage} 页；第 ${postList.pageNumber} 页； <a
-			href="/admin/post/?p=1<#if searchPage == 1>&s=1</#if>">[首页]</a> <a
-			href="/admin/post/?p=<#if postList.pageNumber lte 1>1<#else>${postList.pageNumber - 1}</#if><#if searchPage == 1>&s=1</#if>">[上一页]</a>
-			<a
-			href="/admin/post/?p=<#if postList.pageNumber gte postList.totalPage>${postList.totalPage}<#else>${postList.pageNumber + 1}</#if><#if searchPage == 1>&s=1</#if>">[下一页]</a>
-			<a
-			href="/admin/post/?p=${postList.totalPage}<#if searchPage == 1>&s=1</#if>">[末页]</a>
-			每页显示${postList.pageSize}条数据
+		<span> 
+			共${postList.totalRow}条记录 共${postList.totalPage}页 每页${postList.pageSize}条数据 当前第${postList.pageNumber}页
+			<a href="/admin/post/?p=1<#if searchPage == 1>&s=1</#if>">[首页]</a> 
+			<a href="/admin/post/?p=<#if postList.pageNumber lte 1>1<#else>${postList.pageNumber - 1}</#if><#if searchPage == 1>&s=1</#if>">[上一页]</a>
+			<a href="/admin/post/?p=<#if postList.pageNumber gte postList.totalPage>${postList.totalPage}<#else>${postList.pageNumber + 1}</#if><#if searchPage == 1>&s=1</#if>">[下一页]</a>
+			<a href="/admin/post/?p=${postList.totalPage}<#if searchPage == 1>&s=1</#if>">[末页]</a>
 		</span>
 	</div>
 

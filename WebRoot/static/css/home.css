@@ -354,8 +354,8 @@ input[type=text], input[type=password]{
 }
 
 .intro-content {
-	width: 920px;
-	margin: 10px 20px;
+	width: 900px;
+	margin: 10px 30px;
 }
 
 /* 列表样式 */
@@ -434,10 +434,6 @@ input[type=text], input[type=password]{
 	border-bottom: 1px solid #DDDDDD;
 }
 
-.news-content {
-	margin-top: 20px;
-}
-
 .news-info {
 	margin-top: 10px;
 	text-align: center;
@@ -445,10 +441,19 @@ input[type=text], input[type=password]{
 	color: #565656;
 }
 
+.news-content {
+	margin-top: 20px;
+}
+
 /* doctor.html && department.html */
 .doctor-list {
 	width: 900px;
-	margin: 30px 30px;
+	margin: 20px 30px;
+}
+
+.doctor-item {
+	padding: 10px 0;
+	border-bottom: 1px solid #DDDDDD;
 }
 
 .doctor-image {
@@ -494,10 +499,45 @@ input[type=text], input[type=password]{
 }
 
 .doctor-desc .desc {
-	margin-top: 10px;
+	margin-top: 5px;
 } 
 
+/* doctor_detail.html 医生详情 */
 
+
+/* department_detail.html 科室详情 */
+.department-detail {
+	width: 920px;
+	margin: 10px 20px;
+}
+
+.department-title {
+	margin: auto;
+	height: 45px;
+	line-height: 45px;
+	text-align: center;
+	font-size: 22px;
+}
+
+.department-info {
+	text-align: center;
+	font-size: 14px;
+	color: #565656;
+}
+
+.department-info .info {
+	height: 25px;
+	line-height: 25px;
+	border-bottom: 1px solid #DDDDDD;
+}
+
+.department-info .image {
+	margin-top: 15px;
+}
+
+.department-content {
+	margin-top: 20px;
+}
 
 /* research.html 科研教学 */
 

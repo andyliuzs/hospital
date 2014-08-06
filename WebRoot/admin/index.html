@@ -4,67 +4,60 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>管理系统</title>
 
-
-<link rel="stylesheet" type="text/css" href="static/css/base.css" />
-<link rel="stylesheet" type="text/css"
-	href="static/css/layout.css" />
-
-<script type="text/javascript"
-	src="static/assets/jquery/jquery-1.10.2.min.js"></script>
-<script type="text/javascript"
-	src="static/assets/artDialog/artDialog.js??skin=blue"></script>
-
-<script type="text/javascript" src="static/js/layout.js"></script>
-<script type="text/javascript" src="static/js/common.js"></script>
-
-<script type="text/javascript" src="static/js/menu.js"></script>
-
-<script type="text/javascript">
-	$(window).resize(autosize);
-	$(function() {
-
-		autosize();
-		control();
-
-		$('.logout').click(function() {
-
-			art.dialog({
-				title : '退出系统',
-				content : '<span style="font-size:20px; ">确定要退出本系统吗？</span>',
-				width : 250,
-				height : 100,
-				lock : true,
-				fixed : true,
-				okValue : '确定',
-				ok : function() {
-					window.location.href = '/admin/logout';
-				},
-				cancelValue : '取消',
-				cancel : true
+	<link rel="stylesheet" type="text/css" href="static/css/base.css" />
+	<link rel="stylesheet" type="text/css" href="static/css/layout.css" />
+	
+	<script type="text/javascript" src="static/assets/jquery/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="static/assets/artDialog/artDialog.js??skin=blue"></script>
+	<script type="text/javascript" src="static/js/layout.js"></script>
+	<script type="text/javascript" src="static/js/common.js"></script>
+	<script type="text/javascript" src="static/js/menu.js"></script>
+	
+	<script type="text/javascript">
+		$(window).resize(autosize);
+		$(function() {
+	
+			autosize();
+			control();
+	
+			$('.logout').click(function() {
+	
+				art.dialog({
+					title : '退出系统',
+					content : '<span style="font-size:20px; ">确定要退出本系统吗？</span>',
+					width : 250,
+					height : 100,
+					lock : true,
+					fixed : true,
+					okValue : '确定',
+					ok : function() {
+						window.location.href = '/admin/logout';
+					},
+					cancelValue : '取消',
+					cancel : true
+				});
+	
 			});
-
+	
+			var mSwitch = new MenuSwitch("module-menu");
+			mSwitch.setDefault(-1);
+			mSwitch.setPrevious(false);
+			mSwitch.init();
+	
+			// 设置时间，每秒刷新一次
+			self.setInterval(function() {
+				$("#today").html(date("Y-m-d H:i:s"));
+			}, 1000);
 		});
-
-		var mSwitch = new MenuSwitch("module-menu");
-		mSwitch.setDefault(-1);
-		mSwitch.setPrevious(false);
-		mSwitch.init();
-
-		// 设置时间，每秒刷新一次
-		self.setInterval(function() {
-			$("#today").html(date("Y-m-d H:i:s"));
-		}, 1000);
-	});
-</script>
+		
+	</script>
 
 </head>
 
 <body>
 	<div class="wrap">
-
 		<div id="top">
 			<div class="logo"></div>
-
 			<div class="info">
 				<span><img src="static/image/user.png" /><i>${userName}[${roleName}]</i></span>&nbsp;&nbsp;&nbsp;&nbsp;
 				<span><i>当前时间：<font id="today">2014-02-20 20:31:33</font></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -74,22 +67,14 @@
 			</div>
 			<div class="nav"></div>
 		</div>
-
 		<div class="clear"></div>
-
 		<div class="main">
-
 			<div id="left">
-
 				<div id="control">
 					<div class="top"></div>
 				</div>
-
 				<div class="menu">
-
-
 					<#list permissions as permission>
-
 						<div class="module-menu">
 							<label>${permission.name}</label>
 							<ul>
@@ -98,17 +83,12 @@
 								</#list>
 							</ul>
 						</div>
-
 					</#list>
-
 				</div>
 			</div>
-
 			<div id="right">
-
 				<iframe width="100%" height="100%" id="content" name="content"
 					frameborder="0" scrolling="auto" src="welcome.html"></iframe>
-
 			</div>
 		</div>
 	</div>

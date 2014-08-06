@@ -16,12 +16,31 @@ public class PostCategory extends Model<PostCategory> {
 	public static final PostCategory dao = new PostCategory();
 
 	/**
-	 * 获取所有的分类
+	 * 获取所有的子分类
 	 * 
 	 * @return
 	 */
 	public List<PostCategory> getCategories() {
-		return PostCategory.dao.find("select * from post_category");
+		return PostCategory.dao.find("select * from post_category where pid > 0");
+	}
+
+	/**
+	 * 根据id获取所有的子分类
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public List<PostCategory> getSubCategoriesById(int id) {
+		return PostCategory.dao.find("select * from post_category where pid = ?", id);
+	}
+
+	/**
+	 * 获取当前分类的所有子分类
+	 * 
+	 * @return
+	 */
+	public List<PostCategory> getSubCategories() {
+		return PostCategory.dao.find("select * from post_category where pid = ?", get("id"));
 	}
 
 	/**
@@ -32,7 +51,6 @@ public class PostCategory extends Model<PostCategory> {
 	 * @return
 	 */
 	public Page<PostCategory> paginate(int pageNumber, int pageSize) {
-		return paginate(pageNumber, pageSize, "select *",
-				"from post order by id asc");
+		return paginate(pageNumber, pageSize, "select *", "from post order by id asc");
 	}
 }

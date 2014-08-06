@@ -4,6 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>医生列表</title>
 	
+	<link rel="stylesheet" type="text/css" href="../static/css/data.css" />
 	<script type="text/javascript"
 		src="../static/assets/jquery/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="../static/js/common.js"></script>
@@ -20,13 +21,31 @@
 				//location.href = url;
 			}
 		 }
+		 
+		//页面加载之后,设置.样式.  
+		$(function(){  
+		    
+			//使用id选择器;例如:tab对象->tr->td对象.  
+		    $(".data-box table td p.desc").each(function(i){  
+		         //获取td当前对象的文本,如果长度大于100;  
+		         if($(this).text().length > 100){  
+	                //给td设置title属性,并且设置td的完整值. 给title属性.  
+		    		$(this).attr("title", $(this).text()); 
+	                //获取td的值, 进行截取, 赋值给text变量保存.  
+		    		var text = $(this).text().substring(0, 100) + "...";  
+	                //重新为td赋值;  
+	                $(this).text(text);  
+		         }  
+	        });  
+		}); 
+		 
 	</script>
 </head>
 <body>
-
+	<div class="search-box">
 	<form name="searchForm" action="/admin/doctor/search" method="post">
-	
-		<div><span>
+		<div>
+		<span>
 		
 		姓名<input type="text" name="name" id="name" value="${searchName}" ></input>&nbsp;&nbsp;
 		<select name="roleId">
@@ -64,70 +83,55 @@
 		</div>
 		
 	</form>
+	</div>
 
-	<style>
-		table {
-			width: 100%;
-		}
-		
-		th {
-			height:25px;
-			line-height:25px;
-		}
-		
-		td{
-			line-height:25px;
-		}
-	</style>
-	
-	
-	<div>医生信息</div>
-	<table border="1" cellspacing="0" cellpadding="0" >
+<div class="data-box">
+	<table cellspacing="0" cellpadding="0" class="small-size">
 		<thead>
-			<th>账号</th>
-			<th>姓名</th>
-			<th>头像</th>
-			<th>性别</th>
-			<th>年龄</th>
-			<th>类别</th>
-			<th>推荐</th>
+			<th width="70">头像</th>
+			<th width="100">账号</th>
+			<th width="80">姓名</th>
+			<th width="50">性别</th>
+			<th width="50">年龄</th>
+			<th width="80">科室</th>
 			<th>简介</th>
-			<th>科室</th>
-			<th>排序值</th>
-			<th>操作</th>
+			<th width="80">类别</th>
+			<th width="50">推荐</th>
+			<th width="80">排序值</th>
+			<th width="100">操作</th>
 		</thead>
 		<tbody>
 			<#list doctorList.list as doctor>
 			<tr>
-				<td>${doctor.account}</td>
-				<td>${doctor.name}</td> 
-				<td><img src="${(doctor.image)!}" onload="resizeImage(this, 80, 120);" /></td>
-				<td><#if doctor.sex ==1>男<#else>女</#if></td> 
-				<td>${doctor.age}</td>
-				<td>${doctor.getRole().name}</td>
-				<td><#if doctor.recommend ==1>是<#else>否</#if></td>
-				<td>${doctor.desc}</td>
-				<td>${doctor.getDepartment().name}</td>
-				<td>${doctor.sort}</td>
-				<td>&nbsp;&nbsp;&nbsp;<a
-					href="/admin/doctor/edit/${doctor.id}">编辑</a>
-					&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)"
-					onclick="del('/admin/doctor/delete/${doctor.id}')">删除</a>
+				<td align="center"><img src="${(doctor.image)!}" onload="resizeImage(this, 60, 60);" /></td>
+				<td align="center">${doctor.account}</td>
+				<td align="center">${doctor.name}</td> 
+				<td align="center"><#if doctor.sex ==1>男<#else>女</#if></td> 
+				<td align="center">${doctor.age}</td>
+				<td align="center">${doctor.getDepartment().name}</td>
+				<td><p class="desc">${doctor.desc}</p></td>
+				<td align="center">${doctor.getRole().name}</td>
+				<td align="center"><#if doctor.recommend ==1>是<#else>否</#if></td>
+				<td align="center">${doctor.sort}</td>
+				<td align="center">
+					<a href="/admin/doctor/edit/${doctor.id}">编辑</a>
+						&nbsp;&nbsp;
+					<a href="javascript:void(0)" onclick="del('/admin/doctor/delete/${doctor.id}')">删除</a>
 				</td>
 			</tr>
 			</#list>
 		</tbody>
 	</table>
 	
-
-	<div>
-		<span style="margin-left: 10px"> 
-		总共记录 ：${doctorList.totalRow} 条；共${doctorList.totalPage} 页；第 ${doctorList.pageNumber} 页； 
+	</div>
+	
+	<div class="page-box">
+		<span>
+		共${doctorList.totalRow}条记录 共${doctorList.totalPage}页 每页${doctorList.pageSize}条数据 当前第${doctorList.pageNumber}页 
 		<a href="/admin/doctor/?p=1<#if searchPage == 1>&s=1</#if>" >[首页]</a>
 		<a href="/admin/doctor/?p=<#if doctorList.pageNumber lte 1>1<#else>${doctorList.pageNumber - 1}</#if><#if searchPage == 1>&s=1</#if>" >[上一页]</a> 
 		<a href="/admin/doctor/?p=<#if doctorList.pageNumber gte doctorList.totalPage>${doctorList.totalPage}<#else>${doctorList.pageNumber + 1}</#if><#if searchPage == 1>&s=1</#if>" >[下一页]</a> 
 		<a href="/admin/doctor/?p=${doctorList.totalPage}<#if searchPage == 1>&s=1</#if>" >[末页]</a>
-		每页显示${doctorList.pageSize}条数据 
 		</span>
 	</div>
 

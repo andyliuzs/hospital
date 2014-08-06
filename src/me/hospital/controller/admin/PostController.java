@@ -45,7 +45,7 @@ public class PostController extends Controller {
 			page = 1;
 		}
 
-		// 读取所有的公告列表。
+		// 读取所有的公告列表
 		Page<Post> postList = Post.dao.paginate(page, CoreConstants.PAGE_SIZE);
 
 		// 格式化时间
@@ -77,8 +77,9 @@ public class PostController extends Controller {
 		int postId = getParaToInt(0);
 		Post post = Post.dao.findById(postId);
 		String content = post.getStr("content");
-		post.set("content", StringEscapeUtils.unescapeHtml4(content));
+//		post.set("content", StringEscapeUtils.unescapeHtml4(content));
 		setAttr("post", post);
+		setAttr("content", StringEscapeUtils.unescapeHtml4(content));
 		render("add.html");
 	}
 

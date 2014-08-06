@@ -1,5 +1,7 @@
 package me.hospital.model;
 
+import java.util.List;
+
 import com.jfinal.plugin.activerecord.Model;
 import com.jfinal.plugin.activerecord.Page;
 
@@ -23,6 +25,14 @@ public class Post extends Model<Post> {
 	}
 
 	/**
+	 * 获取最新发布的10条公告通知
+	 * @return
+	 */
+	public List<Post> getNew(int cid, int size) {
+		return Post.dao.find("select * from post where cid = ? order by time desc limit 0, ?", cid, size);
+	}
+
+	/**
 	 * 分页获取数据
 	 * 
 	 * @param pageNumber
@@ -30,8 +40,7 @@ public class Post extends Model<Post> {
 	 * @return
 	 */
 	public Page<Post> paginate(int pageNumber, int pageSize) {
-		return paginate(pageNumber, pageSize, "select *",
-				"from post order by id asc");
+		return paginate(pageNumber, pageSize, "select *", "from post order by time desc");
 	}
 
 	/**
@@ -40,7 +49,7 @@ public class Post extends Model<Post> {
 	public Page<Post> paginate(int pageNumber, int pageSize, int cid) {
 
 		return paginate(pageNumber, pageSize, "select *",
-				"from post where cid = ? order by id asc", cid);
+				"from post where cid = ? order by time desc", cid);
 
 	}
 

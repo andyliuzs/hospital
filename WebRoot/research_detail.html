@@ -1,17 +1,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>科研教学</title>
-	<link rel="stylesheet" href="/static/css/home.css" type="text/css" />
-	<script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
-	<script type="text/javascript" src="/static/js/common.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>科研教学</title>
+<link rel="stylesheet" href="./static/css/home.css" type="text/css" />
+<script type="text/javascript" src="./static/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="./static/js/common.js"></script>
 </head>
 <body>
 	<div class="wrapper">
 		<div class="header">
 			<p class="logo"></p>
-			<p class="favorite"><a href="">点击收藏</a></p>
+			<p class="favorite">
+				<a href="">点击收藏</a>
+			</p>
 		</div>
 		<div class="nav">
 			<ul>
@@ -38,13 +40,12 @@
 						</thead>
 						<tbody>
 							<#list researchList.list as research>
-								<tr>
-									<td>
-										<a href="/research/detail/${cid}-${news.id}" target="blank">${research.title}</a>
-									</td>
-									<td align="center">${research.time}</td>
-									<td align="center">${research.hits}</td>
-								</tr>
+							<tr>
+								<td><a href="/research/detail/${cid}-${news.id}"
+									target="blank">${research.title}</a></td>
+								<td align="center">${research.time}</td>
+								<td align="center">${research.hits}</td>
+							</tr>
 							</#list>
 						</tbody>
 					</table>
@@ -52,9 +53,9 @@
 				<div class="content-page">
 					<p>
 						<span> 
-							总共${researchList.totalRow}条记录  共${researchList.totalPage}页  当前第${researchList.pageNumber}页 每页显示${researchList.pageSize}条数据
+							总共${researchList.totalRow}条记录 共${researchList.totalPage}页 当前第${researchList.pageNumber}页 每页显示${researchList.pageSize}条数据 
 							<a href="/research/${cid}-1">[首页]</a>
-							<a href="/research/${cid}-<#if researchList.pageNumber lte 1>1<#else>${researchList.pageNumber - 1}</#if>">[上一页]</a>
+							<a href="/research/${cid}-<#if researchList.pageNumber lte 1>1<#else>${researchList.pageNumber - 1}</#if>">[上一页]</a> 
 							<a href="/research/${cid}-<#if researchList.pageNumber gte researchList.totalPage>${researchList.totalPage}<#else>${researchList.pageNumber + 1}</#if>">[下一页]</a>
 							<a href="/research/${cid}-${researchList.totalPage}">[末页]</a>
 						</span>
@@ -67,13 +68,13 @@
 					<div class="category-list">
 						<ul>
 							<#list newsTypes as type>
-								<li>
-									<p>
-										<a href="/research/${type.id}" class="title <#if cid?? && cid == type.id>current</#if>">${type.name}</a>
-									</p>
-									<div class="clear"></div>
-								</li> 
-							</#list>
+							<li>
+								<p>
+									<a href="/news/${type.id}"
+										class="title <#if cid?? && cid == type.id>current</#if>">${type.name}</a>
+								</p>
+								<div class="clear"></div>
+							</li> </#list>
 						</ul>
 					</div>
 				</div>
@@ -81,7 +82,7 @@
 		</div>
 		<div class="clear"></div>
 		<div class="footer">
-			<p>佳木斯中心医院  &#169	 All Rights Reserved</p>
+			<p>佳木斯中心医院 &#169 All Rights Reserved</p>
 		</div>
 	</div>
 </body>
