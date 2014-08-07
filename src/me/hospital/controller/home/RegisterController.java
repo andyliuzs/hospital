@@ -1,11 +1,14 @@
 package me.hospital.controller.home;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import me.hospital.config.CoreConstants;
 import me.hospital.interceptor.home.LoginInterceptor;
 import me.hospital.model.Department;
+import me.hospital.model.Doctor;
 import me.hospital.model.ScheduleStatus;
 import me.hospital.model.User;
 import me.hospital.util.DateUtil;
@@ -69,6 +72,30 @@ public class RegisterController extends Controller {
 
 	}
 	
+	
+	/**
+	 * 选择科室的时候，载入该科室下的排班信息
+	 */
+	public void getSchedule() {
+
+		int departmentId = ParamUtil.paramToInt(getPara(0), -1);
+
+		List<String> futureDays = DateUtil.getFutureDays(CoreConstants.SCHEDULE_DAYS);
+		boolean hasScheduled = false;
+
+		Map<String, Boolean> result = new HashMap<String, Boolean>();
+
+		for (String date : futureDays) {
+			hasScheduled = ScheduleStatus.dao.hasScheduled(departmentId, date);
+			result.put(date, hasScheduled);
+		}
+
+		renderJson("json", result);
+
+	}
+	
+	
+	
 	/**
 	 * 管理当前用户的预约
 	 */
@@ -97,6 +124,26 @@ public class RegisterController extends Controller {
 	 */
 	public void cancel() {
 		render("/register_manage.html");
+	}
+	
+	/**
+	 * 显示预约页面
+	 */
+	public void show() {
+		
+		int departmentId = ParamUtil.paramToInt(getPara("depart"), -1);
+		String date = getPara("date");
+
+		// 查找该科室下所有的医生
+		List<Doctor> doctors = Department.dao.getDoctors(departmentId);
+		setAttr("doctors", doctors);
+
+		Department department = Department.dao.findById(departmentId);
+		
+		setAttr("department", department);
+		setAttr("date", date);
+		
+		render("/register_handle.html");
 	}
 	
 }
