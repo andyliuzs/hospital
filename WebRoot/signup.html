@@ -31,24 +31,25 @@
 			<div class="regist-wrapper">
 				<form name="registForm" method="post" action="/regist">
 					<fieldset>
-						<legend>用户注册</legend>
+						<legend>用户信息</legend>
 						<table>
 							<tr>
 								<td width="150" class="title">
-									<label for="account">账号</label>
+									<label for="user.account">账号</label>
 								</td>
 								<td>
-									<input type="text" name="account" size="25"/>
-									<span style="color:red">*</span>
+									<input type="text" name="user.account" size="25" value="${(user.account)!}"/>
+									<span style="color:red">*${accountMsg!}</span>
 								</td>
+
 							</tr>
 							<tr>
 								<td class="title">
-									<label for="password">密码</label>
+									<label for="user.password">密码</label>
 								</td>
 								<td>
-									<input type="text" name="password" size="25" />
-									<span style="color:red">*</span>
+									<input type="password" name="user.password" size="25" value="${(user.password)!}"/>
+									<span style="color:red">*${passwordMsg!}</span>
 								</td>
 							</tr>
 							<tr>
@@ -56,86 +57,90 @@
 									<label for="password2">确认密码</label>
 								</td>
 								<td>
-									<input type="text" name="password2" size="25" />
-									<span style="color:red">*</span>
+									<input type="password" name="password2" size="25" value="${(user.password)!}"/>
+										<span style="color:red">*${pasEqu!} </span>
+										<span style="color:red;<#if pasEqu??>display:none;</#if>" >${password2Msg!}</span>
 								</td>
 							</tr>
 							<tr>
 								<td class="title">
-									<label for="name">姓名</label>
+									<label for="user.name">姓名</label>
 								</td>
 								<td>
-									<input type="text" name="name" size="15" />
-									<span style="color:red">*</span>
+									<input type="text" name="user.name" size="15" value="${(user.name)!}"/>
+									<span style="color:red">*${nameMsg!}</span>
 								</td>
 							</tr>
 							<tr>
 								<td class="title">
-									<label for="sex">性别</label>
+									<label for="user.sex">性别</label>
 								</td>
 								<td>
-									<input type="radio" name="sex" checked="checked" value="1" />
+									<input type="radio" name="user.sex" checked="checked" value="1" />
 									男
-									<input type="radio" name="sex"  value="0" />
+									<input type="radio" name="user.sex"  value="0" />
 									女
+									<span style="color:red">*${sexMsg!}</span>
 								</td>
 							</tr>
 							<tr>
 								<td class="title">
-									<label for="age">年龄</label>
+									<label for="user.age">年龄</label>
 								</td>
 								<td>
-									<input type="text" name="age" size="5"/>
-									<span style="color:red">*</span>
+									<input type="text" name="user.age" size="5" value="${(user.age)!}"/>
+									<span style="color:red">*${ageMsg!}</span>
 								</td>
 							</tr>
 							<tr>
 								<td class="title">
-									<label for="identity">身份证号</label>
+									<label for="user.identity">身份证号</label>
 								</td>
 								<td>
-									<input type="text" name="identity" size="35" />
-									<span style="color:red">*</span>
+									<input type="text" name="user.identity" size="35" value="${(user.identity)!}"/>
+									<span style="color:red">*${identityMsg!}</span>
 								</td>
 							</tr>
 							<tr>
 								<td class="title">
-									<label for="phone">电话</label>
+									<label for="user.phone">电话</label>
 								</td>
 								<td>
-									<input type="text" name="phone" size="25" />
-									<span style="color:red">*</span>
+									<input type="text" name="user.phone" size="25" value="${(user.phone)!}"/>
+									<span style="color:red">*${phoneMsg!}</span>
 								</td>
 							</tr>
 							<tr>
 								<td class="title">
-									<label for="email">邮箱</label>
+									<label for="user.email">邮箱</label>
 								</td>
 								<td>
-									<input type="text" name="email" size="25" />
+									<input type="text" name="user.email" size="25" value="${(user.email)!}"/>
 								</td>
 							</tr>
 							<tr>
 								<td class="title">
-									<label for="address">地址</label>
+									<label for="user.address">地址</label>
 								</td>
 								<td>
-									<input type="text" name="address" size="45" />
+									<input type="text" name="user.address" size="45" value="${(user.address)!}"/>
 								</td>
 							</tr>
 							<tr>
 								<td class="title">
-									<label for="qq">QQ</label>
+									<label for="user.qq">QQ</label>
 								</td>
 								<td>
-									<input type="text" name="qq" size="25" />
+									<input type="text" name="user.qq" size="25" value="${(user.qq)!}"/>
 								</td>
 							</tr>
 
 						</table>
 						<div class="regist">
+							
 							<input type="submit" value="注册" />
 							<input type="reset" value="重置" />
+
 						</div>
 					</fieldset>
 				</form>

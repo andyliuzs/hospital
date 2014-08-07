@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>挂号管理</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/home.css" />
+	<script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
+
+</head>
+<body>
+
+	<div class="wrapper">
+		<div class="header">
+			<p class="logo"></p>
+			<p class="favorite"><a href="">点击收藏</a></p>
+		</div>
+		<div class="nav">
+			<ul>
+				<li><a href="index.html">首&nbsp;&nbsp;页</a></li>
+				<li><a href="intro.html">医院简介</a></li>
+				<li><a href="news.html">新闻中心</a></li>
+				<li><a href="department.html">科室介绍</a></li>
+				<li><a href="doctor.html">名医荟萃</a></li>
+				<li><a href="research.html">科研教学</a></li>
+				<li><a href="register.html" class="current">预约挂号</a></li>
+			</ul>
+		</div>
+		<div class="clear"></div>
+		<!-- 图片展示 -->
+		<div class="gallery"></div>
+		<div class="container">
+			<div class="content">
+				<div class="content-list">
+					<table border="1" cellspacing="0" cellpadding="0">
+						<thead>
+							<th width="120">日期</th>
+							<th>批次</th>
+							<th width="100">科室</th>
+							<th width="80">医生</th>
+							<th width="120">职称</th>
+							<th width="120">状态</th>
+						</thead>
+						<tbody>
+							<tr>
+								<td align="center">2014-08-05</td>
+								<td align="center">上午段</td>
+								<td align="center">骨科</td>
+								<td align="center">王菊莉</td>
+								<td align="center">主任医师</td>
+								<td align="center">已过期</td>
+							</tr>
+							<tr>
+								<td align="center">2014-08-06</td>
+								<td align="center">下午段</td>
+								<td align="center">骨科</td>
+								<td align="center">王菊莉</td>
+								<td align="center">主任医师</td>
+								<td align="center">已取消</td>
+							</tr>
+							<tr>
+								<td align="center">2014-08-07</td>
+								<td align="center">上午段</td>
+								<td align="center">骨科</td>
+								<td align="center">王菊莉</td>
+								<td align="center">主任医师</td>
+								<td align="center"><a href="">点击取消预约</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="content-page">
+					<p>
+						<span> 
+							这样需要分页，不着急做
+						</span>
+					</p>
+				</div>
+			</div>
+			
+			<div class="sidebar">
+				<div class="user-wrapper">
+					<h5>用户管理</h5>
+					<div class="user-manage">
+						${user.name!}，欢迎您登录！ 
+						<p><a href="/register.html">[我要预约]</a></p>
+						<p><a href="/register/manage.html">[管理预约]</a></p>
+						<p><a href="/user.html">[修改信息]</a></p>
+						<p><a href="/logout.html">[注销登录]</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<div class="footer">
+			<p>佳木斯中心医院  &#169	 All Rights Reserved</p>
+		</div>
+	</div>
+</body>
+</html>

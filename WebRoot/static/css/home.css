@@ -256,7 +256,15 @@ input[type=text], input[type=password]{
 	height: 500px;
 }
 
-/* 关于我们*/
+.user-wrapper {
+	width: 100%;
+}
+
+.user-manage {
+	width: 240px;
+	margin: 10px;
+}
+
 .login-wrapper {
 	width: 100%;
 	/*height: 150px;*/
@@ -502,10 +510,7 @@ input[type=text], input[type=password]{
 	margin-top: 5px;
 } 
 
-/* doctor_detail.html 医生详情 */
-
-
-/* department_detail.html 科室详情 */
+/* doctor_detail.html && department_detail.html 科室详情 */
 .department-detail {
 	width: 920px;
 	margin: 10px 20px;
@@ -539,7 +544,6 @@ input[type=text], input[type=password]{
 	margin-top: 20px;
 }
 
-/* research.html 科研教学 */
 
 
 /* register.html 预约挂号 */
@@ -566,11 +570,9 @@ input[type=text], input[type=password]{
 
 .regist-wrapper table tr td.title {
 	text-align: right;
-
 }
 
 .regist-wrapper table tr td.title label {
-	/*display: block;*/
 	margin-right: 15px;
 }
 
@@ -587,6 +589,15 @@ input[type=text], input[type=password]{
 	width: 60px;
 	height: 25px;
 }
+
+/* userinfo.html 用户信息修改 */
+.info-wrapper {
+	width: 660px;
+	margin: 10px 20px;
+}
+
+
+
 
 /* 分页样式 */
 .content-page{

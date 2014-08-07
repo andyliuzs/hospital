@@ -39,13 +39,13 @@
 		</div>
 		<div class="nav">
 			<ul>
-				<li><a href="index.html" class="current">首&nbsp;&nbsp;页</a></li>
-				<li><a href="intro.html">医院简介</a></li>
-				<li><a href="news.html">新闻中心</a></li>
-				<li><a href="department.html">科室介绍</a></li>
-				<li><a href="doctor.html">名医荟萃</a></li>
-				<li><a href="research.html">科研教学</a></li>
-				<li><a href="register.html">预约挂号</a></li>
+				<li><a href="/index.html" class="current">首&nbsp;&nbsp;页</a></li>
+				<li><a href="/intro.html">医院简介</a></li>
+				<li><a href="/news.html">新闻中心</a></li>
+				<li><a href="/department.html">科室介绍</a></li>
+				<li><a href="/doctor.html">名医荟萃</a></li>
+				<li><a href="/research.html">科研教学</a></li>
+				<li><a href="/register.html">预约挂号</a></li>
 			</ul>
 		</div>
 		<div class="clear"></div>
@@ -59,10 +59,10 @@
 						<#list doctors as doctor>
 							<div class="point-content">
 								<div class="point-image">
-									<a href=""><img src="${(doctor.image)!}" onload="resizeImage(this, 100, 100)" /></a>
+									<a href="/doctor/detail/${doctor.id}"><img src="${(doctor.image)!}" onload="resizeImage(this, 100, 100)" /></a>
 								</div>
 								<div class="point-desc">
-									<p><a href="" class="name">${doctor.name}</a><span class="role">${doctor.getRole().name}</span></p>
+									<p><a href="/doctor/detail/${doctor.id}" class="name">${doctor.name}</a><span class="role">${doctor.getRole().name}</span></p>
 									<div class="clear"></div>
 									<p class="desc">${doctor.desc}</p>
 								</div>
@@ -77,10 +77,10 @@
 						<#list departments as department>
 							<div class="point-content">
 								<div class="point-image">
-									<a href=""><img src="${(department.image)!}" onload="resizeImage(this, 100, 100)" /></a>
+									<a href="/department/detail/${department.id}"><img src="${(department.image)!}" onload="resizeImage(this, 100, 100)" /></a>
 								</div>
 								<div class="point-desc">
-									<p><a href="" class="name">${department.name}</a></p>
+									<p><a href="/department/detail/${department.id}" class="name">${department.name}</a></p>
 									<div class="clear"></div>
 									<p class="desc">${department.desc}</p>
 								</div>
@@ -104,28 +104,48 @@
 				</div>
 			</div>
 			<div class="sidebar">
-				<div class="login-wrapper">
-					<h5>用户登录</h5>
-					<div class="login">
-						<form name="loginForm" method="post" action="/login" >
-							<ul>
-								<li>
-									<label for="username">账号</label>
-									<input type="text" name="username"/>
-								</li>
-								<li>
-									<label for="username">密码</label>
-									<input type="password" name="password"/>
-								</li>
-
-							</ul>
-							<div class="login-submit">
-								<input type="submit" value="登录"  /> 
-								<a href="regist.html">没有账号？去注册</a>
-							</div>
-						</form>
+			
+				<#if user??>
+				
+					<div class="user-wrapper">
+						<h5>用户管理</h5>
+						<div class="user-manage">
+							${user.name!}，欢迎您登录！ 
+							<p><a href="/register.html">[我要预约]</a></p>
+							<p><a href="/register/manage.html">[管理预约]</a></p>
+							<p><a href="/user.html">[修改信息]</a></p>
+							<p><a href="/logout.html">[注销登录]</a></p>
+						</div>
 					</div>
-				</div>
+					
+				<#else>
+			
+					<div class="login-wrapper">
+						<h5>用户登录</h5>
+						<div class="login">
+							<form name="loginForm" method="post" action="/login" >
+								<#if msg??><p style="color:red">${msg}</p></#if>
+								<ul>
+									<li>
+										<label for="username">账号</label>
+										<input type="text" name="username"/>
+									</li>
+									<li>
+										<label for="username">密码</label>
+										<input type="password" name="password"/>
+									</li>
+	
+								</ul>
+								<div class="login-submit">
+									<input type="submit" value="登录"  /> 
+									<a href="/signup.html">没有账号？去注册</a>
+								</div>
+							</form>
+						</div>
+					</div>
+				
+				</#if>
+				
 				<div class="post-wrapper">
 					<h5><a href="/news/4">公告通知</a></h5>
 					<div class="post-list">

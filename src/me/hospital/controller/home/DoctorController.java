@@ -42,7 +42,13 @@ public class DoctorController extends Controller {
 		int id = ParamUtil.paramToInt(getPara(0), 1);
 		
 		Doctor doctor = Doctor.dao.findById(id);
-
+		
+		if(doctor == null) {
+			// 跳转至错误页面
+			redirect("/error.html");
+			return;
+		}
+		
 		// 格式化内容
 		doctor.set("desc",
 				StringEscapeUtils.unescapeHtml4(doctor.getStr("desc")));

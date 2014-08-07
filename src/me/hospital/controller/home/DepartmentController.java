@@ -43,7 +43,13 @@ public class DepartmentController extends Controller {
 		int id = ParamUtil.paramToInt(getPara(0), 1);
 
 		Department department = Department.dao.findById(id);
-
+		
+		if(department == null) {
+			// 跳转至错误页面
+			redirect("/error.html");
+			return;
+		}
+		
 		// 格式化内容
 		department.set("desc", StringEscapeUtils.unescapeHtml4(department.getStr("desc")));
 

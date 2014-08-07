@@ -59,6 +59,12 @@ public class NewsController extends Controller {
 		
 		Post post = Post.dao.findById(id);
 
+		if(post == null) {
+			// 跳转至错误页面
+			redirect("/error.html");
+			return;
+		}
+		
 		// 修改点击量
 		int hit = post.getInt("hits");
 		hit++;
