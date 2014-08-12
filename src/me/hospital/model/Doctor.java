@@ -17,6 +17,14 @@ import com.jfinal.plugin.activerecord.Page;
 public class Doctor extends Model<Doctor> {
 	public static final Doctor dao = new Doctor();
 
+	/**
+	 * 获取所有的医生信息
+	 * @return
+	 */
+	public List<Doctor> getDoctors(){
+		return Doctor.dao.find("select * from doctor order by sort desc");
+	}
+	
 	public Doctor getByAccountAndPassword(String account, String password) {
 
 		String encodePassword = password;// MD5.digest(password);

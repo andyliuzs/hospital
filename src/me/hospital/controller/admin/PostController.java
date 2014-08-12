@@ -77,7 +77,6 @@ public class PostController extends Controller {
 		int postId = getParaToInt(0);
 		Post post = Post.dao.findById(postId);
 		String content = post.getStr("content");
-//		post.set("content", StringEscapeUtils.unescapeHtml4(content));
 		setAttr("post", post);
 		setAttr("content", StringEscapeUtils.unescapeHtml4(content));
 		render("add.html");

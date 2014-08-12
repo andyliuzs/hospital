@@ -26,18 +26,15 @@
 
 	<div class="search-box">
 		<form name="searchForm" action="/admin/user/search" method="post">
-			<span>用户名称：
+			<span>姓名：
 				<input type="text" name="name" id="name" value="${searchName!}" />&nbsp;
 				<select name="sex">
-					<option value="-1" <#if searchSex == -1>selected="selected"</#if>>请选择用户性别</option> 
+					<option value="-1">性别</option> 
 					<option value="0" <#if searchSex == 0>selected="selected"</#if>>女</option>
 					<option value="1" <#if searchSex == 1>selected="selected"</#if>>男</option> 
 				</select>
-				用户地址：
+				地址：
 				<input type="text" name="address" id="address" value="${searchAddress!}" />&nbsp;
-				用户手机号：
-				<input type="text" name="phone" id="phone" value="${searchPhone!}" />&nbsp;
-
 				<input type="submit" name="subButton" id="subButton" value="查询" />		
 			</span>
 		</form>
@@ -46,16 +43,16 @@
 	<div class="data-box">
 		<table cellspacing="0" cellpadding="0" >
 			<thead>
-				<th width="80">用户账号</th>
+				<th width="120">用户账号</th>
 				<th width="100">用户姓名</th>
-				<th width="80">用户性别</th>
-				<th width="80">用户年龄</th>
-				<th width="80">身份证号</th>
-				<th>用户地址</th>
-				<th width="80">用户电话</th>
-				<th width="80">QQ号码</th>
-				<th width="80">登录时间</th>
-				<th width="120">操作</th>
+				<th width="60">性别</th>
+				<th width="60">年龄</th>
+				<th width="160">身份证号</th>
+				<th>地址</th>
+				<th width="120">电话</th>
+				<th width="120">QQ</th>
+				<th width="200">登录时间</th>
+				<th width="100">操作</th>
 			</thead>
 			<tbody>
 				<#list userList.list as user>
@@ -65,9 +62,9 @@
 					<td align="center"><#if user.sex == 0>女<#else>男</#if></td>
 					<td align="center">${user.age}</td>
 					<td align="center">${user.identity}</td>
-					<td align="center">${user.address}</td>
-					<td align="center">${user.phone}</td>
-					<td align="center">${user.qq}</td>
+					<td>${(user.address)!}</td>
+					<td align="center">${(user.phone)!}</td>
+					<td align="center">${(user.qq)!}</td>
 					<td align="center">${user.time}</td>
 					
 					<td align="center"><a
@@ -88,7 +85,6 @@
 		<a href="/admin/user/?p=<#if userList.pageNumber lte 1>1<#else>${userList.pageNumber - 1}</#if><#if searchPage == 1>&s=1</#if>" >[上一页]</a> 
 		<a href="/admin/user/?p=<#if userList.pageNumber gte userList.totalPage>${userList.totalPage}<#else>${userList.pageNumber + 1}</#if><#if searchPage == 1>&s=1</#if>" >[下一页]</a> 
 		<a href="/admin/user/?p=${userList.totalPage}<#if searchPage == 1>&s=1</#if>" >[末页]</a>
-		 
 		</span>
 	</div>
 

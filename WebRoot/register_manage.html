@@ -38,41 +38,51 @@
 							<th width="100">科室</th>
 							<th width="80">医生</th>
 							<th width="120">职称</th>
+							<th width="80">审核状态</th>
 							<th width="120">状态</th>
 						</thead>
 						<tbody>
+							<#list registerList.list as reg>
 							<tr>
-								<td align="center">2014-08-05</td>
-								<td align="center">上午段</td>
-								<td align="center">骨科</td>
-								<td align="center">王菊莉</td>
-								<td align="center">主任医师</td>
-								<td align="center">已过期</td>
+								<td align="center">${(reg.date)!}</td>
+								<td align="center"><#if reg.period==0>上午 <#else>下午</#if></td>
+								<td align="center">${(reg.getDepartment().name)!}</td>
+								<td align="center">${(reg.getDoctor().name)!}</td>
+								<td align="center">${(reg.getDoctor().getRole().name)!}</td>
+								<td align="center">
+								<#if reg.status==0>
+								待审核
+								<#else>
+									<#if reg.status==1>
+									未通过审核
+									<#else>
+									<#if reg.status==2>
+										通过审核
+									<#else>
+									          处理
+									</#if>
+									</#if>
+								</#if>
+								</td>
+								<td align="center">
+								<#if reg.rstatus==1>已取消 <#else><#if reg.date?date("yyyy-MM-dd") gt nowDate?date("yyyy-MM-dd")><a href="/register/cancel/?registerid=${reg.id}">取消预约</a><#else>已过期</#if></#if>
+								</td>
 							</tr>
-							<tr>
-								<td align="center">2014-08-06</td>
-								<td align="center">下午段</td>
-								<td align="center">骨科</td>
-								<td align="center">王菊莉</td>
-								<td align="center">主任医师</td>
-								<td align="center">已取消</td>
-							</tr>
-							<tr>
-								<td align="center">2014-08-07</td>
-								<td align="center">上午段</td>
-								<td align="center">骨科</td>
-								<td align="center">王菊莉</td>
-								<td align="center">主任医师</td>
-								<td align="center"><a href="">点击取消预约</a></td>
-							</tr>
+							</#list>
+
 						</tbody>
 					</table>
 				</div>
 				<div class="content-page">
 					<p>
-						<span> 
-							这样需要分页，不着急做
-						</span>
+		<span style="margin-left: 10px"> 
+		共${registerList.totalRow}条记录&nbsp;共${registerList.totalPage}页  每页${registerList.pageSize}条数据  当前第${registerList.pageNumber}页     
+		<a href="/register/manage/?p=1<#if searchPage == 1>&s=1</#if>" >[首页]</a>
+		<a href="/register/manage/?p=<#if registerList.pageNumber lte 1>1<#else>${registerList.pageNumber - 1}</#if><#if searchPage == 1>&s=1</#if>" >[上一页]</a> 
+		<a href="/register/manage/?p=<#if registerList.pageNumber gte registerList.totalPage>${registerList.totalPage}<#else>${registerList.pageNumber + 1}</#if><#if searchPage == 1>&s=1</#if>" >[下一页]</a> 
+		<a href="/register/manage/?p=${registerList.totalPage}<#if searchPage == 1>&s=1</#if>" >[末页]</a>
+		 
+		</span>
 					</p>
 				</div>
 			</div>

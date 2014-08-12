@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>预约处理</title>
+<title>预约列表</title>
 	
 	<link rel="stylesheet" type="text/css" href="/static/css/calendar.css" />
 	
@@ -13,7 +13,7 @@
 	<script type="text/javascript" src="/static/js/minform/drcal.js"></script>
 	<script type="text/javascript">
 
-		function process(regId){
+		function goExamine(regId){
 			art.dialog.open('/admin/register/show/?regId=' + regId, {width: 600, height: 400,
 	            close: function () {
 	            	//update();
@@ -28,7 +28,8 @@
 			<span>预约用户：
 				<input type="text" name="username" id="username" value="${searchUserName!}" />&nbsp;
 
-				预约日期：${today}
+				挂号日期：
+				<input type="text" name="date" id="date" value="${searchDate!}"/>
 				<input type="submit" name="subButton" id="subButton" value="查询" />		
 			</span>
 		</form>
@@ -40,6 +41,10 @@
 					<th width="120">日期</th>
 					<th>批次</th>
 					<th>预约人</th>
+					<th width="100">科室</th>
+					<th width="80">医生</th>
+					<th width="120">职称</th>
+					<th width="80">状态</th>
 					<th width="120">操作</th>
 				</thead>
 				<tbody>
@@ -47,49 +52,43 @@
 					<tr>
 				
 						<td align="center">${(reg.date)!}</td>
-						<td align="center"><#if reg.period == 0>上午 <#else>下午</#if></td>
+						<td align="center"><#if reg.period==0>上午 <#else>下午</#if></td>
 						<td align="center">${reg.getUser().name}</td>
+						<td align="center">${(reg.getDepartment().name)!}</td>
+						<td align="center">${(reg.getDoctor().name)!}</td>
+						<td align="center">${(reg.getDoctor().getRole().name)!}</td>
 						<td align="center">
-							<#if reg.status == 0>
-								<a href="javascript:void()" onclick="process('${(reg.id)!}')">点击处理</a>
+						<#if reg.status==0>
+						待审核
+						<#else>
+							<#if reg.status==1>
+							未通过审核
 							<#else>
-							     已处理
+							<#if reg.status==2>
+								通过审核
+							<#else>
+							          处理
 							</#if>
+							</#if>
+						</#if>
 						</td>
 						
+						<td align="center">
+						<#if reg.status==0>
+						-----
+						<#else>
+							<#if reg.status==1>
+							未通过审核
+							<#else>
+							<#if reg.status==2>
+								<a href="javascript:void()" onclick="goExamine('${(reg.id)!}')">点击处理</a>
+							<#else>
+							     <a href="javascript:void()" onclick="goExamine('${(reg.id)!}')">已处理</a>
+							</#if>
+							</#if>
+						</#if>
 						
-						
-<!-- 						<#if reg.status == 0> -->
-<!-- 						待审核 -->
-<!-- 						<#else> -->
-<!-- 							<#if reg.status==1> -->
-<!-- 							未通过审核 -->
-<!-- 							<#else> -->
-<!-- 							<#if reg.status==2> -->
-<!-- 								通过审核 -->
-<!-- 							<#else> -->
-<!-- 							          处理 -->
-<!-- 							</#if> -->
-<!-- 							</#if> -->
-<!-- 						</#if> -->
-<!-- 						</td> -->
-						
-<!-- 						<td align="center"> -->
-<!-- 						<#if reg.status==0> -->
-<!-- 						----- -->
-<!-- 						<#else> -->
-<!-- 							<#if reg.status==1> -->
-<!-- 							未通过审核 -->
-<!-- 							<#else> -->
-<!-- 							<#if reg.status==2> -->
-<!-- 								<a href="javascript:void()" onclick="goExamine('${(reg.id)!}')">点击处理</a> -->
-<!-- 							<#else> -->
-<!-- 							     <a href="javascript:void()" onclick="goExamine('${(reg.id)!}')">已处理</a> -->
-<!-- 							</#if> -->
-<!-- 							</#if> -->
-<!-- 						</#if> -->
-						
-<!-- 						</td> -->
+						</td>
 						
 							
 					</tr>

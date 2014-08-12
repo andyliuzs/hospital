@@ -3,8 +3,165 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>预约列表</title>
+	
+	<link rel="stylesheet" type="text/css" href="/static/css/calendar.css" />
+	
+	<script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="/static/js/artDialog/artDialog.js??skin=blue"></script>
+	<script type="text/javascript" src="/static/js/artDialog/plugins/iframeTools.js"></script>
+	<script type="text/javascript" src="/static/js/minform/minform.js"></script>
+	<script type="text/javascript" src="/static/js/minform/drcal.js"></script>
+	
+	<script type="text/javascript">
+		function selectAll(obj){
+			var checks = document.getElementsByName("_check");
+			//隐藏域存放选中数据ID
+		//	var registerIds = document.getElementById("registerIds");
+			//registerIds = "";
+			if(obj.checked = true || obj.checked =='checked'){
+				for(var i=0;i<checks.length;i++){
+					checks[i].checked = obj.checked;
+				}
+			}else{
+
+			}
+			
+		}
+		
+		function goExamine(status,regId){
+		//	art.dialog.open('/admin/register/show/?regId=' + regId, {width: 600, height: 400,
+	   //         close: function () {
+	            	//update();
+	    //        }
+		//	}, false);
+	        $.ajax({ 
+	        	url: "/admin/register/examine/?status=" + status+"&regId="+regId, 
+	        	dataType: "json", 
+	        	error:function(data){
+					alert(data.data);
+ 		    	},
+	        	success: function(data) { 
+					alert(data.data);
+					location.reload();
+	        	}
+	        }); 
+
+		}
+	</script>
 </head>
 <body>
-	<div>预约列表</div>
+		<div class="search-box">
+		<form name="searchForm" action="/admin/register/search" method="post">
+			<span>预约用户：
+				<input type="text" name="username" id="username" value="${searchUserName!}" />&nbsp;
+				<select name="doctorId">
+					<option value="-1">请选择科室主任</option> 
+					<#list doctors as doctor> 
+						<#if doctor.id == searchDoctorId>
+							<option value="${doctor.id}" selected="selected">${doctor.name}</option>
+						<#else>
+							<option value="${doctor.id}">${doctor.name}</option> 
+						</#if> 
+					</#list>
+				</select>
+				<select name="departmentId">
+					<option value="-1">请选择科室</option>
+					<#list departments as department>
+						<#if department.id == searchDepartmentId>
+							<option value="${(department.id)!} selected="selected">${(department.name)!}</option>
+						<#else>
+							<option value="${(department.id)!}">${(department.name)!}</option>
+						</#if>
+					</#list>
+				</select>
+				挂号日期：
+				
+				<select name="day">
+					<option value="-1">请选择挂号日期</option> 
+					<#list futureDays?keys as day>
+				       <option value="${day}" >${futureDays[day]}</option>
+					</#list>
+				</select>
+				
+				<input type="text" name="date" id="date" value="${searchDate!}"/>
+				<input type="submit" name="subButton" id="subButton" value="查询" />		
+			</span>
+		</form>
+	</div>
+	
+	<div class="data-box">
+			<table border="1" cellspacing="0" cellpadding="0" class="small-size">
+				<thead>
+					<th width="120">日期</th>
+					<th>批次</th>
+					<th>预约人</th>
+					<th width="100">科室</th>
+					<th width="80">医生</th>
+					<th width="120">职称</th>
+					<th width="80">审核状态</th>
+					<th width="80">状态</th>
+					<th width="210">操作</th>
+				</thead>
+				<tbody>
+					<#list registerList.list as reg>
+					<tr>
+						
+						<td align="center">${(reg.date)!}</td>
+						<td align="center"><#if reg.period==0>上午 <#else>下午</#if></td>
+						<td align="center">${reg.getUser().name}</td>
+						<td align="center">${(reg.getDepartment().name)!}</td>
+						<td align="center">${(reg.getDoctor().name)!}</td>
+						<td align="center">${(reg.getDoctor().getRole().name)!}</td>
+						<td align="center">
+						<#if reg.status==0>
+							待审核
+						<#else>
+							<#if reg.status==1>
+								未通过审核
+							<#else>
+								<#if reg.status==2>
+									通过审核
+								<#else>
+								       已处理
+								</#if>
+							</#if>
+						</#if>
+						
+						</td>
+						<td align="center">
+						<#if reg.rstatus==1>已取消 <#else><#if reg.date?date("yyyy-MM-dd") gt nowDate?date("yyyy-MM-dd")>已预约<#else>已过期</#if></#if>
+						</td>
+						
+						<td align="center">
+						<#if reg.rstatus==1>
+						已取消 
+						<#else>
+							<#if reg.date?date("yyyy-MM-dd") gt nowDate?date("yyyy-MM-dd")>
+							<input type="radio" name="radioButton${(reg.id)!}" onclick="goExamine(0,${(reg.id)!})" value="0" <#if reg.status==0>checked="checked"</#if>/>待审核
+							<input type="radio" name="radioButton${(reg.id)!}" onclick="goExamine(1,${(reg.id)!})" value="1" <#if reg.status==1>checked="checked"</#if>/>不通过
+							<input type="radio" name="radioButton${(reg.id)!}" onclick="goExamine(2,${(reg.id)!})" value="2" <#if reg.status==2>checked="checked"</#if>/>通过
+							<#else>
+								已过期
+							</#if>
+						</#if>
+						
+						</td>	
+					</tr>
+					</#list>
+
+				</tbody>
+			</table>
+	</div>
+
+	<div class="page-box">
+		<span style="margin-left: 10px"> 
+		共${registerList.totalRow}条记录&nbsp;共${registerList.totalPage}页  每页${registerList.pageSize}条数据  当前第${registerList.pageNumber}页     
+		<a href="/admin/register/?p=1<#if searchPage == 1>&s=1</#if>" >[首页]</a>
+		<a href="/admin/register/?p=<#if registerList.pageNumber lte 1>1<#else>${registerList.pageNumber - 1}</#if><#if searchPage == 1>&s=1</#if>" >[上一页]</a> 
+		<a href="/admin/register/?p=<#if registerList.pageNumber gte registerList.totalPage>${registerList.totalPage}<#else>${registerList.pageNumber + 1}</#if><#if searchPage == 1>&s=1</#if>" >[下一页]</a> 
+		<a href="/admin/register/?p=${registerList.totalPage}<#if searchPage == 1>&s=1</#if>" >[末页]</a>
+		 
+		</span>
+	</div>
 </body>
 </html>

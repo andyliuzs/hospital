@@ -5,29 +5,29 @@
 <title>挂号界面</title>
 
 <script type="text/javascript"
-	src="../../static/assets/jquery/jquery-1.10.2.min.js"></script>
+	src="/admin/static/assets/jquery/jquery-1.10.2.min.js"></script>
 
 <script type="text/javascript"
-	src="../../static/assets/jquery/jquery.form.js"></script>
+	src="/admin/static/assets/jquery/jquery.form.js"></script>
 
 <script type="text/javascript"
-	src="../../static/assets/artDialog/artDialog.js??skin=idialog"></script>
+	src="/admin/static/assets/artDialog/artDialog.js??skin=idialog"></script>
 
 <script type="text/javascript"
-	src="../../static/assets/artDialog/plugins/iframeTools.js"></script>
+	src="/admin/static/assets/artDialog/plugins/iframeTools.js"></script>
 
 
 <script type="text/javascript">
 	
-	$(function() {
+	/*$(function() {
 
 		$("#plan").click(function() {
 			$.ajax({
-				url : "/admin/schedule/save",
+				url : "/register/save",
 				data : $('#planForm').serialize(),
 				dataType : "json",
 				error : function(data) {
-					alert("排班失败！");
+					alert("预约失败！");
 					art.dialog.close();
 				},
 				success : function(data) {
@@ -36,25 +36,42 @@
 			});
 		});
 
-	});
+	});*/
+	function scheduleSave(doctorid,date,daya,departmentid){
+		$.ajax({
+			url : "/register/save/?doctorid="+doctorid+"&date="+date+"&daya="+daya+"&departmentid="+departmentid,
+			dataType : "json",
+			error : function(data) {
+				alert("预约失败！");
+				art.dialog.close();
+			},
+			success : function(data) {
+				alert(data.data);
+				art.dialog.close();
+			}
+		});
+    }
 	
 </script>
 
 </head>
 <body>
-	<div>科室：${department.name}</div>
-	<div>日期：${date}</div>
-
+	<div>科室：${(department.name)!}</div>
+	<div>日期：${date!}</div>
+<!-- 	<form id="planForm" name="planForm" method="post">
+		<input type="hidden" name="userid"/>
+		<input type="hidden" name="date"/>
+		<input type="hidden" name="daya"/>
+		<input type="hidden" name="departmentid"/>
+	</form>
+ -->
 	<table>
 		<thead>
 			<tr>
 				<th>医生</th>
 				<th>职位</th>
 				<th>上午可预约</th>
-				<th>上午已预约</th>
 				<th>下午可预约</th>
-				<th>下午已预约</th>
-				<th>操作</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -62,14 +79,11 @@
 			<tr>
 				<td> 
 					<input type="hidden" name="doctorId" value="${doctor.id}" />
-					${doctor.name}
+					${(doctor.name)!}
 				</td>
 				<td>${doctor.getRole().name}</td>
-				<td>${(doctor.getSchedule(date).amTotal)!}</td>
-				<td>${(doctor.getSchedule(date).amTotal)!}</td>
-				<td>${(doctor.getSchedule(date).pmTotal)!}</td>
-				<td>${(doctor.getSchedule(date).pmTotal)!}</td>
-				<td><a href="">预约</a></td>
+				<td><a  <#if (doctor.getSchedule(date).amTotal-doctor.getSchedule(date).amNum)==0>style="color:#ccc;" onclick="javascript:void(0);" href="javascript:void()" <#else>href="javascript:void()" id="plan" onclick="scheduleSave('${(doctor.id)!}','${date!}','am','${(doctor.departmentid)!}')"</#if> title="点击预约">预约【还剩${(doctor.getSchedule(date).amTotal-doctor.getSchedule(date).amNum)!}个】</a></td>
+				<td><a  <#if (doctor.getSchedule(date).pmTotal-doctor.getSchedule(date).pmNum)==0>style="color:#ccc;" onclick="javascript:void(0);" href="javascript:void()" <#else>href="javascript:void()" id="plan" onclick="scheduleSave('${(doctor.id)!}','${date!}','pm','${(doctor.departmentid)!}')"</#if>  title="点击预约">预约【还剩${(doctor.getSchedule(date).pmTotal-doctor.getSchedule(date).pmNum)!}个】</a></td>
 			</tr>
 			</#list>
 		</tbody>

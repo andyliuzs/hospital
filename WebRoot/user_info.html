@@ -3,11 +3,19 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>修改我的信息</title>
-	<link rel="stylesheet" href="./static/css/home.css" type="text/css" />
-	<script type="text/javascript" src="./static/js/jquery-1.10.2.min.js"></script>
-	<script type="text/javascript" src="./static/js/common.js"></script>
+	<link rel="stylesheet" href="/static/css/home.css" type="text/css" />
+	<script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="/static/js/common.js"></script>
+	<script type="text/javascript">
+		function showUpdateResult(){
+			var tip  = '${updateTip!}';
+			if(tip!=null && tip != ""){
+				alert(tip);
+			}
+		}
+	</script>
 </head>
-<body>
+<body onload="showUpdateResult()">
 	<div class="wrapper">
 		<div class="header">
 			<p class="logo"></p>
@@ -40,6 +48,11 @@
 									</td>
 									<td>
 										<input type="hidden" name="user.id" value="${(user.id)!}"/>
+										<input type="hidden" name="user.account" value="${(user.account)!}"/>
+										<input type="hidden" name="user.name" value="${(user.name)!}"/>
+										<input type="hidden" name="user.sex" value="${(user.sex)!}"/>
+										<input type="hidden" name="user.age" value="${(user.age)!}"/>
+										<input type="hidden" name="user.identity" value="${(user.identity)!}"/>
 										<span>${(user.account)!}</span>&nbsp;<a href="/user/password.html">修改密码</a>
 									</td>
 								</tr>

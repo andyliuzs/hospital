@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4
+-- version phpStudy 2014
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Aug 06, 2014 at 08:00 PM
--- Server version: 5.6.12-log
--- PHP Version: 5.4.16
+-- 主机: localhost
+-- 生成日期: 2014 年 08 月 11 日 17:59
+-- 服务器版本: 5.5.38
+-- PHP 版本: 5.3.28
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -17,15 +17,15 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `simple_hospital`
+-- 数据库: `simple_hospital`
 --
-CREATE DATABASE IF NOT EXISTS `simple_hospital` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE `simple_hospital` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `simple_hospital`;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
+-- 表的结构 `admin`
 --
 
 CREATE TABLE IF NOT EXISTS `admin` (
@@ -40,17 +40,17 @@ CREATE TABLE IF NOT EXISTS `admin` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='管理员表' AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `admin`
+-- 转存表中的数据 `admin`
 --
 
 INSERT INTO `admin` (`id`, `account`, `password`, `roleId`, `time`) VALUES
-(1, 'admin', 'admin', 1, '1407354695581'),
+(1, 'admin', 'admin', 1, '1407747156468'),
 (2, '1', '1', 5, '1405782887');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `department`
+-- 表的结构 `department`
 --
 
 CREATE TABLE IF NOT EXISTS `department` (
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `department` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='科室' AUTO_INCREMENT=10 ;
 
 --
--- Dumping data for table `department`
+-- 转存表中的数据 `department`
 --
 
 INSERT INTO `department` (`id`, `name`, `desc`, `image`, `recommend`, `directorId`, `sort`) VALUES
@@ -82,7 +82,7 @@ INSERT INTO `department` (`id`, `name`, `desc`, `image`, `recommend`, `directorI
 -- --------------------------------------------------------
 
 --
--- Table structure for table `doctor`
+-- 表的结构 `doctor`
 --
 
 CREATE TABLE IF NOT EXISTS `doctor` (
@@ -105,11 +105,11 @@ CREATE TABLE IF NOT EXISTS `doctor` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='医生信息表' AUTO_INCREMENT=23 ;
 
 --
--- Dumping data for table `doctor`
+-- 转存表中的数据 `doctor`
 --
 
 INSERT INTO `doctor` (`id`, `account`, `password`, `name`, `roleId`, `recommend`, `sex`, `age`, `desc`, `departmentId`, `sort`, `del`, `image`, `time`) VALUES
-(1, 'wangjuli', 'wangjuli', '王菊莉', 2, 1, 0, 45, '王菊莉，骨科主治医生，骨科主任', 1, 100, 1, '\\upload\\avatar\\1407168569860.jpg', '1406474082577'),
+(1, 'wangjuli', 'wangjuli', '王菊莉', 2, 1, 0, 45, '王菊莉，骨科主治医生，骨科主任', 1, 100, 1, '\\upload\\avatar\\1407168569860.jpg', '1407748965234'),
 (6, 'chenhong', 'chenhong', '陈虹', 2, 1, 1, 53, '现任佳木斯大学兼职教授，省神经内科专业委员，市神经内科专业第一副主任委员', 2, 99, 1, '\\upload\\avatar\\1407168677330.gif', NULL),
 (11, 'fanyanqiu', 'fanyanqiu', '范彦秋', 2, 1, 0, 45, '1988年毕业于哈尔滨医科大学医学系，研究生学历，现任黑龙江省医学会消化内镜分会委员，佳木斯市医学会消化内镜分会副主任委员，2001年在北京友谊医院进修一年。熟练掌握消化系统急、危、重症病人的抢救治疗，上消化道出血的内镜下注射止血及钛夹止血治疗；肝硬化并食管静脉曲张出血的内镜下套扎止血治疗；胃石症的内镜下碎石治疗；胃肠息肉的内镜切除术及消化道异物取出术等。\r\n', 9, 99, 1, '\\upload\\avatar\\1407251947365.gif', NULL),
 (12, 'zuohongjia', 'zuohongjia', '栾宏佳', 2, 1, 1, 48, '1988年毕业于哈尔滨医科大学医疗系，现任佳木斯市骨科学会副主任委员，省关节外科专业委员，曾到南京铁道医学院、北医三院、积水潭医院进修。 \r\n     专业特长：擅长对于骨科常见病及疑难病诊断及治疗。对于肌皮瓣的游离移植，全膝、全髋、人工关节置换和人工关节翻修术，腔镜下关节微创手术，颈椎、胸椎、腰椎前后路手术都有较高造诣。\r\n    从医格言：精益求精，尽职尽责。\r\n', 1, 0, 1, '/admin/uploads/avatar/1406128941596.gif', NULL),
@@ -120,7 +120,7 @@ INSERT INTO `doctor` (`id`, `account`, `password`, `name`, `roleId`, `recommend`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `permission`
+-- 表的结构 `permission`
 --
 
 CREATE TABLE IF NOT EXISTS `permission` (
@@ -131,20 +131,20 @@ CREATE TABLE IF NOT EXISTS `permission` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='权限表' AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='权限表' AUTO_INCREMENT=30 ;
 
 --
--- Dumping data for table `permission`
+-- 转存表中的数据 `permission`
 --
 
 INSERT INTO `permission` (`id`, `name`, `url`, `pid`) VALUES
 (2, '我的信息', NULL, 0),
 (3, '文章管理', NULL, 0),
-(5, '预约管理', NULL, 0),
+(5, '预约审核', NULL, 0),
 (6, '科室管理', NULL, 0),
 (7, '用户信息', NULL, 0),
 (8, '医生管理', NULL, 0),
-(9, '预约处理', NULL, 0),
+(9, '预约管理', NULL, 0),
 (10, '排班管理', NULL, 0),
 (11, '基本信息', '/admin/myinfo', 2),
 (12, '修改密码', '/admin/myinfo/password', 2),
@@ -153,16 +153,17 @@ INSERT INTO `permission` (`id`, `name`, `url`, `pid`) VALUES
 (15, '医生列表', '/admin/doctor/index', 8),
 (16, '添加医生信息', '/admin/doctor/add', 8),
 (17, '预约列表', '/admin/register/index', 5),
-(18, '我的预约', '/admin/register/process', 9),
+(18, '预约处理', '/admin/register/process', 9),
 (19, '文章列表', '/admin/post/index', 3),
 (20, '添加文章', '/admin/post/add', 3),
 (22, '用户列表', '/admin/user/index', 7),
-(26, '医生排班', '/admin/schedule/index', 10);
+(26, '医生排班', '/admin/schedule/index', 10),
+(29, '挂号列表', '/admin/register', 9);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `post`
+-- 表的结构 `post`
 --
 
 CREATE TABLE IF NOT EXISTS `post` (
@@ -179,7 +180,7 @@ CREATE TABLE IF NOT EXISTS `post` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='公告表' AUTO_INCREMENT=35 ;
 
 --
--- Dumping data for table `post`
+-- 转存表中的数据 `post`
 --
 
 INSERT INTO `post` (`id`, `title`, `content`, `cid`, `author`, `del`, `time`, `hits`) VALUES
@@ -222,7 +223,7 @@ INSERT INTO `post` (`id`, `title`, `content`, `cid`, `author`, `del`, `time`, `h
 -- --------------------------------------------------------
 
 --
--- Table structure for table `post_category`
+-- 表的结构 `post_category`
 --
 
 CREATE TABLE IF NOT EXISTS `post_category` (
@@ -235,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `post_category` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='公告类别表' AUTO_INCREMENT=12 ;
 
 --
--- Dumping data for table `post_category`
+-- 转存表中的数据 `post_category`
 --
 
 INSERT INTO `post_category` (`id`, `name`, `remark`, `pid`) VALUES
@@ -254,7 +255,7 @@ INSERT INTO `post_category` (`id`, `name`, `remark`, `pid`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `register`
+-- 表的结构 `register`
 --
 
 CREATE TABLE IF NOT EXISTS `register` (
@@ -263,17 +264,30 @@ CREATE TABLE IF NOT EXISTS `register` (
   `departmentId` int(11) NOT NULL COMMENT '科室ID',
   `doctorId` int(11) NOT NULL COMMENT '医生ID',
   `date` varchar(45) NOT NULL COMMENT '挂号时间（年月日）',
-  `period` int(11) NOT NULL COMMENT '挂号时间段（上午、下午）',
+  `period` int(11) NOT NULL COMMENT '挂号时间段（0上午、1下午）',
   `remark` text COMMENT '备注',
-  `status` int(11) DEFAULT '0' COMMENT '审核状态（待审核，通过，未通过）',
+  `verify` int(11) DEFAULT '0' COMMENT '审核状态（0:待审核，1:通过，2:未通过，3:用户取消预约）',
+  `status` int(11) DEFAULT '0' COMMENT '处理状态（0:未处理，1:已处理）',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='挂号表' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='挂号表' AUTO_INCREMENT=8 ;
+
+--
+-- 转存表中的数据 `register`
+--
+
+INSERT INTO `register` (`id`, `userId`, `departmentId`, `doctorId`, `date`, `period`, `remark`, `verify`, `status`) VALUES
+(2, 1, 1, 1, '20140809', 0, NULL, 1, 0),
+(3, 1, 1, 12, '20140809', 1, NULL, 2, 0),
+(4, 1, 1, 22, '20140809', 0, NULL, 0, 1),
+(5, 1, 1, 1, '20140812', 0, NULL, 1, 0),
+(6, 2, 1, 12, '20140812', 0, NULL, 0, 0),
+(7, 2, 1, 1, '20140812', 0, NULL, 1, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `role`
+-- 表的结构 `role`
 --
 
 CREATE TABLE IF NOT EXISTS `role` (
@@ -286,7 +300,7 @@ CREATE TABLE IF NOT EXISTS `role` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='角色表' AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `role`
+-- 转存表中的数据 `role`
 --
 
 INSERT INTO `role` (`id`, `name`, `remark`, `type`) VALUES
@@ -299,7 +313,7 @@ INSERT INTO `role` (`id`, `name`, `remark`, `type`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `role_permission`
+-- 表的结构 `role_permission`
 --
 
 CREATE TABLE IF NOT EXISTS `role_permission` (
@@ -308,7 +322,7 @@ CREATE TABLE IF NOT EXISTS `role_permission` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色权限对应表';
 
 --
--- Dumping data for table `role_permission`
+-- 转存表中的数据 `role_permission`
 --
 
 INSERT INTO `role_permission` (`roleId`, `permissionId`) VALUES
@@ -316,6 +330,7 @@ INSERT INTO `role_permission` (`roleId`, `permissionId`) VALUES
 (1, 2),
 (1, 3),
 (1, 4),
+(1, 5),
 (1, 6),
 (1, 7),
 (1, 8),
@@ -335,7 +350,7 @@ INSERT INTO `role_permission` (`roleId`, `permissionId`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `schedule`
+-- 表的结构 `schedule`
 --
 
 CREATE TABLE IF NOT EXISTS `schedule` (
@@ -348,10 +363,10 @@ CREATE TABLE IF NOT EXISTS `schedule` (
   `pmNum` int(11) DEFAULT '0' COMMENT '下午实际预约数',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='医生排班表' AUTO_INCREMENT=77 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='医生排班表' AUTO_INCREMENT=86 ;
 
 --
--- Dumping data for table `schedule`
+-- 转存表中的数据 `schedule`
 --
 
 INSERT INTO `schedule` (`id`, `doctorId`, `date`, `amTotal`, `amNum`, `pmTotal`, `pmNum`) VALUES
@@ -430,12 +445,21 @@ INSERT INTO `schedule` (`id`, `doctorId`, `date`, `amTotal`, `amNum`, `pmTotal`,
 (73, 22, '20140804', 2, 0, 5, 0),
 (74, 22, '20140805', 5, 0, 4, 0),
 (75, 22, '20140806', 4, 0, 2, 0),
-(76, 11, '20140728', 5, 0, 5, 0);
+(76, 11, '20140728', 5, 0, 5, 0),
+(77, 1, '20140809', 2, 1, 2, 0),
+(78, 12, '20140809', 2, 0, 2, 1),
+(79, 22, '20140809', 2, 0, 2, 0),
+(80, 1, '20140810', 0, 0, 0, 0),
+(81, 12, '20140810', 0, 0, 0, 0),
+(82, 22, '20140810', 0, 0, 0, 0),
+(83, 1, '20140812', 2, 2, 2, 0),
+(84, 12, '20140812', 2, 1, 2, 0),
+(85, 22, '20140812', 2, 0, 2, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `schedule_status`
+-- 表的结构 `schedule_status`
 --
 
 CREATE TABLE IF NOT EXISTS `schedule_status` (
@@ -444,7 +468,7 @@ CREATE TABLE IF NOT EXISTS `schedule_status` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='排班状态表';
 
 --
--- Dumping data for table `schedule_status`
+-- 转存表中的数据 `schedule_status`
 --
 
 INSERT INTO `schedule_status` (`departmentId`, `date`) VALUES
@@ -479,12 +503,15 @@ INSERT INTO `schedule_status` (`departmentId`, `date`) VALUES
 (6, '20140804'),
 (6, '20140805'),
 (6, '20140806'),
-(9, '20140728');
+(9, '20140728'),
+(1, '20140809'),
+(1, '20140810'),
+(1, '20140812');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- 表的结构 `user`
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
@@ -508,7 +535,15 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `account` (`account`),
   UNIQUE KEY `account_2` (`account`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='用户表' AUTO_INCREMENT=3 ;
+
+--
+-- 转存表中的数据 `user`
+--
+
+INSERT INTO `user` (`id`, `account`, `password`, `name`, `address`, `sex`, `email`, `phone`, `qq`, `age`, `del`, `identity`, `time`, `usercol1`, `usercol2`, `usercol3`) VALUES
+(1, '123456', '123456', 'liu', '红旗大街小巧村', 1, '23452345@qq.com', '18231112132', '23452345', 22, NULL, '130182199311118222', '1407738074765', NULL, NULL, NULL),
+(2, '123123', '123123', '123', '河北保定市新开发区', 1, '1233@qq.com', '12345989891', '1233', 22, NULL, '130182199201215221', '1407724385156', NULL, NULL, NULL);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

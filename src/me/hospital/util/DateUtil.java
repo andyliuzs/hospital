@@ -9,7 +9,6 @@ import java.util.List;
 public class DateUtil {
 
 	public static SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
-
 	/**
 	 * 获取今天的日期
 	 * 
@@ -19,6 +18,16 @@ public class DateUtil {
 		return formatter.format(new Date().getTime());
 	}
 
+	/**
+	 * 获取今天的日期
+	 * @param format
+	 * @return
+	 */
+	public static String getToday(String format) {
+		SimpleDateFormat formatter = new SimpleDateFormat(format);
+		return formatter.format(new Date().getTime());
+	}
+	
 	/**
 	 * 获取未来某天的日期值
 	 * 
