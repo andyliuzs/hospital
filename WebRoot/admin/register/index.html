@@ -13,29 +13,10 @@
 	<script type="text/javascript" src="/static/js/minform/drcal.js"></script>
 	
 	<script type="text/javascript">
-		function selectAll(obj){
-			var checks = document.getElementsByName("_check");
-			//隐藏域存放选中数据ID
-		//	var registerIds = document.getElementById("registerIds");
-			//registerIds = "";
-			if(obj.checked = true || obj.checked =='checked'){
-				for(var i=0;i<checks.length;i++){
-					checks[i].checked = obj.checked;
-				}
-			}else{
 
-			}
-			
-		}
-		
-		function goExamine(status,regId){
-		//	art.dialog.open('/admin/register/show/?regId=' + regId, {width: 600, height: 400,
-	   //         close: function () {
-	            	//update();
-	    //        }
-		//	}, false);
+		function verify(status,regId){
 	        $.ajax({ 
-	        	url: "/admin/register/examine/?status=" + status+"&regId="+regId, 
+	        	url: "/admin/register/verify/?status=" + status+"&regId="+regId, 
 	        	dataType: "json", 
 	        	error:function(data){
 					alert(data.data);
@@ -45,7 +26,6 @@
 					location.reload();
 	        	}
 	        }); 
-
 		}
 	</script>
 </head>
@@ -54,16 +34,7 @@
 		<form name="searchForm" action="/admin/register/search" method="post">
 			<span>预约用户：
 				<input type="text" name="username" id="username" value="${searchUserName!}" />&nbsp;
-				<select name="doctorId">
-					<option value="-1">请选择科室主任</option> 
-					<#list doctors as doctor> 
-						<#if doctor.id == searchDoctorId>
-							<option value="${doctor.id}" selected="selected">${doctor.name}</option>
-						<#else>
-							<option value="${doctor.id}">${doctor.name}</option> 
-						</#if> 
-					</#list>
-				</select>
+				
 				<select name="departmentId">
 					<option value="-1">请选择科室</option>
 					<#list departments as department>
@@ -74,12 +45,24 @@
 						</#if>
 					</#list>
 				</select>
+				
+				<select name="doctorId">
+					<option value="-1">请选择医生</option> 
+					<#list doctors as doctor> 
+						<#if doctor.id == searchDoctorId>
+							<option value="${doctor.id}" selected="selected">${doctor.name}</option>
+						<#else>
+							<option value="${doctor.id}">${doctor.name}</option> 
+						</#if> 
+					</#list>
+				</select>
+				
 				挂号日期：
 				
 				<select name="day">
-					<option value="-1">请选择挂号日期</option> 
-					<#list futureDays?keys as day>
-				       <option value="${day}" >${futureDays[day]}</option>
+					<option value="-1">挂号日期</option> 
+					<#list futureDays as day>
+				       <option value="${day}" >${day}</option>
 					</#list>
 				</select>
 				
@@ -98,14 +81,11 @@
 					<th width="100">科室</th>
 					<th width="80">医生</th>
 					<th width="120">职称</th>
-					<th width="80">审核状态</th>
-					<th width="80">状态</th>
-					<th width="210">操作</th>
+					<th width="120">审核状态</th>
 				</thead>
 				<tbody>
 					<#list registerList.list as reg>
 					<tr>
-						
 						<td align="center">${(reg.date)!}</td>
 						<td align="center"><#if reg.period==0>上午 <#else>下午</#if></td>
 						<td align="center">${reg.getUser().name}</td>
@@ -113,39 +93,21 @@
 						<td align="center">${(reg.getDoctor().name)!}</td>
 						<td align="center">${(reg.getDoctor().getRole().name)!}</td>
 						<td align="center">
-						<#if reg.status==0>
-							待审核
-						<#else>
-							<#if reg.status==1>
-								未通过审核
-							<#else>
-								<#if reg.status==2>
-									通过审核
+							<#if reg.verify == 0>
+								<#if reg.date?date("yyyy-MM-dd") gt today?date("yyyy-MM-dd")>
+									<a href="javascript:void()" onclick="verify(1,${(reg.id)!})">通过</a>&nbsp;
+									<a href="javascript:void()" onclick="verify(2,${(reg.id)!})">拒绝</a>
 								<#else>
-								       已处理
+									已过期
 								</#if>
+							<#elseif reg.verify == 1>
+								已通过
+							<#elseif reg.verify == 2>
+								已拒绝
+							<#elseif reg.verify == 3>
+								已取消
 							</#if>
-						</#if>
-						
 						</td>
-						<td align="center">
-						<#if reg.rstatus==1>已取消 <#else><#if reg.date?date("yyyy-MM-dd") gt nowDate?date("yyyy-MM-dd")>已预约<#else>已过期</#if></#if>
-						</td>
-						
-						<td align="center">
-						<#if reg.rstatus==1>
-						已取消 
-						<#else>
-							<#if reg.date?date("yyyy-MM-dd") gt nowDate?date("yyyy-MM-dd")>
-							<input type="radio" name="radioButton${(reg.id)!}" onclick="goExamine(0,${(reg.id)!})" value="0" <#if reg.status==0>checked="checked"</#if>/>待审核
-							<input type="radio" name="radioButton${(reg.id)!}" onclick="goExamine(1,${(reg.id)!})" value="1" <#if reg.status==1>checked="checked"</#if>/>不通过
-							<input type="radio" name="radioButton${(reg.id)!}" onclick="goExamine(2,${(reg.id)!})" value="2" <#if reg.status==2>checked="checked"</#if>/>通过
-							<#else>
-								已过期
-							</#if>
-						</#if>
-						
-						</td>	
 					</tr>
 					</#list>
 

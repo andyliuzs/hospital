@@ -33,7 +33,7 @@ public class Register extends Model<Register> {
 
 	public Page<Register> paginateForDoctor(int pageNumber, int pageSize,
 			String doctorId, String verify) {
-		// 状态0待审核 1未通过 2通过 3处理
+
 		// 审核状态（0:待审核，1:通过，2:未通过，3:用户取消预约）
 		return dao.paginate(pageNumber, pageSize, "select *",
 				"from register where doctorId = ? and verify = ?", doctorId,

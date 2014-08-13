@@ -34,12 +34,11 @@
 					<table border="1" cellspacing="0" cellpadding="0">
 						<thead>
 							<th width="120">日期</th>
-							<th>批次</th>
+							<th width="80">批次</th>
 							<th width="100">科室</th>
 							<th width="80">医生</th>
 							<th width="120">职称</th>
-							<th width="80">审核状态</th>
-							<th width="120">状态</th>
+							<th>审核状态</th>
 						</thead>
 						<tbody>
 							<#list registerList.list as reg>
@@ -50,22 +49,15 @@
 								<td align="center">${(reg.getDoctor().name)!}</td>
 								<td align="center">${(reg.getDoctor().getRole().name)!}</td>
 								<td align="center">
-								<#if reg.status==0>
-								待审核
-								<#else>
-									<#if reg.status==1>
-									未通过审核
-									<#else>
-									<#if reg.status==2>
-										通过审核
-									<#else>
-									          处理
+									<#if reg.verify == 0>
+										待审核&nbsp;<a href="/register/cancel/?registerId=${reg.id}">取消预约</a>
+									<#elseif reg.verify == 1>
+										通过
+									<#elseif reg.verify == 2>
+										未通过
+									<#elseif reg.verify == 3>
+										已取消
 									</#if>
-									</#if>
-								</#if>
-								</td>
-								<td align="center">
-								<#if reg.rstatus==1>已取消 <#else><#if reg.date?date("yyyy-MM-dd") gt nowDate?date("yyyy-MM-dd")><a href="/register/cancel/?registerid=${reg.id}">取消预约</a><#else>已过期</#if></#if>
 								</td>
 							</tr>
 							</#list>

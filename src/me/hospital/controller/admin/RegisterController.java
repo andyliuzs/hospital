@@ -1,6 +1,5 @@
 package me.hospital.controller.admin;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -12,7 +11,6 @@ import java.util.Map;
 import me.hospital.config.CoreConstants;
 import me.hospital.interceptor.admin.RegisterInterceptor;
 import me.hospital.model.Doctor;
-import me.hospital.model.Post;
 import me.hospital.model.Register;
 import me.hospital.model.Role;
 import me.hospital.model.User;
@@ -34,34 +32,35 @@ public class RegisterController extends Controller {
 	@Before(RegisterInterceptor.class)
 	public void index() {
 
-		List<String> futureDays = DateUtil.getFutureDays(10);
-		HashMap<String, String> dayMap = new HashMap<String, String>();
+		List<String> futureDays = DateUtil.getFutureDays(10, "yyyy-MM-dd");
+		// HashMap<String, String> dayMap = new HashMap<String, String>();
+		//
+		// try {
+		//
+		// SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+		// SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
+		// for (String day : futureDays) {
+		// dayMap.put(day, formatter2.format(formatter.parse(day)));
+		// }
+		//
+		// for (String key : dayMap.keySet()) {
+		// System.out
+		// .println("Key: " + key + " value: " + dayMap.get(key));
+		// }
+		//
+		// } catch (ParseException e) {
+		// e.printStackTrace();
+		// }
 
-		try {
-			
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
-			SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
-			for (String day : futureDays) {
-				dayMap.put(day, formatter2.format(formatter.parse(day)));
-			}
-			
-			for (String key : dayMap.keySet()) {
-				System.out.println("Key: " + key + " value: " + dayMap.get(key));
-			}
-			
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-
-		setAttr("futureDays", dayMap);
+		setAttr("futureDays", futureDays);
 
 		// 获取当前用户
-		Doctor doctor = getDoctor();
+		// Doctor doctor = getDoctor();
 
 		// 读取当前用户所有的预约
 		Page<Register> registerList = null;
 		// 获取权限
-		Role role = null;
+		// Role role = null;
 
 		// 判断当前是否是搜索的数据进行的分页
 		// 如果是搜索的数据，则跳转至search方法处理
@@ -76,57 +75,68 @@ public class RegisterController extends Controller {
 		if (page < 1) {
 			page = 1;
 		}
-		int roleId = 0;
-		if (doctor != null) {
-			roleId = doctor.get("roleId") != null ? Integer.valueOf(doctor.get(
-					"roleId").toString()) : -1;
-		}
-		if (roleId > 0) {
-			role = Role.dao.findById(roleId);
 
-		}
+		// int roleId = 0;
+		// if (doctor != null) {
+		// roleId = doctor.get("roleId") != null ? Integer.valueOf(doctor.get(
+		// "roleId").toString()) : -1;
+		// }
+		// if (roleId > 0) {
+		// role = Role.dao.findById(roleId);
+		//
+		// }
 
-		if (roleId == 0) {
-			// 管理员获取数据
-			registerList = Register.dao.paginate(page, CoreConstants.PAGE_SIZE);
-
-		} else {
-			// 医生获取数据status0待审核 1未通过 2通过 3处理
-			registerList = Register.dao.paginateForDoctor(page,
-					CoreConstants.PAGE_SIZE, String.valueOf(doctor.get("id")),
-					"2");
-		}
+		// if (roleId == 0) {
+		// // 管理员获取数据
+		// registerList = Register.dao.paginate(page, CoreConstants.PAGE_SIZE);
+		//
+		// } else {
+		// // 医生获取数据status0待审核 1未通过 2通过 3处理
+		// registerList = Register.dao.paginateForDoctor(page,
+		// CoreConstants.PAGE_SIZE, String.valueOf(doctor.get("id")),
+		// "2");
+		// }
 
 		// 格式化日期
+		// String formatDate = null;
+		// for (Register register : registerList.getList()) {
+		// formatDate = register.getStr("date");
+		// String formatDate2 = formatDate.substring(0, 4) + "-"
+		// + formatDate.substring(4, 6) + "-"
+		// + formatDate.substring(6, 8);
+		// register.set("date", formatDate2);
+		// }
+
+		// 获取今天
+		// Date datee = new Date();
+		// Calendar calendar = Calendar.getInstance();
+		// calendar.setTime(datee);
+		// String nowDate = calendar.get(calendar.YEAR) + "-"
+		// + (calendar.get(calendar.MONTH) + 1) + "-"
+		// + calendar.get(calendar.DAY_OF_MONTH);
+
+		// 管理员获取数据
+		registerList = Register.dao.paginate(page, CoreConstants.PAGE_SIZE);
+
+		// 格式化日期
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		String formatDate = null;
 		for (Register register : registerList.getList()) {
 			formatDate = register.getStr("date");
-			String formatDate2 = formatDate.substring(0, 4) + "-"
-					+ formatDate.substring(4, 6) + "-"
-					+ formatDate.substring(6, 8);
-			register.set("date", formatDate2);
+			register.set("date", formatter.format(Long.parseLong(formatDate)));
 		}
 
-		// 获取今天
-		Date datee = new Date();
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(datee);
-		String nowDate = calendar.get(calendar.YEAR) + "-"
-				+ (calendar.get(calendar.MONTH) + 1) + "-"
-				+ calendar.get(calendar.DAY_OF_MONTH);
+		String today = DateUtil.getToday("yyyy-MM-dd");
 
 		setAttr("registerList", registerList);
 		setAttr("searchUserName", "");
 		setAttr("searchDoctorId", -1);
 		setAttr("searchDepartmentId", -1);
-		setAttr("nowDate", nowDate);
+		setAttr("today", today);
 		setAttr("searchPage", CoreConstants.NOT_SEARCH_PAGE);
-		if (roleId == 0) {
-			render("index.html");
-		} else {
-			// 医生页面
-			render("process.html");
-		}
+
+		render("index.html");
+
 	}
 
 	/**
@@ -322,16 +332,18 @@ public class RegisterController extends Controller {
 	}
 
 	/***
-	 * 超级管理员审核
+	 * 预约审核
 	 */
-	public void examine() {
+	public void verify() {
 
 		try {
+
 			int status = getParaToInt("status");
 			int regId = getParaToInt("regId");
+			System.out.println("verify: " + status + " regid: " + regId);
 			Register register = Register.dao.findById(regId);
-			register.set("status", status);
-			register.update();
+			register.set("verify", status);
+			System.out.println(register.update());
 			renderJson("data", "审核成功!");
 
 		} catch (Exception e) {
@@ -349,19 +361,18 @@ public class RegisterController extends Controller {
 		Register register = Register.dao.findById(registerId);
 
 		// 格式化日期
-		String formatDate = null;
-		formatDate = register.getStr("date");
-		String formatDate2 = formatDate.substring(0, 4) + "-"
-				+ formatDate.substring(4, 6) + "-" + formatDate.substring(6, 8);
-		register.set("date", formatDate2);
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		String formatDate = register.getStr("date");
+		register.set("date", formatter.format(Long.parseLong(formatDate)));
+
 		setAttr("register", register);
-		render("register_examine.html");
+		render("visit.html");
 	}
 
 	/***
 	 * 医生处理预约（就诊）
 	 */
-	public void saveRemark() {
+	public void visit() {
 		int registerId = getPara("registerId") != null ? Integer
 				.valueOf(getPara("registerId").toString()) : -1;
 		String remark = getPara("remark");

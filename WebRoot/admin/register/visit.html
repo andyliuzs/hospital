@@ -18,11 +18,11 @@
 
 
 <script type="text/javascript">
-	function doThis(doctorid,date,daya,departmentid){
+	function visit(doctorid,date,daya,departmentid){
 		var id = document.getElementById("registerId").value;
 		var remark = document.getElementById("remark").value;
 		$.ajax({
-			url : "/admin/register/saveRemark/?registerId="+id+"&remark="+remark,
+			url : "/admin/register/visit/?registerId="+id+"&remark="+remark,
 			dataType : "json",
 			error : function(data) {
 				alert(data.data);
@@ -39,7 +39,7 @@
 
 </head>
 <body>
-	<form action="/admin/register/saveRemark" name="saveRemarkForm" method="post">
+	<form action="/admin/register/visit" name="visitForm" method="post">
 	<input type="hidden" value="${(register.id)!}" name="registerId" id="registerId" />
 	<div>预约人姓名：${(register.getUser().name)!}</div>
 	<div>医生姓名：${(register.getDoctor().name)!}</div>
@@ -49,9 +49,9 @@
 	备注：
 	<div>
 	
-	<textarea rows="10" cols="69" name="remark" id="remark">${(register.remark)!}</textarea>
+	<textarea rows="10" cols="59" name="remark" id="remark">${(register.remark)!}</textarea>
 	</div>
-	<input type="button" onclick="doThis()" value="提交"/>
+	<input type="button" onclick="visit()" value="提交"/>
 	</form>
 </body>
 </html>

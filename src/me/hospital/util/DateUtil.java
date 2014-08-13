@@ -69,6 +69,31 @@ public class DateUtil {
 
 	}
 	
+	
+	/**
+	 * 获取未来几天的日期字符串
+	 * 
+	 * @param num
+	 * @return
+	 */
+	public static List<String> getFutureDays(int num, String format) {
+
+		// 取时间
+		Date date = new Date();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		List<String> result = new ArrayList<String>();
+		SimpleDateFormat formatter = new SimpleDateFormat(format);
+		for (int i = 0; i < num; i++) {
+			calendar.add(Calendar.DATE, 1);
+			date = calendar.getTime(); // 这个时间就是日期往后推一天的结果
+			result.add(formatter.format(date));
+		}
+
+		return result;
+
+	}
+	
 	/**
 	 * 格式化时间
 	 * @param formatter
