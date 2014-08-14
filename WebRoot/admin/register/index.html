@@ -4,7 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>预约列表</title>
 	
-	<link rel="stylesheet" type="text/css" href="/static/css/calendar.css" />
+	<link rel="stylesheet" type="text/css" href="/admin/static/css/calendar.css" />
+	<link rel="stylesheet" type="text/css" href="/admin/static/css/data.css" />
 	
 	<script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="/static/js/artDialog/artDialog.js??skin=blue"></script>
@@ -30,7 +31,7 @@
 	</script>
 </head>
 <body>
-		<div class="search-box">
+	<div class="search-box">
 		<form name="searchForm" action="/admin/register/search" method="post">
 			<span>预约用户：
 				<input type="text" name="username" id="username" value="${searchUserName!}" />&nbsp;
@@ -73,46 +74,48 @@
 	</div>
 	
 	<div class="data-box">
-			<table border="1" cellspacing="0" cellpadding="0" class="small-size">
-				<thead>
+		<table class="gridtable">
+			<thead align="center">
+				<tr>
 					<th width="120">日期</th>
-					<th>批次</th>
-					<th>预约人</th>
+					<th width="80">批次</th>
+					<th width="100">预约人</th>
 					<th width="100">科室</th>
 					<th width="80">医生</th>
 					<th width="120">职称</th>
 					<th width="120">审核状态</th>
-				</thead>
-				<tbody>
-					<#list registerList.list as reg>
-					<tr>
-						<td align="center">${(reg.date)!}</td>
-						<td align="center"><#if reg.period==0>上午 <#else>下午</#if></td>
-						<td align="center">${reg.getUser().name}</td>
-						<td align="center">${(reg.getDepartment().name)!}</td>
-						<td align="center">${(reg.getDoctor().name)!}</td>
-						<td align="center">${(reg.getDoctor().getRole().name)!}</td>
-						<td align="center">
-							<#if reg.verify == 0>
-								<#if reg.date?date("yyyy-MM-dd") gt today?date("yyyy-MM-dd")>
-									<a href="javascript:void()" onclick="verify(1,${(reg.id)!})">通过</a>&nbsp;
-									<a href="javascript:void()" onclick="verify(2,${(reg.id)!})">拒绝</a>
-								<#else>
-									已过期
-								</#if>
-							<#elseif reg.verify == 1>
-								已通过
-							<#elseif reg.verify == 2>
-								已拒绝
-							<#elseif reg.verify == 3>
-								已取消
+				</tr>
+			</thead>
+			<tbody>
+				<#list registerList.list as reg>
+				<tr>
+					<td align="center">${(reg.date)!}</td>
+					<td align="center"><#if reg.period==0>上午 <#else>下午</#if></td>
+					<td align="center">${reg.getUser().name}</td>
+					<td align="center">${(reg.getDepartment().name)!}</td>
+					<td align="center">${(reg.getDoctor().name)!}</td>
+					<td align="center">${(reg.getDoctor().getRole().name)!}</td>
+					<td align="center">
+						<#if reg.verify == 0>
+							<#if reg.date?date("yyyy-MM-dd") gt today?date("yyyy-MM-dd")>
+								<a href="javascript:void()" onclick="verify(1,${(reg.id)!})">通过</a>&nbsp;
+								<a href="javascript:void()" onclick="verify(2,${(reg.id)!})">拒绝</a>
+							<#else>
+								已过期
 							</#if>
-						</td>
-					</tr>
-					</#list>
+						<#elseif reg.verify == 1>
+							已通过
+						<#elseif reg.verify == 2>
+							已拒绝
+						<#elseif reg.verify == 3>
+							已取消
+						</#if>
+					</td>
+				</tr>
+				</#list>
 
-				</tbody>
-			</table>
+			</tbody>
+		</table>
 	</div>
 
 	<div class="page-box">

@@ -72,3 +72,32 @@
 	display:none;
 }
 
+table {
+	font-family: verdana,arial,sans-serif;
+	font-size:16px;
+	color:#333333;
+}
+
+table.gridtable {
+	border-width: 1px;
+	border-color: #666666;
+	border-collapse: collapse;
+}
+table.gridtable th {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #dedede;
+	color: #000000;
+}
+table.gridtable td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #ffffff;
+}
+
+
+

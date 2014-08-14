@@ -126,14 +126,19 @@ public class RegisterController extends Controller {
 		Page<Register> registerList = Register.dao.paginateSig(page,
 				CoreConstants.PAGE_SIZE, String.valueOf(user.get("id")));
 
-		// 格式化日期
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		String formatDate = null;
-		for (Register register : registerList.getList()) {
-			formatDate = register.getStr("date");
-			register.set("date", formatter.format(Long.parseLong(formatDate)));
+		try {
+			// 格式化日期
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+			SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
+			String formatDate = null;
+			for (Register register : registerList.getList()) {
+				formatDate = register.getStr("date");
+				register.set("date", formatter2.format(formatter.parse(formatDate)));
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
-
+		
 		String today = DateUtil.getToday("yyyy-MM-dd");
 
 		setAttr("user", user);
@@ -158,9 +163,12 @@ public class RegisterController extends Controller {
 		// 3 代表用户主动取消预约
 		register.set("verify", 3);
 
+		System.out.println("date: " + register.get("date"));
 		Schedule schedule = Schedule.dao.getSchedule(register.get("doctorId")
 				.toString(), register.get("date").toString());
 
+		System.out.println("schedule: " + schedule);
+		
 		// 判断上午或者下午预约 0:上午 1:下午
 		if (register.getInt("period") == 0) {
 			schedule.set("amNum", schedule.getInt("amNum") - 1);
@@ -231,13 +239,7 @@ public class RegisterController extends Controller {
 			register.set("userId", userId);
 			register.set("doctorId", doctorId);
 			register.set("departmentId", departmentid);
-
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
-			try {
-				register.set("date", formatter.parse(date).getTime());
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			register.set("date", date);
 			
 			// 0:待审核
 			register.set("verify", 0);
