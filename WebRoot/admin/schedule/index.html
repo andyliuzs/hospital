@@ -99,16 +99,16 @@
 
 </head>
 <body>
-	<div>医生排班</div>
-	科室：
-	<select name="department" id="department">
-		<option value="-1">请选择科室</option> 
-		<#list departments as department>
-			<option value="${department.id}" <#if (departmentId)?? && departmentId == department.id >selected="selected"</#if> >${department.name}</option> 
-		</#list>
-	</select>
-	<#if departmentMsg??><label style="color:red">${departmentMsg}</label></#if>
-
+	<div style="height: 35px;line-height: 35px;">
+		科室：
+		<select name="department" id="department">
+			<option value="-1">请选择科室</option> 
+			<#list departments as department>
+				<option value="${department.id}" <#if (departmentId)?? && departmentId == department.id >selected="selected"</#if> >${department.name}</option> 
+			</#list>
+		</select>
+		<#if departmentMsg??><label style="color:red">${departmentMsg}</label></#if>
+	</div>
 	<div id="drcal2"></div>
 
 </body>

@@ -188,7 +188,16 @@ public class RegisterController extends Controller {
 
 		int departmentId = ParamUtil.paramToInt(getPara("depart"), -1);
 		String date = getPara("date");
-
+		String showDate = null;
+		try {
+			// 格式化日期
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat formatter2 = new SimpleDateFormat("yyyyMMdd");
+			showDate = formatter.format(formatter2.parse(date));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
 		// 查找该科室下所有的医生
 		List<Doctor> doctors = Department.dao.getDoctors(departmentId);
 		setAttr("doctors", doctors);
@@ -197,6 +206,7 @@ public class RegisterController extends Controller {
 
 		setAttr("department", department);
 		setAttr("date", date);
+		setAttr("showDate", showDate);
 
 		render("/register_handle.html");
 	}

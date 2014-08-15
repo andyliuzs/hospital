@@ -18,22 +18,15 @@
 					alert(data.msg);
 					location.reload();
 				});
-				//location.href = url;
 			}
 		 }
 		 
 		//页面加载之后,设置.样式.  
 		$(function(){  
-		    
-			//使用id选择器;例如:tab对象->tr->td对象.  
 		    $(".data-box table td p.desc").each(function(i){  
-		         //获取td当前对象的文本,如果长度大于100;  
 		         if($(this).text().length > 100){  
-	                //给td设置title属性,并且设置td的完整值. 给title属性.  
 		    		$(this).attr("title", $(this).text()); 
-	                //获取td的值, 进行截取, 赋值给text变量保存.  
 		    		var text = $(this).text().substring(0, 100) + "...";  
-	                //重新为td赋值;  
 	                $(this).text(text);  
 		         }  
 	        });  
@@ -86,19 +79,21 @@
 	</div>
 
 <div class="data-box">
-	<table cellspacing="0" cellpadding="0" class="small-size">
-		<thead>
-			<th width="70">头像</th>
-			<th width="100">账号</th>
-			<th width="80">姓名</th>
-			<th width="50">性别</th>
-			<th width="50">年龄</th>
-			<th width="80">科室</th>
-			<th>简介</th>
-			<th width="80">类别</th>
-			<th width="50">推荐</th>
-			<th width="80">排序值</th>
-			<th width="100">操作</th>
+	<table class="gridtable">
+		<thead align="center">
+			<tr>
+				<th width="70">头像</th>
+				<th width="100">账号</th>
+				<th width="80">姓名</th>
+				<th width="50">性别</th>
+				<th width="50">年龄</th>
+				<th width="80">科室</th>
+				<th>简介</th>
+				<th width="80">类别</th>
+				<th width="50">推荐</th>
+				<th width="80">排序值</th>
+				<th width="100">操作</th>
+			</tr>
 		</thead>
 		<tbody>
 			<#list doctorList.list as doctor>

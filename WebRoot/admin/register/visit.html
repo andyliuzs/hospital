@@ -1,57 +1,63 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>挂号审核页面</title>
-
-<script type="text/javascript"
-	src="/admin/static/assets/jquery/jquery-1.10.2.min.js"></script>
-
-<script type="text/javascript"
-	src="/admin/static/assets/jquery/jquery.form.js"></script>
-
-<script type="text/javascript"
-	src="/admin/static/assets/artDialog/artDialog.js??skin=idialog"></script>
-
-<script type="text/javascript"
-	src="/admin/static/assets/artDialog/plugins/iframeTools.js"></script>
-
-
-<script type="text/javascript">
-	function visit(doctorid,date,daya,departmentid){
-		var id = document.getElementById("registerId").value;
-		var remark = document.getElementById("remark").value;
-		$.ajax({
-			url : "/admin/register/visit/?registerId="+id+"&remark="+remark,
-			dataType : "json",
-			error : function(data) {
-				alert(data.data);
-				art.dialog.close();
-			},
-			success : function(data) {
-				alert(data.data);
-				art.dialog.close();
-			}
-		});
-    }
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>挂号审核页面</title>
 	
-</script>
+	<link rel="stylesheet" type="text/css" href="/admin/static/css/data.css" />
+	
+	<script type="text/javascript" src="/admin/static/assets/jquery/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="/admin/static/assets/jquery/jquery.form.js"></script>
+	<script type="text/javascript" src="/admin/static/assets/artDialog/artDialog.js??skin=idialog"></script>
+	<script type="text/javascript" src="/admin/static/assets/artDialog/plugins/iframeTools.js"></script>
+	
+	<script type="text/javascript">
+		function visit(doctorid,date,daya,departmentid){
+			var id = document.getElementById("registerId").value;
+			var remark = document.getElementById("remark").value;
+			$.ajax({
+				url : "/admin/register/visit/?registerId="+id+"&remark="+remark,
+				dataType : "json",
+				error : function(data) {
+					alert(data.data);
+					art.dialog.close();
+				},
+				success : function(data) {
+					alert(data.data);
+					art.dialog.close();
+				}
+			});
+	    }
+		
+	</script>
 
 </head>
 <body>
 	<form action="/admin/register/visit" name="visitForm" method="post">
-	<input type="hidden" value="${(register.id)!}" name="registerId" id="registerId" />
-	<div>预约人姓名：${(register.getUser().name)!}</div>
-	<div>医生姓名：${(register.getDoctor().name)!}</div>
-	<div>科室：${(register.getDepartment().name)!}</div>
-	
-	<div>日期：${register.date!}</div>
-	备注：
-	<div>
-	
-	<textarea rows="10" cols="59" name="remark" id="remark">${(register.remark)!}</textarea>
-	</div>
-	<input type="button" onclick="visit()" value="提交"/>
+		<input type="hidden" value="${(register.id)!}" name="registerId" id="registerId" />
+		<table class="gridtable" style="width: 100%">
+			<tr>
+				<th width="80" align="center">预约人</th>
+				<td>${(register.getUser().name)!}</td>
+				<th width="80" align="center">医生</th>
+				<td>${(register.getDoctor().name)!}</td>
+			</tr>
+			<tr>
+				<th width="80" align="center">科室</th>
+				<td>${(register.getDepartment().name)!}</td>
+				<th width="80" align="center">日期</th>
+				<td>${register.date!}</td>
+			</tr>
+			<tr>
+				<th width="80" align="center">备注</th>
+				<td colspan="3">
+					<textarea style="width:100%;height:200px;" name="remark" id="remark">${(register.remark)!}</textarea>
+				</td>
+			</tr>
+		</table>
+		<div style="text-align:center;margin-top:15px;">
+			<input type="button" onclick="visit()" value="提交"/>
+		</div>
 	</form>
 </body>
 </html>

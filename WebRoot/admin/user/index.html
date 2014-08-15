@@ -41,38 +41,39 @@
 	</div>
 	
 	<div class="data-box">
-		<table cellspacing="0" cellpadding="0" >
-			<thead>
-				<th width="120">用户账号</th>
-				<th width="100">用户姓名</th>
-				<th width="60">性别</th>
-				<th width="60">年龄</th>
-				<th width="160">身份证号</th>
-				<th>地址</th>
-				<th width="120">电话</th>
-				<th width="120">QQ</th>
-				<th width="200">登录时间</th>
-				<th width="100">操作</th>
+		<table class="gridtable">
+			<thead align="center">
+				<tr>
+					<th width="120">用户账号</th>
+					<th width="100">用户姓名</th>
+					<th width="60">性别</th>
+					<th width="60">年龄</th>
+					<th width="160">身份证号</th>
+					<th>地址</th>
+					<th width="120">电话</th>
+					<th width="120">QQ</th>
+					<th width="200">登录时间</th>
+					<th width="100">操作</th>
+				</tr>
 			</thead>
 			<tbody>
 				<#list userList.list as user>
-				<tr>
-					<td align="center">${user.account}</td>
-					<td align="center">${user.name}</td>
-					<td align="center"><#if user.sex == 0>女<#else>男</#if></td>
-					<td align="center">${user.age}</td>
-					<td align="center">${user.identity}</td>
-					<td>${(user.address)!}</td>
-					<td align="center">${(user.phone)!}</td>
-					<td align="center">${(user.qq)!}</td>
-					<td align="center">${user.time}</td>
-					
-					<td align="center"><a
-						href="/admin/user/edit/${user.id}">编辑</a>
-						&nbsp;&nbsp;<a href="javascript:void(0)"
-						onclick="del('/admin/user/delete/${user.id}')">删除</a>
-					</td>
-				</tr>
+					<tr>
+						<td align="center">${user.account}</td>
+						<td align="center">${user.name}</td>
+						<td align="center"><#if user.sex == 0>女<#else>男</#if></td>
+						<td align="center">${user.age}</td>
+						<td align="center">${user.identity}</td>
+						<td>${(user.address)!}</td>
+						<td align="center">${(user.phone)!}</td>
+						<td align="center">${(user.qq)!}</td>
+						<td align="center">${user.time}</td>
+						<td align="center"><a
+							href="/admin/user/edit/${user.id}">编辑</a>
+							&nbsp;&nbsp;<a href="javascript:void(0)"
+							onclick="del('/admin/user/delete/${user.id}')">删除</a>
+						</td>
+					</tr>
 				</#list>
 			</tbody>
 		</table>

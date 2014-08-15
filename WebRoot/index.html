@@ -7,6 +7,19 @@
 	<script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="/static/js/common.js" ></script>
 	<script type="text/javascript">
+		
+		// 收藏本站
+		function favorite(title, url) {
+			try {
+		    	window.external.addFavorite(url, title);
+		  	} catch (e) {
+				try {
+			       window.sidebar.addPanel(title, url, "");
+			    } catch (e) {
+			         alert("抱歉，您所使用的浏览器无法完成此操作。\n\n加入收藏失败，请使用Ctrl+D进行添加");
+			    }
+			}
+		}
 	
 		//页面加载之后,设置.样式.  
 		$(function(){  
@@ -29,13 +42,17 @@
 	        
 		});  
 	
+		
+		
 	</script>
 </head>
 <body>
 	<div class="wrapper">
 		<div class="header">
 			<p class="logo"></p>
-			<p class="favorite"><a href="">点击收藏</a></p>
+			<p class="favorite">
+				<a href="javascript:void()" onclick="favorite('佳木斯中心医院', 'http://localhost:8080/')">点击收藏</a>
+			</p>
 		</div>
 		<div class="nav">
 			<ul>
@@ -110,7 +127,7 @@
 					<div class="user-wrapper">
 						<h5>用户管理</h5>
 						<div class="user-manage">
-							${user.name!}，欢迎您登录！ 
+							<label>${user.name!}，欢迎您登录！</label> 
 							<p><a href="/register.html">[我要预约]</a></p>
 							<p><a href="/register/manage.html">[管理预约]</a></p>
 							<p><a href="/user.html">[修改信息]</a></p>
@@ -128,11 +145,11 @@
 								<ul>
 									<li>
 										<label for="username">账号</label>
-										<input type="text" name="username"/>
+										<input type="text" name="username" style="width: 150px"/>
 									</li>
-									<li>
+									<li style="margin-top: 10px;">
 										<label for="username">密码</label>
-										<input type="password" name="password"/>
+										<input type="password" name="password" style="width: 150px"/>
 									</li>
 	
 								</ul>

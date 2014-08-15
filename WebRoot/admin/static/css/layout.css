@@ -57,13 +57,13 @@ img {
 	position: absolute;
 	left: 0px;
 	top: 0px;
-	width: 200px;
-	height: 79px;
-	line-height: 80px;
+	width: 284px;
+	height: 60px;
+	line-height: 60px;
 	overflow: hidden;
 	text-align: center;
 	vertical-align: bottom;
-	background: url(../img/logo.png);
+	background: url(../image/logo.png) no-repeat;
 }
 
 .logo img {

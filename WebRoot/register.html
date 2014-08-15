@@ -113,25 +113,26 @@
 		<div class="gallery"></div>
 		<div class="container">
 			<div class="content">
-				
-				科室：
-				<select name="department" id="department">
-					<option value="-1">请选择科室</option> 
-					<#list departments as department>
-						<option value="${department.id}" >${department.name}</option> 
-					</#list>
-				</select>
-				<#if departmentMsg??><label style="color:red">${departmentMsg}</label></#if>
-			
-				<div id="drcal2"></div>
-				
+				<div style="margin-left:10px;">
+					<div style="height:35px;line-height:35px;">
+						科室：
+						<select name="department" id="department">
+							<option value="-1">请选择科室</option> 
+							<#list departments as department>
+								<option value="${department.id}" >${department.name}</option> 
+							</#list>
+						</select>
+						<#if departmentMsg??><label style="color:red">${departmentMsg}</label></#if>
+					</div>
+					<div id="drcal2"></div>
+				</div>
 			</div>
 			
 			<div class="sidebar">
 				<div class="user-wrapper">
 					<h5>用户管理</h5>
 					<div class="user-manage">
-						${user.name!}，欢迎您登录！ 
+						<label>${user.name!}，欢迎您登录！</label>
 						<p><a href="/register.html">[我要预约]</a></p>
 						<p><a href="/register/manage.html">[管理预约]</a></p>
 						<p><a href="/user.html">[修改信息]</a></p>

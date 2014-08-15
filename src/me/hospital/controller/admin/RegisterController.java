@@ -47,7 +47,7 @@ public class RegisterController extends Controller {
 
 			return;
 		}
-		
+
 		int page = ParamUtil.paramToInt(getPara(1), 1);
 
 		if (page < 1) {
@@ -64,12 +64,13 @@ public class RegisterController extends Controller {
 			String formatDate = null;
 			for (Register register : registerList.getList()) {
 				formatDate = register.getStr("date");
-				register.set("date", formatter.format(formatter2.parse(formatDate)));
+				register.set("date",
+						formatter.format(formatter2.parse(formatDate)));
 			}
-		} catch(ParseException e) {
+		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 		String today = DateUtil.getToday("yyyy-MM-dd");
 
 		setAttr("registerList", registerList);
@@ -279,9 +280,7 @@ public class RegisterController extends Controller {
 	 * 预约审核
 	 */
 	public void verify() {
-
 		try {
-
 			int status = getParaToInt("status");
 			int regId = getParaToInt("regId");
 			System.out.println("verify: " + status + " regid: " + regId);
@@ -304,10 +303,15 @@ public class RegisterController extends Controller {
 				"regId").toString()) : -1;
 		Register register = Register.dao.findById(registerId);
 
-		// 格式化日期
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		String formatDate = register.getStr("date");
-		register.set("date", formatter.format(Long.parseLong(formatDate)));
+		try {
+			// 格式化日期
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat formatter2 = new SimpleDateFormat("yyyyMMdd");
+			String formatDate = register.getStr("date");
+			register.set("date", formatter.format(formatter2.parse(formatDate)));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 
 		setAttr("register", register);
 		render("visit.html");
@@ -341,17 +345,6 @@ public class RegisterController extends Controller {
 		// 读取当前用户所有的预约
 		Page<Register> registerList = null;
 
-		// 获取权限
-		// Role role = null;
-
-		// 判断当前是否是搜索的数据进行的分页
-		// 如果是搜索的数据，则跳转至search方法处理
-		// if (!ParamUtil.isEmpty(getPara("s"))) {
-		//
-		// search();
-		//
-		// return;
-		// }
 		int page = ParamUtil.paramToInt(getPara(1), 1);
 
 		if (page < 1) {
@@ -361,12 +354,18 @@ public class RegisterController extends Controller {
 		registerList = Register.dao.paginateForDoctor(page,
 				CoreConstants.PAGE_SIZE, String.valueOf(doctor.get("id")), "1");
 
-		// 格式化日期
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		String formatDate = null;
-		for (Register register : registerList.getList()) {
-			formatDate = register.getStr("date");
-			register.set("date", formatter.format(Long.parseLong(formatDate)));
+		try {
+			// 格式化日期
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat formatter2 = new SimpleDateFormat("yyyyMMdd");
+			String formatDate = null;
+			for (Register register : registerList.getList()) {
+				formatDate = register.getStr("date");
+				register.set("date",
+						formatter.format(formatter2.parse(formatDate)));
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
 
 		String today = DateUtil.getToday("yyyy-MM-dd");

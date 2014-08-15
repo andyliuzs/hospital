@@ -34,7 +34,8 @@ public class MyInfoController extends Controller {
 		}
 
 		if (!ParamUtil.isEmpty(loginTime)) {
-			setAttr("time", DateUtil.getFormatTime("yyyy年MM月dd日 HH:mm", loginTime));
+			setAttr("time",
+					DateUtil.getFormatTime("yyyy年MM月dd日 HH:mm", loginTime));
 		}
 
 		render("index.html");
@@ -43,44 +44,44 @@ public class MyInfoController extends Controller {
 	public void password() {
 		render("password.html");
 	}
-	
+
 	@Before(UpdatePasswordValidator.class)
 	public void update() {
-		
+
 		// 密码的一致性以及常规验证在UpdatePasswordValidator中进行
 		String oldPassword = getPara("oldPassword");
 		String newPassword = getPara("newPassword");
-		
+
 		Admin admin = getSessionAttr("admin");
-		if(admin != null) {
-			
-			if(!admin.get("password").equals(oldPassword)) {
+		if (admin != null) {
+
+			if (!admin.get("password").equals(oldPassword)) {
 				setAttr("oldMsg", "原密码不正确！");
 				keepPara();
 				render("password.html");
 				return;
 			}
-		
+
 			admin.set("password", newPassword);
-			if(admin.update()) {
-				setAttr("result", "修改成功！");
+			if (admin.update()) {
+				setAttr("result", "密码修改成功！");
 				render("password.html");
 			}
-			
+
 		} else {
 			Doctor doctor = getSessionAttr("doctor");
-			if(doctor != null) {
-				
-				if(!doctor.get("password").equals(oldPassword)) {
+			if (doctor != null) {
+
+				if (!doctor.get("password").equals(oldPassword)) {
 					setAttr("oldMsg", "原密码不正确！");
 					keepPara();
 					render("password.html");
 					return;
 				}
-			
+
 				doctor.set("password", newPassword);
-				if(doctor.update()) {
-					setAttr("result", "修改成功！");
+				if (doctor.update()) {
+					setAttr("result", "密码修改成功！");
 					render("password.html");
 				}
 			}

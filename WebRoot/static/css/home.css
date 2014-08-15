@@ -265,6 +265,19 @@ input[type=text], input[type=password]{
 	margin: 10px;
 }
 
+.user-manage label {
+	display: block;
+	margin: 5px;
+}
+.user-manage p {
+	height: 25px;
+	line-height: 25px;
+	padding-left: 20px;
+}
+.user-manage p a {
+	color: #4B7EB2;
+}
+
 .login-wrapper {
 	width: 100%;
 	/*height: 150px;*/
@@ -326,6 +339,7 @@ input[type=text], input[type=password]{
 	width: 240px;
 	margin: 10px;
 	font-size: 14px;
+	color: #565656;
 }
 
 /* µ×²¿ */
@@ -646,4 +660,29 @@ div.digg span.disabled {
 	color: #ddd; 
 }
 
+table {
+	font-family: verdana,arial,sans-serif;
+	font-size:16px;
+	color:#333333;
+}
 
+table.gridtable {
+	border-width: 1px;
+	border-color: #666666;
+	border-collapse: collapse;
+}
+table.gridtable th {
+	border-width: 1px;
+	padding: 5px 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #dedede;
+	color: #000000;
+}
+table.gridtable td {
+	border-width: 1px;
+	padding: 5px 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #ffffff;
+}

@@ -1,86 +1,85 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>挂号界面</title>
-
-<script type="text/javascript"
-	src="/admin/static/assets/jquery/jquery-1.10.2.min.js"></script>
-
-<script type="text/javascript"
-	src="/admin/static/assets/jquery/jquery.form.js"></script>
-
-<script type="text/javascript"
-	src="/admin/static/assets/artDialog/artDialog.js??skin=idialog"></script>
-
-<script type="text/javascript"
-	src="/admin/static/assets/artDialog/plugins/iframeTools.js"></script>
-
-
-<script type="text/javascript">
-
-	function process(doctorId, date, period, departmentId) {
-		$.ajax({
-			url : "/register/save/?doctorId=" + doctorId + "&date=" + date
-					+ "&period=" + period + "&departmentId=" + departmentId,
-			dataType : "json",
-			error : function(data) {
-				alert("预约失败！");
-				art.dialog.close();
-			},
-			success : function(data) {
-				alert(data.data);
-				art.dialog.close();
-			}
-		});
-	}
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>挂号界面</title>
 	
-</script>
+	<link rel="stylesheet" type="text/css" href="/static/css/home.css" />
+	<script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript">
+	
+		function process(doctorId, date, period, departmentId) {
+			$.ajax({
+				url : "/register/save/?doctorId=" + doctorId + "&date=" + date
+						+ "&period=" + period + "&departmentId=" + departmentId,
+				dataType : "json",
+				error : function(data) {
+					alert("预约失败！");
+					art.dialog.close();
+				},
+				success : function(data) {
+					alert(data.data);
+					art.dialog.close();
+				}
+			});
+		}
+		
+	</script>
 
 </head>
 <body>
-	<div>科室：${(department.name)!}</div>
-	<div>日期：${date!}</div>
-	<table>
-		<thead>
+	<div>
+		<table class="gridtable" style="width: 100%">
 			<tr>
-				<th>医生</th>
-				<th>职位</th>
-				<th>上午可预约</th>
-				<th>下午可预约</th>
-				<th>预约</th>
+				<th width="80" align="center">科室</th>
+				<td>${(department.name)!}</td>
+				<th width="80" align="center">日期</th>
+				<td>${showDate!}</td>
 			</tr>
-		</thead>
-		<tbody>
-			<#list doctors as doctor>
-			<tr>
-				<td align="center"><input type="hidden" name="doctorId" value="${doctor.id}" />
-					${(doctor.name)!}</td>
-				<td align="center">${doctor.getRole().name}</td>
-				<td align="center">
-					${(doctor.getSchedule(date).amTotal - doctor.getSchedule(date).amNum)!}
-				</td>
-				<td align="center">${(doctor.getSchedule(date).pmTotal-doctor.getSchedule(date).pmNum)!}</td>
-				<td align="center">
-					<a href="javascript:void()"
-						<#if (doctor.getSchedule(date).amTotal == doctor.getSchedule(date).amNum)>
-							style="color:#ccc;"
-						<#else>
-							onclick="process('${(doctor.id)!}','${date!}','am','${(doctor.departmentid)!}')"
-						</#if>
-					title="点击预约" >上午</a>
-					&nbsp;
-					<a href="javascript:void()"
-						<#if (doctor.getSchedule(date).pmTotal == doctor.getSchedule(date).pmNum)>
-							style="color:#ccc;"
-						<#else>
-							onclick="process('${(doctor.id)!}','${date!}','pm','${(doctor.departmentid)!}')"
-						</#if>
-					title="点击预约">下午</a>
-				</td>
-			</tr>
-			</#list>
-		</tbody>
-	</table>
+		</table>
+	</div>
+	<div>
+		<table class="gridtable" style="width: 100%;margin-top: 25px;">
+			<thead align="center">
+				<tr>
+					<th>医生</th>
+					<th>职位</th>
+					<th>上午可预约</th>
+					<th>下午可预约</th>
+					<th>预约</th>
+				</tr>
+			</thead>
+			<tbody>
+				<#list doctors as doctor>
+				<tr>
+					<td align="center"><input type="hidden" name="doctorId" value="${doctor.id}" />
+						${(doctor.name)!}</td>
+					<td align="center">${doctor.getRole().name}</td>
+					<td align="center">
+						${(doctor.getSchedule(date).amTotal! - doctor.getSchedule(date).amNum)!}
+					</td>
+					<td align="center">${(doctor.getSchedule(date).pmTotal! - doctor.getSchedule(date).pmNum)!}</td>
+					<td align="center">
+						<a href="javascript:void()"
+							<#if (doctor.getSchedule(date).amTotal! == doctor.getSchedule(date).amNum!)>
+								style="color:#ccc;"
+							<#else>
+								onclick="process('${(doctor.id)!}','${date!}','am','${(doctor.departmentid)!}')"
+							</#if>
+						title="点击预约" >上午</a>
+						&nbsp;
+						<a href="javascript:void()"
+							<#if (doctor.getSchedule(date).pmTotal! == doctor.getSchedule(date).pmNum!)>
+								style="color:#ccc;"
+							<#else>
+								onclick="process('${(doctor.id)!}','${date!}','pm','${(doctor.departmentid)!}')"
+							</#if>
+						title="点击预约">下午</a>
+					</td>
+				</tr>
+				</#list>
+			</tbody>
+		</table>
+	</div>
 </body>
 </html>

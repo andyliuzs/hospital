@@ -4,15 +4,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>预约处理</title>
 	
-	<link rel="stylesheet" type="text/css" href="/static/css/calendar.css" />
-	<link rel="stylesheet" type="text/css" href="/admin/static/assets/bootstrap/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="/admin/static/css/calendar.css" />
+	<link rel="stylesheet" type="text/css" href="/admin/static/css/data.css" />
 	
 	<script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="/static/js/artDialog/artDialog.js??skin=blue"></script>
 	<script type="text/javascript" src="/static/js/artDialog/plugins/iframeTools.js"></script>
 	<script type="text/javascript" src="/static/js/minform/minform.js"></script>
 	<script type="text/javascript" src="/static/js/minform/drcal.js"></script>
-	<script type="text/javascript" src="/admin/static/assets/bootstrap/bootstrap.min.js"></script>
 	
 	<script type="text/javascript">
 
@@ -26,7 +25,7 @@
 	</script>
 </head>
 <body>
-		<div class="search-box">
+	<div class="search-box">
 		<form name="searchForm" action="/admin/register/search" method="post">
 			<span>预约用户：
 				<input type="text" name="username" id="username" value="${searchUserName!}" />&nbsp;
@@ -38,68 +37,32 @@
 	</div>
 	
 	<div class="data-box">
-			<table border="1" cellspacing="0" cellpadding="0" class="small-size">
-				<thead>
+		<table class="gridtable">
+			<thead align="center">
+				<tr>
 					<th width="120">日期</th>
 					<th>批次</th>
 					<th>预约人</th>
 					<th width="120">操作</th>
-				</thead>
-				<tbody>
-					<#list registerList.list as reg>
-					<tr>
-				
-						<td align="center">${(reg.date)!}</td>
-						<td align="center"><#if reg.period == 0>上午 <#else>下午</#if></td>
-						<td align="center">${reg.getUser().name}</td>
-						<td align="center">
-							<#if reg.status == 0>
-								<a href="javascript:void()" onclick="process('${(reg.id)!}')">点击处理</a>
-							<#else>
-							     已处理
-							</#if>
-						</td>
-						
-						
-						
-<!-- 						<#if reg.status == 0> -->
-<!-- 						待审核 -->
-<!-- 						<#else> -->
-<!-- 							<#if reg.status==1> -->
-<!-- 							未通过审核 -->
-<!-- 							<#else> -->
-<!-- 							<#if reg.status==2> -->
-<!-- 								通过审核 -->
-<!-- 							<#else> -->
-<!-- 							          处理 -->
-<!-- 							</#if> -->
-<!-- 							</#if> -->
-<!-- 						</#if> -->
-<!-- 						</td> -->
-						
-<!-- 						<td align="center"> -->
-<!-- 						<#if reg.status==0> -->
-<!-- 						----- -->
-<!-- 						<#else> -->
-<!-- 							<#if reg.status==1> -->
-<!-- 							未通过审核 -->
-<!-- 							<#else> -->
-<!-- 							<#if reg.status==2> -->
-<!-- 								<a href="javascript:void()" onclick="goExamine('${(reg.id)!}')">点击处理</a> -->
-<!-- 							<#else> -->
-<!-- 							     <a href="javascript:void()" onclick="goExamine('${(reg.id)!}')">已处理</a> -->
-<!-- 							</#if> -->
-<!-- 							</#if> -->
-<!-- 						</#if> -->
-						
-<!-- 						</td> -->
-						
-							
-					</tr>
-					</#list>
-
-				</tbody>
-			</table>
+				</tr>
+			</thead>
+			<tbody>
+				<#list registerList.list as reg>
+				<tr>
+					<td align="center">${(reg.date)!}</td>
+					<td align="center"><#if reg.period == 0>上午 <#else>下午</#if></td>
+					<td align="center">${reg.getUser().name}</td>
+					<td align="center">
+						<#if reg.status == 0>
+							<a href="javascript:void()" onclick="process('${(reg.id)!}')">点击处理</a>
+						<#else>
+						     已处理
+						</#if>
+					</td>
+				</tr>
+				</#list>
+			</tbody>
+		</table>
 	</div>
 
 	<div class="page-box">

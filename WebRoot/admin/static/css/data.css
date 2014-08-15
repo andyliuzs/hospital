@@ -12,24 +12,10 @@
 
 .data-box table {
 	width: 100%;
-	border: 1px solid #CCCCCC;
 	font-weight: normal;
-}
-		
-.data-box table th {
-	height: 35px;
-	line-height: 35px;
-	color: #EEEEEE;
-	background-color: #056CA2;
-}
-
-.data-box table td{
-	border: 1px solid #CCCCCC;
-	line-height: 30px;
 }
 
 .data-box table td p.desc {
-	margin: 10px;
 	font-size: 12px;
 }
 
@@ -85,7 +71,7 @@ table.gridtable {
 }
 table.gridtable th {
 	border-width: 1px;
-	padding: 8px;
+	padding: 5px 8px;
 	border-style: solid;
 	border-color: #666666;
 	background-color: #dedede;
@@ -93,7 +79,7 @@ table.gridtable th {
 }
 table.gridtable td {
 	border-width: 1px;
-	padding: 8px;
+	padding: 5px 8px;
 	border-style: solid;
 	border-color: #666666;
 	background-color: #ffffff;
