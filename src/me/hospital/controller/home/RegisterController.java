@@ -214,7 +214,6 @@ public class RegisterController extends Controller {
 	/**
 	 * 保存预约
 	 */
-
 	public void save() {
 
 		String account = getCookie("ACCOUNT");
@@ -235,6 +234,7 @@ public class RegisterController extends Controller {
 				String.valueOf(user.get("id")), String.valueOf(doctorId), date);
 		Schedule schedule = Schedule.dao.getSchedule(String.valueOf(doctorId),
 				date);
+		
 		if (schedule != null) {
 			if (register != null) {
 				renderJson("data", "一位大夫一天您只能预约一次!");

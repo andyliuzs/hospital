@@ -28,46 +28,58 @@
 	        	}
 	        }); 
 		}
+		
+		function update() {
+			var value = $("#department").val();
+			$.getJSON("/admin/register/getDoctors/" + value, function (data) {
+                //对请求返回的JSON格式进行分解加载
+                $.each(data.json, function(idx, item) {
+                    $("#doctor").append($("<option/>").text(item).attr("value",idx));
+                });
+            });
+		}
+		
+		$(function() {
+			
+			update();
+			
+			$("#department").change(function(){  
+				
+				update();
+				
+			});
+		});
+		
+		
 	</script>
 </head>
 <body>
 	<div class="search-box">
 		<form name="searchForm" action="/admin/register/search" method="post">
-			<span>预约用户：
-				<input type="text" name="username" id="username" value="${searchUserName!}" />&nbsp;
-				
-				<select name="departmentId">
+			<span>
+				日期
+				<select name="date">
+					<option value="">挂号日期</option> 
+					<#list futureDays as date>
+						<option value="${date}" <#if date == searchDate>selected="selected"</#if> >${date}</option>
+					</#list>
+				</select>
+				&nbsp;&nbsp;科室
+				<select id="department" name="departmentId">
 					<option value="-1">请选择科室</option>
 					<#list departments as department>
 						<#if department.id == searchDepartmentId>
-							<option value="${(department.id)!} selected="selected">${(department.name)!}</option>
+							<option value="${(department.id)!}" selected="selected">${(department.name)!}</option>
 						<#else>
 							<option value="${(department.id)!}">${(department.name)!}</option>
 						</#if>
 					</#list>
 				</select>
-				
-				<select name="doctorId">
+				&nbsp;&nbsp;医生
+				<select id="doctor" name="doctorId">
 					<option value="-1">请选择医生</option> 
-					<#list doctors as doctor> 
-						<#if doctor.id == searchDoctorId>
-							<option value="${doctor.id}" selected="selected">${doctor.name}</option>
-						<#else>
-							<option value="${doctor.id}">${doctor.name}</option> 
-						</#if> 
-					</#list>
 				</select>
 				
-				挂号日期：
-				
-				<select name="day">
-					<option value="-1">挂号日期</option> 
-					<#list futureDays as day>
-				       <option value="${day}" >${day}</option>
-					</#list>
-				</select>
-				
-				<input type="text" name="date" id="date" value="${searchDate!}"/>
 				<input type="submit" name="subButton" id="subButton" value="查询" />		
 			</span>
 		</form>

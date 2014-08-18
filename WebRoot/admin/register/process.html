@@ -26,14 +26,7 @@
 </head>
 <body>
 	<div class="search-box">
-		<form name="searchForm" action="/admin/register/search" method="post">
-			<span>预约用户：
-				<input type="text" name="username" id="username" value="${searchUserName!}" />&nbsp;
-
-				预约日期：${today}
-				<input type="submit" name="subButton" id="subButton" value="查询" />		
-			</span>
-		</form>
+		<span>预约日期：${today}</span>
 	</div>
 	
 	<div class="data-box">
@@ -68,10 +61,10 @@
 	<div class="page-box">
 		<span style="margin-left: 10px"> 
 		共${registerList.totalRow}条记录&nbsp;共${registerList.totalPage}页  每页${registerList.pageSize}条数据  当前第${registerList.pageNumber}页     
-		<a href="/admin/register/?p=1<#if searchPage == 1>&s=1</#if>" >[首页]</a>
-		<a href="/admin/register/?p=<#if registerList.pageNumber lte 1>1<#else>${registerList.pageNumber - 1}</#if><#if searchPage == 1>&s=1</#if>" >[上一页]</a> 
-		<a href="/admin/register/?p=<#if registerList.pageNumber gte registerList.totalPage>${registerList.totalPage}<#else>${registerList.pageNumber + 1}</#if><#if searchPage == 1>&s=1</#if>" >[下一页]</a> 
-		<a href="/admin/register/?p=${registerList.totalPage}<#if searchPage == 1>&s=1</#if>" >[末页]</a>
+		<a href="/admin/register/?p=1" >[首页]</a>
+		<a href="/admin/register/?p=<#if registerList.pageNumber lte 1>1<#else>${registerList.pageNumber - 1}</#if>" >[上一页]</a> 
+		<a href="/admin/register/?p=<#if registerList.pageNumber gte registerList.totalPage>${registerList.totalPage}<#else>${registerList.pageNumber + 1}</#if>" >[下一页]</a> 
+		<a href="/admin/register/?p=${registerList.totalPage}" >[末页]</a>
 		 
 		</span>
 	</div>

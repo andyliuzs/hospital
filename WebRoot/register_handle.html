@@ -45,23 +45,30 @@
 					<th>医生</th>
 					<th>职位</th>
 					<th>上午可预约</th>
+					<th>上午剩余</th>
 					<th>下午可预约</th>
+					<th>下午剩余</th>
 					<th>预约</th>
 				</tr>
 			</thead>
 			<tbody>
 				<#list doctors as doctor>
 				<tr>
-					<td align="center"><input type="hidden" name="doctorId" value="${doctor.id}" />
+					<td align="center">
+						<input type="hidden" name="doctorId" value="${doctor.id}" />
 						${(doctor.name)!}</td>
 					<td align="center">${doctor.getRole().name}</td>
 					<td align="center">
-						${(doctor.getSchedule(date).amTotal! - doctor.getSchedule(date).amNum)!}
+						${doctor.getSchedule(date).amTotal} 
 					</td>
-					<td align="center">${(doctor.getSchedule(date).pmTotal! - doctor.getSchedule(date).pmNum)!}</td>
+					<td align="center">
+						${doctor.getSchedule(date).amTotal - doctor.getSchedule(date).amNum}
+					</td>
+					<td align="center">${doctor.getSchedule(date).pmTotal}</td>
+					<td align="center">${doctor.getSchedule(date).pmTotal - doctor.getSchedule(date).pmNum}</td>
 					<td align="center">
 						<a href="javascript:void()"
-							<#if (doctor.getSchedule(date).amTotal! == doctor.getSchedule(date).amNum!)>
+							<#if (doctor.getSchedule(date).amTotal == doctor.getSchedule(date).amNum)>
 								style="color:#ccc;"
 							<#else>
 								onclick="process('${(doctor.id)!}','${date!}','am','${(doctor.departmentid)!}')"

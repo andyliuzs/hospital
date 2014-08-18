@@ -1,8 +1,9 @@
 package me.hospital.controller.home;
 
-import me.hospital.model.Admin;
 import me.hospital.model.User;
 import me.hospital.util.ParamUtil;
+import me.hospital.validator.home.SaveUserMessageValidator;
+import me.hospital.validator.home.UpdatePasswordValidator;
 
 import com.jfinal.aop.Before;
 import com.jfinal.aop.ClearInterceptor;
@@ -10,9 +11,6 @@ import com.jfinal.aop.ClearLayer;
 import com.jfinal.core.Controller;
 import com.oreilly.servlet.Base64Decoder;
 import com.oreilly.servlet.Base64Encoder;
-
-import  me.hospital.validator.home.UpdatePasswordValidator;
-import me.hospital.validator.home.SaveUserMessageValidator;
 /**
  * UserController
  * 
@@ -49,9 +47,9 @@ public class UserController extends Controller {
 	public void updateInfo() {
 		User user = getModel(User.class);
 		// 逻辑处理
-		boolean b = user.update();
+		boolean result = user.update();
 		
-		if(b){
+		if(result){
 			// 将用户的账号用Base64加密后保存到cookie中
 			setCookie("ACCOUNT", Base64Encoder.encode(user.getStr("account")), -1);
 			getSession().removeAttribute(user.getStr("account"));

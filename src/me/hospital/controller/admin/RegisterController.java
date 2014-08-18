@@ -3,18 +3,15 @@ package me.hospital.controller.admin;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import me.hospital.config.CoreConstants;
 import me.hospital.interceptor.admin.RegisterInterceptor;
+import me.hospital.model.Department;
 import me.hospital.model.Doctor;
 import me.hospital.model.Register;
-import me.hospital.model.Role;
-import me.hospital.model.User;
 import me.hospital.util.DateUtil;
 import me.hospital.util.ParamUtil;
 
@@ -32,9 +29,6 @@ public class RegisterController extends Controller {
 
 	@Before(RegisterInterceptor.class)
 	public void index() {
-
-		List<String> futureDays = DateUtil.getFutureDays(10, "yyyy-MM-dd");
-		setAttr("futureDays", futureDays);
 
 		// 读取当前用户所有的预约
 		Page<Register> registerList = null;
@@ -64,8 +58,7 @@ public class RegisterController extends Controller {
 			String formatDate = null;
 			for (Register register : registerList.getList()) {
 				formatDate = register.getStr("date");
-				register.set("date",
-						formatter.format(formatter2.parse(formatDate)));
+				register.set("date", formatter.format(formatter2.parse(formatDate)));
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -74,9 +67,9 @@ public class RegisterController extends Controller {
 		String today = DateUtil.getToday("yyyy-MM-dd");
 
 		setAttr("registerList", registerList);
-		setAttr("searchUserName", "");
 		setAttr("searchDoctorId", -1);
 		setAttr("searchDepartmentId", -1);
+		setAttr("searchDate", "-1");
 		setAttr("today", today);
 		setAttr("searchPage", CoreConstants.NOT_SEARCH_PAGE);
 
@@ -84,6 +77,30 @@ public class RegisterController extends Controller {
 
 	}
 
+	/**
+	 * 根据科室ID异步获取该科室下的所有医生信息
+	 */
+	public void getDoctors() {
+		
+		int departmentId = ParamUtil.paramToInt(getPara(0), -1);
+		if(departmentId > -1) {
+			List<Doctor> doctors = Department.dao.getDoctors(departmentId);
+			
+			Map<String, String> result = new HashMap<String, String>();
+
+			for (Doctor doctor : doctors) {
+				result.put(String.valueOf(doctor.get("id")), doctor.getStr("name"));
+			}
+
+			renderJson("json", result);
+			
+		} else {
+			renderJson("json", "");
+		}
+		
+	}
+	
+	
 	/**
 	 * 
 	 * 获取当前医生
@@ -101,13 +118,10 @@ public class RegisterController extends Controller {
 	 */
 	@Before(RegisterInterceptor.class)
 	public void search() {
-		// 获取当前用户
-		Doctor doctor = getDoctor();
 
 		// 读取当前用户所有的预约
 		Page<Register> registerList = null;
-		// 获取权限
-		Role role = null;
+
 		if (ParamUtil.isEmpty(getPara("s"))) {
 
 			// 说明当前请求是搜索数据的post请求，并非搜索的分页请求
@@ -115,7 +129,6 @@ public class RegisterController extends Controller {
 
 			Map<String, String> queryParams = new HashMap<String, String>();
 
-			queryParams.put("username", getPara("username"));
 			queryParams.put("doctorId", getPara("doctorId"));
 			queryParams.put("departmentId", getPara("departmentId"));
 			queryParams.put("date", getPara("date"));
@@ -129,15 +142,6 @@ public class RegisterController extends Controller {
 		if (page < 1) {
 			page = 1;
 		}
-		int roleId = 0;
-		if (doctor == null)
-			return;
-		roleId = doctor.get("roleId") != null ? Integer.valueOf(doctor.get(
-				"roleId").toString()) : -1;
-
-		if (roleId > 0) {
-			role = Role.dao.findById(roleId);
-		}
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("from register where id > 0");
@@ -145,135 +149,65 @@ public class RegisterController extends Controller {
 		HashMap<String, String> queryParams = getSessionAttr(CoreConstants.SEARCH_SESSION_KEY);
 		List<Object> params = new ArrayList<Object>();
 
-		if (roleId == 0) {
+		// 管理员与挂号管理员权限
 
-			// 管理员与挂号管理员权限
+		if (queryParams != null) {
 
-			if (queryParams != null) {
-
-				String userName = queryParams.get("username");
-				List<User> users = User.dao.find(
-						"select * from user where name like ?", userName);
-				int userId = -1;
-				if (users.size() > 0) {
-					userId = users.get(0).get("id");
-				}
-				if (userId > -1) {
-					sb.append(" and userId = ?");
-					params.add(userId);
-				}
-
-				int doctorId = Integer.parseInt(queryParams.get("doctorId"));
-				if (doctorId > -1) {
-					sb.append(" and doctorId = ?");
-					params.add(doctorId);
-				}
-
-				int departmentId = Integer.parseInt(queryParams
-						.get("departmentId"));
-				if (departmentId > -1) {
-					sb.append(" and departmentId = ?");
-					params.add(departmentId);
-				}
-				String date = queryParams.get("date");
-				if (!ParamUtil.isEmpty(date)) {
+			int departmentId = Integer.parseInt(queryParams.get("departmentId"));
+			if (departmentId > -1) {
+				sb.append(" and departmentId = ?");
+				params.add(departmentId);
+			}
+			
+			int doctorId = Integer.parseInt(queryParams.get("doctorId"));
+			if (doctorId > -1) {
+				sb.append(" and doctorId = ?");
+				params.add(doctorId);
+			}
+			
+			String date = queryParams.get("date");
+			if (!ParamUtil.isEmpty(date) && !"-1".equals(date)) {
+				
+				try {
+					// 格式化日期
+					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+					SimpleDateFormat formatter2 = new SimpleDateFormat("yyyyMMdd");
 					sb.append(" and date =?");
-					params.add(date);
+					params.add(formatter.format(formatter2.parse(date)));
+				} catch (ParseException e) {
+					e.printStackTrace();
 				}
+				
+			}
+			
+			// 读取当前用户所有的预约
+			registerList = Register.dao.paginate(page, CoreConstants.PAGE_SIZE, "select *",
+					sb.toString(), params.toArray());
 
-				// 读取当前用户所有的预约
-				registerList = Register.dao.paginate(page,
-						CoreConstants.PAGE_SIZE, "select *", sb.toString(),
-						params.toArray());
+			try {
 				// 格式化日期
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				SimpleDateFormat formatter2 = new SimpleDateFormat("yyyyMMdd");
 				String formatDate = null;
 				for (Register register : registerList.getList()) {
 					formatDate = register.getStr("date");
-					String formatDate2 = formatDate.substring(0, 4) + "-"
-							+ formatDate.substring(4, 6) + "-"
-							+ formatDate.substring(6, 8);
-					register.set("date", formatDate2);
+					register.set("date", formatter.format(formatter2.parse(formatDate)));
 				}
-				// 获取今天
-				Date datee = new Date();
-				Calendar calendar = Calendar.getInstance();
-				calendar.setTime(datee);
-				String nowDate = calendar.get(calendar.YEAR) + "-"
-						+ (calendar.get(calendar.MONTH) + 1) + "-"
-						+ calendar.get(calendar.DAY_OF_MONTH);
-				setAttr("nowDate", nowDate);
-				setAttr("registerList", registerList);
-				setAttr("searchUserName", userName);
-				setAttr("searchDoctorId", doctorId);
-				setAttr("searchDepartmentId", departmentId);
-				setAttr("searchDate", date);
-				setAttr("searchPage", CoreConstants.SEARCH_PAGE);
-
-			}
-			render("index.html");
-		} else {
-			// /医生权限
-			// 医生本人的id
-			queryParams.put("doctorId", doctor.get("id").toString());
-			// 状态位0待审核 1未通过 2通过 3处理
-			queryParams.put("status", "2");
-
-			String userName = queryParams.get("username");
-			List<User> users = User.dao.find(
-					"select * from user where name like ?", userName);
-			int userId = -1;
-			if (users.size() > 0) {
-				userId = users.get(0).get("id");
-			}
-			if (userId > -1) {
-				sb.append(" and userId = ?");
-				params.add(userId);
+			} catch (ParseException e) {
+				e.printStackTrace();
 			}
 
-			String date = queryParams.get("date");
-			if (!ParamUtil.isEmpty(date)) {
-				sb.append(" and date =?");
-				params.add(date);
-			}
+			String today = DateUtil.getToday("yyyy-MM-dd");
 
-			int doctorId = Integer.valueOf(queryParams.get("doctorId"));
-			if (doctorId > -1) {
-				sb.append(" and doctorId =?");
-				params.add(doctorId);
-			}
-
-			int status = Integer.valueOf(queryParams.get("status").toString());
-			if (status > -1) {
-				sb.append(" and status >=?");
-				params.add(status);
-			}
-			// 读取当前用户所有的预约
-			registerList = Register.dao.paginate(page, CoreConstants.PAGE_SIZE,
-					"select *", sb.toString(), params.toArray());
-			// 格式化日期
-			String formatDate = null;
-			for (Register register : registerList.getList()) {
-				formatDate = register.getStr("date");
-				String formatDate2 = formatDate.substring(0, 4) + "-"
-						+ formatDate.substring(4, 6) + "-"
-						+ formatDate.substring(6, 8);
-				register.set("date", formatDate2);
-			}
-			// 获取今天
-			Date datee = new Date();
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(datee);
-			String nowDate = calendar.get(calendar.YEAR) + "-"
-					+ (calendar.get(calendar.MONTH) + 1) + "-"
-					+ calendar.get(calendar.DAY_OF_MONTH);
-			setAttr("nowDate", nowDate);
+			setAttr("today", today);
 			setAttr("registerList", registerList);
-			setAttr("searchUserName", userName);
+			setAttr("searchDoctorId", doctorId);
+			setAttr("searchDepartmentId", departmentId);
 			setAttr("searchDate", date);
 			setAttr("searchPage", CoreConstants.SEARCH_PAGE);
-			render("doctor_index.html");
-		}
 
+		}
+		render("index.html");
 	}
 
 	/***
@@ -299,8 +233,8 @@ public class RegisterController extends Controller {
 	 * 医生查看预约修改状态
 	 */
 	public void show() {
-		int registerId = getPara("regId") != null ? Integer.valueOf(getPara(
-				"regId").toString()) : -1;
+		int registerId = getPara("regId") != null ? Integer.valueOf(getPara("regId").toString())
+				: -1;
 		Register register = Register.dao.findById(registerId);
 
 		try {
@@ -321,8 +255,8 @@ public class RegisterController extends Controller {
 	 * 医生处理预约（就诊）
 	 */
 	public void visit() {
-		int registerId = getPara("registerId") != null ? Integer
-				.valueOf(getPara("registerId").toString()) : -1;
+		int registerId = getPara("registerId") != null ? Integer.valueOf(getPara("registerId")
+				.toString()) : -1;
 		String remark = getPara("remark");
 		try {
 			Register register = Register.dao.findById(registerId);
@@ -351,8 +285,8 @@ public class RegisterController extends Controller {
 			page = 1;
 		}
 
-		registerList = Register.dao.paginateForDoctor(page,
-				CoreConstants.PAGE_SIZE, String.valueOf(doctor.get("id")), "1");
+		registerList = Register.dao.paginateForDoctor(page, CoreConstants.PAGE_SIZE,
+				String.valueOf(doctor.get("id")), "1");
 
 		try {
 			// 格式化日期
@@ -361,8 +295,7 @@ public class RegisterController extends Controller {
 			String formatDate = null;
 			for (Register register : registerList.getList()) {
 				formatDate = register.getStr("date");
-				register.set("date",
-						formatter.format(formatter2.parse(formatDate)));
+				register.set("date", formatter.format(formatter2.parse(formatDate)));
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -371,7 +304,6 @@ public class RegisterController extends Controller {
 		String today = DateUtil.getToday("yyyy-MM-dd");
 
 		setAttr("registerList", registerList);
-		setAttr("searchUserName", "");
 		setAttr("today", today);
 		setAttr("searchPage", CoreConstants.NOT_SEARCH_PAGE);
 

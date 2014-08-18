@@ -25,6 +25,7 @@ public class Register extends Model<Register> {
 						userId, doctorId, date);
 	}
 
+	
 	public Page<Register> paginateSig(int pageNumber, int pageSize,
 			String userId) {
 		return dao.paginate(pageNumber, pageSize, "select *",
