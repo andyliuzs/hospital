@@ -1,5 +1,7 @@
 package me.hospital.controller.admin;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -81,13 +83,26 @@ public class ScheduleController extends Controller {
 		int departmentId = ParamUtil.paramToInt(getPara("depart"), -1);
 		String date = getPara("date");
 
+		String showDate = null;
+		try {
+			// 格式化日期
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat formatter2 = new SimpleDateFormat("yyyyMMdd");
+			showDate = formatter.format(formatter2.parse(date));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		Department department = Department.dao.findById(departmentId);
+		
 		// 查找该科室下所有的医生
 		List<Doctor> doctors = Department.dao.getDoctors(departmentId);
 		setAttr("doctors2", doctors);
 
-		setAttr("departmentId", departmentId);
+		setAttr("department", department);
 		setAttr("date", date);
-
+		setAttr("showDate", showDate);
+		
 		render("plan.html");
 
 	}
