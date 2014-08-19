@@ -24,7 +24,7 @@ public class CoreConstants {
 	public static final int MAX_FILE_SIZE = 10 * 1024 * 1024;
 
 	// 上传文件的总目录
-	public static final String ATTACHMENT_UPLOAD_PATH = "/upload/";
+	public static final String ATTACHMENT_UPLOAD_PATH = "upload/";
 
 	// 上传文件的临时路径
 	public static final String ATTACHMENT_TEMP_PATH = ATTACHMENT_UPLOAD_PATH;

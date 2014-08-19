@@ -3,26 +3,43 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>挂号管理</title>
-	<link rel="stylesheet" type="text/css" href="/static/css/home.css" />
-	<script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
-
+	<link rel="stylesheet" type="text/css" href="${CONTEXT_PATH}/static/css/home.css" />
+	<script type="text/javascript" src="${CONTEXT_PATH}/static/js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript">
+		
+		// 收藏本站
+		function favorite(title, url) {
+			try {
+		    	window.external.addFavorite(url, title);
+		  	} catch (e) {
+				try {
+			       window.sidebar.addPanel(title, url, "");
+			    } catch (e) {
+			         alert("抱歉，您所使用的浏览器无法完成此操作。\n\n加入收藏失败，请使用Ctrl+D进行添加");
+			    }
+			}
+		}
+		
+	</script>
 </head>
 <body>
 
 	<div class="wrapper">
 		<div class="header">
 			<p class="logo"></p>
-			<p class="favorite"><a href="">点击收藏</a></p>
+			<p class="favorite">
+				<a href="javascript:void()" onclick="favorite('佳木斯中心医院', 'http://localhost:8080/')">点击收藏</a>
+			</p>
 		</div>
 		<div class="nav">
 			<ul>
-				<li><a href="index.html">首&nbsp;&nbsp;页</a></li>
-				<li><a href="intro.html">医院简介</a></li>
-				<li><a href="news.html">新闻中心</a></li>
-				<li><a href="department.html">科室介绍</a></li>
-				<li><a href="doctor.html">名医荟萃</a></li>
-				<li><a href="research.html">科研教学</a></li>
-				<li><a href="register.html" class="current">预约挂号</a></li>
+				<li><a href="${CONTEXT_PATH}/index.html">首&nbsp;&nbsp;页</a></li>
+				<li><a href="${CONTEXT_PATH}/intro.html">医院简介</a></li>
+				<li><a href="${CONTEXT_PATH}/news.html">新闻中心</a></li>
+				<li><a href="${CONTEXT_PATH}/department.html">科室介绍</a></li>
+				<li><a href="${CONTEXT_PATH}/doctor.html">名医荟萃</a></li>
+				<li><a href="${CONTEXT_PATH}/research.html">科研教学</a></li>
+				<li><a href="${CONTEXT_PATH}/register.html" class="current">预约挂号</a></li>
 			</ul>
 		</div>
 		<div class="clear"></div>
@@ -52,7 +69,7 @@
 								<td align="center">${(reg.getDoctor().getRole().name)!}</td>
 								<td align="center">
 									<#if reg.verify == 0>
-										待审核&nbsp;<a href="/register/cancel/?registerId=${reg.id}">取消预约</a>
+										待审核&nbsp;<a href="${CONTEXT_PATH}/register/cancel/?registerId=${reg.id}">取消预约</a>
 									<#elseif reg.verify == 1>
 										通过
 									<#elseif reg.verify == 2>
@@ -71,10 +88,10 @@
 					<p>
 		<span style="margin-left: 10px"> 
 		共${registerList.totalRow}条记录&nbsp;共${registerList.totalPage}页  每页${registerList.pageSize}条数据  当前第${registerList.pageNumber}页     
-		<a href="/register/manage/?p=1<#if searchPage == 1>&s=1</#if>" >[首页]</a>
-		<a href="/register/manage/?p=<#if registerList.pageNumber lte 1>1<#else>${registerList.pageNumber - 1}</#if><#if searchPage == 1>&s=1</#if>" >[上一页]</a> 
-		<a href="/register/manage/?p=<#if registerList.pageNumber gte registerList.totalPage>${registerList.totalPage}<#else>${registerList.pageNumber + 1}</#if><#if searchPage == 1>&s=1</#if>" >[下一页]</a> 
-		<a href="/register/manage/?p=${registerList.totalPage}<#if searchPage == 1>&s=1</#if>" >[末页]</a>
+		<a href="${CONTEXT_PATH}/register/manage/?p=1<#if searchPage == 1>&s=1</#if>" >[首页]</a>
+		<a href="${CONTEXT_PATH}/register/manage/?p=<#if registerList.pageNumber lte 1>1<#else>${registerList.pageNumber - 1}</#if><#if searchPage == 1>&s=1</#if>" >[上一页]</a> 
+		<a href="${CONTEXT_PATH}/register/manage/?p=<#if registerList.pageNumber gte registerList.totalPage>${registerList.totalPage}<#else>${registerList.pageNumber + 1}</#if><#if searchPage == 1>&s=1</#if>" >[下一页]</a> 
+		<a href="${CONTEXT_PATH}/register/manage/?p=${registerList.totalPage}<#if searchPage == 1>&s=1</#if>" >[末页]</a>
 		 
 		</span>
 					</p>
@@ -86,10 +103,10 @@
 					<h5>用户管理</h5>
 					<div class="user-manage">
 						<label>${user.name!}，欢迎您登录！</label>
-						<p><a href="/register.html">[我要预约]</a></p>
-						<p><a href="/register/manage.html">[管理预约]</a></p>
-						<p><a href="/user.html">[修改信息]</a></p>
-						<p><a href="/logout.html">[注销登录]</a></p>
+						<p><a href="${CONTEXT_PATH}/register.html">[我要预约]</a></p>
+						<p><a href="${CONTEXT_PATH}/register/manage.html">[管理预约]</a></p>
+						<p><a href="${CONTEXT_PATH}/user.html">[修改信息]</a></p>
+						<p><a href="${CONTEXT_PATH}/logout.html">[注销登录]</a></p>
 					</div>
 				</div>
 			</div>

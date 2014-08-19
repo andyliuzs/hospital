@@ -284,7 +284,7 @@ public class RegisterController extends Controller {
 		if (page < 1) {
 			page = 1;
 		}
-
+		
 		registerList = Register.dao.paginateForDoctor(page, CoreConstants.PAGE_SIZE,
 				String.valueOf(doctor.get("id")), "1");
 

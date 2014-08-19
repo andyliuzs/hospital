@@ -4,20 +4,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>预约列表</title>
 	
-	<link rel="stylesheet" type="text/css" href="/admin/static/css/calendar.css" />
-	<link rel="stylesheet" type="text/css" href="/admin/static/css/data.css" />
+	<link rel="stylesheet" type="text/css" href="${CONTEXT_PATH}/admin/static/css/calendar.css" />
+	<link rel="stylesheet" type="text/css" href="${CONTEXT_PATH}/admin/static/css/data.css" />
 	
-	<script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
-	<script type="text/javascript" src="/static/js/artDialog/artDialog.js??skin=blue"></script>
-	<script type="text/javascript" src="/static/js/artDialog/plugins/iframeTools.js"></script>
-	<script type="text/javascript" src="/static/js/minform/minform.js"></script>
-	<script type="text/javascript" src="/static/js/minform/drcal.js"></script>
+	<script type="text/javascript" src="${CONTEXT_PATH}/admin/static/js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="${CONTEXT_PATH}/admin/static/js/artDialog/artDialog.js??skin=blue"></script>
+	<script type="text/javascript" src="${CONTEXT_PATH}/admin/static/js/artDialog/plugins/iframeTools.js"></script>
+	<script type="text/javascript" src="${CONTEXT_PATH}/admin/static/js/minform/minform.js"></script>
+	<script type="text/javascript" src="${CONTEXT_PATH}/admin/static/js/minform/drcal.js"></script>
 	
 	<script type="text/javascript">
 
 		function verify(status,regId){
 	        $.ajax({ 
-	        	url: "/admin/register/verify/?status=" + status+"&regId="+regId, 
+	        	url: "${CONTEXT_PATH}/admin/register/verify/?status=" + status+"&regId="+regId, 
 	        	dataType: "json", 
 	        	error:function(data){
 					alert(data.data);
@@ -31,7 +31,7 @@
 		
 		function update() {
 			var value = $("#department").val();
-			$.getJSON("/admin/register/getDoctors/" + value, function (data) {
+			$.getJSON("${CONTEXT_PATH}/admin/register/getDoctors/" + value, function (data) {
                 //对请求返回的JSON格式进行分解加载
                 $.each(data.json, function(idx, item) {
                     $("#doctor").append($("<option/>").text(item).attr("value",idx));
@@ -55,7 +55,7 @@
 </head>
 <body>
 	<div class="search-box">
-		<form name="searchForm" action="/admin/register/search" method="post">
+		<form name="searchForm" action="${CONTEXT_PATH}/admin/register/search" method="post">
 			<span>
 				日期
 				<select name="date">
@@ -133,10 +133,10 @@
 	<div class="page-box">
 		<span style="margin-left: 10px"> 
 		共${registerList.totalRow}条记录&nbsp;共${registerList.totalPage}页  每页${registerList.pageSize}条数据  当前第${registerList.pageNumber}页     
-		<a href="/admin/register/?p=1<#if searchPage == 1>&s=1</#if>" >[首页]</a>
-		<a href="/admin/register/?p=<#if registerList.pageNumber lte 1>1<#else>${registerList.pageNumber - 1}</#if><#if searchPage == 1>&s=1</#if>" >[上一页]</a> 
-		<a href="/admin/register/?p=<#if registerList.pageNumber gte registerList.totalPage>${registerList.totalPage}<#else>${registerList.pageNumber + 1}</#if><#if searchPage == 1>&s=1</#if>" >[下一页]</a> 
-		<a href="/admin/register/?p=${registerList.totalPage}<#if searchPage == 1>&s=1</#if>" >[末页]</a>
+		<a href="${CONTEXT_PATH}/admin/register/?p=1<#if searchPage == 1>&s=1</#if>" >[首页]</a>
+		<a href="${CONTEXT_PATH}/admin/register/?p=<#if registerList.pageNumber lte 1>1<#else>${registerList.pageNumber - 1}</#if><#if searchPage == 1>&s=1</#if>" >[上一页]</a> 
+		<a href="${CONTEXT_PATH}/admin/register/?p=<#if registerList.pageNumber gte registerList.totalPage>${registerList.totalPage}<#else>${registerList.pageNumber + 1}</#if><#if searchPage == 1>&s=1</#if>" >[下一页]</a> 
+		<a href="${CONTEXT_PATH}/admin/register/?p=${registerList.totalPage}<#if searchPage == 1>&s=1</#if>" >[末页]</a>
 		 
 		</span>
 	</div>

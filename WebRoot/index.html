@@ -3,9 +3,9 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>首页</title>
-	<link rel="stylesheet" href="/static/css/home.css" type="text/css" />
-	<script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
-	<script type="text/javascript" src="/static/js/common.js" ></script>
+	<link rel="stylesheet" href="${CONTEXT_PATH}/static/css/home.css" type="text/css" />
+	<script type="text/javascript" src="${CONTEXT_PATH}/static/js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="${CONTEXT_PATH}/static/js/common.js" ></script>
 	<script type="text/javascript">
 		
 		// 收藏本站
@@ -41,8 +41,6 @@
 	        }); 
 	        
 		});  
-	
-		
 		
 	</script>
 </head>
@@ -56,13 +54,13 @@
 		</div>
 		<div class="nav">
 			<ul>
-				<li><a href="/index.html" class="current">首&nbsp;&nbsp;页</a></li>
-				<li><a href="/intro.html">医院简介</a></li>
-				<li><a href="/news.html">新闻中心</a></li>
-				<li><a href="/department.html">科室介绍</a></li>
-				<li><a href="/doctor.html">名医荟萃</a></li>
-				<li><a href="/research.html">科研教学</a></li>
-				<li><a href="/register.html">预约挂号</a></li>
+				<li><a href="${CONTEXT_PATH}/index.html" class="current">首&nbsp;&nbsp;页</a></li>
+				<li><a href="${CONTEXT_PATH}/intro.html">医院简介</a></li>
+				<li><a href="${CONTEXT_PATH}/news.html">新闻中心</a></li>
+				<li><a href="${CONTEXT_PATH}/department.html">科室介绍</a></li>
+				<li><a href="${CONTEXT_PATH}/doctor.html">名医荟萃</a></li>
+				<li><a href="${CONTEXT_PATH}/research.html">科研教学</a></li>
+				<li><a href="${CONTEXT_PATH}/register.html">预约挂号</a></li>
 			</ul>
 		</div>
 		<div class="clear"></div>
@@ -71,15 +69,15 @@
 		<div class="container">
 			<div class="content">
 				<div class="doctor-wrapper">
-					<h5><a href="doctor.html">推荐专家</a></h5>
+					<h5><a href="${CONTEXT_PATH}/doctor.html">推荐专家</a></h5>
 					<div>
 						<#list doctors as doctor>
 							<div class="point-content">
 								<div class="point-image">
-									<a href="/doctor/detail/${doctor.id}"><img src="${(doctor.image)!}" onload="resizeImage(this, 100, 100)" /></a>
+									<a href="${CONTEXT_PATH}/doctor/detail/${doctor.id}"><img src="${CONTEXT_PATH}/${(doctor.image)!}" onload="resizeImage(this, 100, 100)" /></a>
 								</div>
 								<div class="point-desc">
-									<p><a href="/doctor/detail/${doctor.id}" class="name">${doctor.name}</a><span class="role">${doctor.getRole().name}</span></p>
+									<p><a href="${CONTEXT_PATH}/doctor/detail/${doctor.id}" class="name">${doctor.name}</a><span class="role">${doctor.getRole().name}</span></p>
 									<div class="clear"></div>
 									<p class="desc">${doctor.desc}</p>
 								</div>
@@ -89,15 +87,15 @@
 				</div>
 				<div class="clear"></div>
 				<div class="department-wrapper">
-					<h5><a href="department.html">重点科室</a></h5>
+					<h5><a href="${CONTEXT_PATH}/department.html">重点科室</a></h5>
 					<div>
 						<#list departments as department>
 							<div class="point-content">
 								<div class="point-image">
-									<a href="/department/detail/${department.id}"><img src="${(department.image)!}" onload="resizeImage(this, 100, 100)" /></a>
+									<a href="${CONTEXT_PATH}/department/detail/${department.id}"><img src="${CONTEXT_PATH}/${(department.image)!}" onload="resizeImage(this, 100, 100)" /></a>
 								</div>
 								<div class="point-desc">
-									<p><a href="/department/detail/${department.id}" class="name">${department.name}</a></p>
+									<p><a href="${CONTEXT_PATH}/department/detail/${department.id}" class="name">${department.name}</a></p>
 									<div class="clear"></div>
 									<p class="desc">${department.desc}</p>
 								</div>
@@ -112,7 +110,7 @@
 						<ul>
 							<#list guides as guide>
 								<li>
-									<p><a href="/news/detail/${guide.cid}-${guide.id}" class="title">${guide.title}</a><span class="date">${guide.time}</span></p>
+									<p><a href="${CONTEXT_PATH}/news/detail/${guide.cid}-${guide.id}" class="title">${guide.title}</a><span class="date">${guide.time}</span></p>
 									<div class="clear"></div>	
 								</li>
 							</#list>
@@ -128,10 +126,10 @@
 						<h5>用户管理</h5>
 						<div class="user-manage">
 							<label>${user.name!}，欢迎您登录！</label> 
-							<p><a href="/register.html">[我要预约]</a></p>
-							<p><a href="/register/manage.html">[管理预约]</a></p>
-							<p><a href="/user.html">[修改信息]</a></p>
-							<p><a href="/logout.html">[注销登录]</a></p>
+							<p><a href="${CONTEXT_PATH}/register.html">[我要预约]</a></p>
+							<p><a href="${CONTEXT_PATH}/register/manage.html">[管理预约]</a></p>
+							<p><a href="${CONTEXT_PATH}/user.html">[修改信息]</a></p>
+							<p><a href="${CONTEXT_PATH}/logout.html">[注销登录]</a></p>
 						</div>
 					</div>
 					
@@ -140,7 +138,7 @@
 					<div class="login-wrapper">
 						<h5>用户登录</h5>
 						<div class="login">
-							<form name="loginForm" method="post" action="/login" >
+							<form name="loginForm" method="post" action="${CONTEXT_PATH}/login" >
 								<#if msg??><p style="color:red">${msg}</p></#if>
 								<ul>
 									<li>
@@ -155,7 +153,7 @@
 								</ul>
 								<div class="login-submit">
 									<input type="submit" value="登录"  /> 
-									<a href="/signup.html">没有账号？去注册</a>
+									<a href="${CONTEXT_PATH}/signup.html">没有账号？去注册</a>
 								</div>
 							</form>
 						</div>
@@ -164,12 +162,12 @@
 				</#if>
 				
 				<div class="post-wrapper">
-					<h5><a href="/news/4">公告通知</a></h5>
+					<h5><a href="${CONTEXT_PATH}/news/4">公告通知</a></h5>
 					<div class="post-list">
 						<ul>
 							<#list notices as notice>
 								<li>
-									<p><a href="/news/detail/${notice.cid}-${notice.id}" class="title">${notice.title}</a></p>
+									<p><a href="${CONTEXT_PATH}/news/detail/${notice.cid}-${notice.id}" class="title">${notice.title}</a></p>
 									<div class="clear"></div>	
 								</li>
 							</#list>

@@ -4,14 +4,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>管理系统</title>
 
-	<link rel="stylesheet" type="text/css" href="static/css/base.css" />
-	<link rel="stylesheet" type="text/css" href="static/css/layout.css" />
+	<link rel="stylesheet" type="text/css" href="${CONTEXT_PATH}/admin/static/css/base.css" />
+	<link rel="stylesheet" type="text/css" href="${CONTEXT_PATH}/admin/static/css/layout.css" />
 	
-	<script type="text/javascript" src="static/assets/jquery/jquery-1.10.2.min.js"></script>
-	<script type="text/javascript" src="static/assets/artDialog/artDialog.js??skin=blue"></script>
-	<script type="text/javascript" src="static/js/layout.js"></script>
-	<script type="text/javascript" src="static/js/common.js"></script>
-	<script type="text/javascript" src="static/js/menu.js"></script>
+	<script type="text/javascript" src="${CONTEXT_PATH}/admin/static/assets/jquery/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="${CONTEXT_PATH}/admin/static/assets/artDialog/artDialog.js??skin=blue"></script>
+	<script type="text/javascript" src="${CONTEXT_PATH}/admin/static/js/layout.js"></script>
+	<script type="text/javascript" src="${CONTEXT_PATH}/admin/static/js/common.js"></script>
+	<script type="text/javascript" src="${CONTEXT_PATH}/admin/static/js/menu.js"></script>
 	
 	<script type="text/javascript">
 		$(window).resize(autosize);
@@ -31,7 +31,7 @@
 					fixed : true,
 					okValue : '确定',
 					ok : function() {
-						window.location.href = '/admin/logout';
+						window.location.href = '${CONTEXT_PATH}/admin/logout';
 					},
 					cancelValue : '取消',
 					cancel : true
@@ -59,10 +59,10 @@
 		<div id="top">
 			<div class="logo"></div>
 			<div class="info">
-				<span><img src="static/image/user.png" /><i>${userName}[${roleName}]</i></span>&nbsp;&nbsp;&nbsp;&nbsp;
+				<span><img src="${CONTEXT_PATH}/admin/static/image/user.png" /><i>${userName}[${roleName}]</i></span>&nbsp;&nbsp;&nbsp;&nbsp;
 				<span><i>当前时间：<font id="today">2014-02-20 20:31:33</font></i></span>&nbsp;&nbsp;&nbsp;&nbsp;
 				<a href="javascript:void()" class="logout"> <img
-					src="static/image/logout.png" /> <span>退出</span>
+					src="${CONTEXT_PATH}/admin/static/image/logout.png" /> <span>退出</span>
 				</a>
 			</div>
 			<div class="nav"></div>
@@ -79,7 +79,7 @@
 							<label>${permission.name}</label>
 							<ul>
 								<#list permission.initializeSubPermissions() as sp>
-									<li><a href="${sp.url}" target="content">${sp.name}</a></li>
+									<li><a href="${CONTEXT_PATH}/${sp.url}" target="content">${sp.name}</a></li>
 								</#list>
 							</ul>
 						</div>

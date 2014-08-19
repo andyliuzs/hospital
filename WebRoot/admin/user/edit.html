@@ -5,123 +5,123 @@
 	<title>修改用户信息</title>
 </head>
 <body>
-			<form name="userEditForm" method="post" action="/admin/user/save">
-					<fieldset>
-						<legend>用户信息</legend>
-						<table>
-							<tr>
-								<td width="150" class="title">
-									<label for="user.account">账号</label>
-								</td>
-								<td>
-									<input type="text" name="user.account" size="25" value="${(user.account)!}"/>
-									<span style="color:red">*${accountMsg!}</span>
-								</td>
+	<form name="userEditForm" method="post" action="${CONTEXT_PATH}/admin/user/save">
+		<fieldset>
+			<legend>用户信息</legend>
+			<table>
+				<tr>
+					<td width="150" class="title">
+						<label for="user.account">账号</label>
+					</td>
+					<td>
+						<input type="text" name="user.account" size="25" value="${(user.account)!}"/>
+						<span style="color:red">*${accountMsg!}</span>
+					</td>
 
-							</tr>
-							<tr>
-								<td class="title">
-									<label for="user.password">密码</label>
-								</td>
-								<td>
-									<input type="password" name="user.password" size="25" value="${(user.password)!}"/>
-									<span style="color:red">*${passwordMsg!}</span>
-								</td>
-							</tr>
-							<tr>
-								<td class="title">
-									<label for="password2">确认密码</label>
-								</td>
-								<td>
-									<input type="password" name="password2" size="25" value="${(user.password)!}"/>
-										<span style="color:red">*${pasEqu!} </span>
-										<span style="color:red;<#if pasEqu??>display:none;</#if>" >${password2Msg!}</span>
-								</td>
-							</tr>
-							<tr>
-								<td class="title">
-									<label for="user.name">姓名</label>
-								</td>
-								<td>
-									<input type="text" name="user.name" size="15" value="${(user.name)!}"/>
-									<span style="color:red">*${nameMsg!}</span>
-								</td>
-							</tr>
-							<tr>
-								<td class="title">
-									<label for="user.sex">性别</label>
-								</td>
-								<td>
-									<input type="radio" name="user.sex" <#if user.sex==1>checked="checked"</#if> value="1" />
-									男
-									<input type="radio" name="user.sex"  value="0" <#if user.sex==0>checked="checked"</#if>/>
-									女
-									<span style="color:red">*${sexMsg!}</span>
-								</td>
-							</tr>
-							<tr>
-								<td class="title">
-									<label for="user.age">年龄</label>
-								</td>
-								<td>
-									<input type="text" name="user.age" size="5" value="${(user.age)!}"/>
-									<span style="color:red">*${ageMsg!}</span>
-								</td>
-							</tr>
-							<tr>
-								<td class="title">
-									<label for="user.identity">身份证号</label>
-								</td>
-								<td>
-									<input type="text" name="user.identity" size="35" value="${(user.identity)!}"/>
-									<span style="color:red">*${identityMsg!}</span>
-								</td>
-							</tr>
-							<tr>
-								<td class="title">
-									<label for="user.phone">电话</label>
-								</td>
-								<td>
-									<input type="text" name="user.phone" size="25" value="${(user.phone)!}"/>
-									<span style="color:red">*${phoneMsg!}</span>
-								</td>
-							</tr>
-							<tr>
-								<td class="title">
-									<label for="user.email">邮箱</label>
-								</td>
-								<td>
-									<input type="text" name="user.email" size="25" value="${(user.email)!}"/>
-									<span style="color:red">*${emailMsg!}</span>
-								</td>
-							</tr>
-							<tr>
-								<td class="title">
-									<label for="user.address">地址</label>
-								</td>
-								<td>
-									<input type="text" name="user.address" size="45" value="${(user.address)!}"/>
-								<span style="color:red">*${addressMsg!}</span>
-								</td>
-							</tr>
-							<tr>
-								<td class="title">
-									<label for="user.qq">QQ</label>
-								</td>
-								<td>
-									<input type="text" name="user.qq" size="25" value="${(user.qq)!}"/>
-									<span style="color:red">*${qqMsg!}</span>
-								</td>
-							</tr>
+				</tr>
+				<tr>
+					<td class="title">
+						<label for="user.password">密码</label>
+					</td>
+					<td>
+						<input type="password" name="user.password" size="25" value="${(user.password)!}"/>
+						<span style="color:red">*${passwordMsg!}</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="title">
+						<label for="password2">确认密码</label>
+					</td>
+					<td>
+						<input type="password" name="password2" size="25" value="${(user.password)!}"/>
+							<span style="color:red">*${pasEqu!} </span>
+							<span style="color:red;<#if pasEqu??>display:none;</#if>" >${password2Msg!}</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="title">
+						<label for="user.name">姓名</label>
+					</td>
+					<td>
+						<input type="text" name="user.name" size="15" value="${(user.name)!}"/>
+						<span style="color:red">*${nameMsg!}</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="title">
+						<label for="user.sex">性别</label>
+					</td>
+					<td>
+						<input type="radio" name="user.sex" <#if user.sex==1>checked="checked"</#if> value="1" />
+						男
+						<input type="radio" name="user.sex"  value="0" <#if user.sex==0>checked="checked"</#if>/>
+						女
+						<span style="color:red">*${sexMsg!}</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="title">
+						<label for="user.age">年龄</label>
+					</td>
+					<td>
+						<input type="text" name="user.age" size="5" value="${(user.age)!}"/>
+						<span style="color:red">*${ageMsg!}</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="title">
+						<label for="user.identity">身份证号</label>
+					</td>
+					<td>
+						<input type="text" name="user.identity" size="35" value="${(user.identity)!}"/>
+						<span style="color:red">*${identityMsg!}</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="title">
+						<label for="user.phone">电话</label>
+					</td>
+					<td>
+						<input type="text" name="user.phone" size="25" value="${(user.phone)!}"/>
+						<span style="color:red">*${phoneMsg!}</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="title">
+						<label for="user.email">邮箱</label>
+					</td>
+					<td>
+						<input type="text" name="user.email" size="25" value="${(user.email)!}"/>
+						<span style="color:red">*${emailMsg!}</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="title">
+						<label for="user.address">地址</label>
+					</td>
+					<td>
+						<input type="text" name="user.address" size="45" value="${(user.address)!}"/>
+					<span style="color:red">*${addressMsg!}</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="title">
+						<label for="user.qq">QQ</label>
+					</td>
+					<td>
+						<input type="text" name="user.qq" size="25" value="${(user.qq)!}"/>
+						<span style="color:red">*${qqMsg!}</span>
+					</td>
+				</tr>
 
-						</table>
-						<div class="regist">
-							<input type="hidden" value="${user.id}" name="user.id"/>
-							<input type="submit" value="修改" />
-							<input type="reset" value="重置" />
+			</table>
+			<div class="regist">
+				<input type="hidden" value="${user.id}" name="user.id"/>
+				<input type="submit" value="修改" />
+				<input type="reset" value="重置" />
 
-						</div>
-					</fieldset>
-				</form>
+			</div>
+		</fieldset>
+	</form>
 </body>
 </html>

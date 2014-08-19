@@ -3,12 +3,12 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>排班管理</title>
-	<link rel="stylesheet" type="text/css" href="/admin/static/css/data.css" />
+	<link rel="stylesheet" type="text/css" href="${CONTEXT_PATH}/admin/static/css/data.css" />
 	
-	<script type="text/javascript" src="/admin/static/assets/jquery/jquery-1.10.2.min.js"></script>
-	<script type="text/javascript" src="/admin/static/assets/jquery/jquery.form.js"></script>
-	<script type="text/javascript" src="/admin/static/assets/artDialog/artDialog.js??skin=idialog"></script>
-	<script type="text/javascript" src="/admin/static/assets/artDialog/plugins/iframeTools.js"></script>
+	<script type="text/javascript" src="${CONTEXT_PATH}/admin/static/assets/jquery/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="${CONTEXT_PATH}/admin/static/assets/jquery/jquery.form.js"></script>
+	<script type="text/javascript" src="${CONTEXT_PATH}/admin/static/assets/artDialog/artDialog.js??skin=idialog"></script>
+	<script type="text/javascript" src="${CONTEXT_PATH}/admin/static/assets/artDialog/plugins/iframeTools.js"></script>
 	
 	<script type="text/javascript">
 		
@@ -16,7 +16,7 @@
 	
 			$("#plan").click(function() {
 				$.ajax({
-					url : "/admin/schedule/save",
+					url : "${CONTEXT_PATH}/admin/schedule/save",
 					data : $('#planForm').serialize(),
 					dataType : "json",
 					error : function(data) {

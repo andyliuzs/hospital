@@ -3,19 +3,19 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>添加/修改文章</title>
-	<link rel="stylesheet" type="text/css" href="/admin/static/css/data.css" />
-	<script type="text/javascript" src="/admin/static/assets/ueditor1.26/ueditor.config.js"></script>
-	<script type="text/javascript" src="/admin/static/assets/ueditor1.26/ueditor.all.js"></script>
+	<link rel="stylesheet" type="text/css" href="${CONTEXT_PATH}/admin/static/css/data.css" />
+	<script type="text/javascript" src="${CONTEXT_PATH}/admin/static/assets/ueditor1.26/ueditor.config.js"></script>
+	<script type="text/javascript" src="${CONTEXT_PATH}/admin/static/assets/ueditor1.26/ueditor.all.js"></script>
 	
 	<script type="text/javascript">
 		
-		var URL = "/admin/static/assets/ueditor1.26/"
+		var URL = "${CONTEXT_PATH}/admin/static/assets/ueditor1.26/"
 		
 		window.onload = function() {
 			
 			var editor = UE.getEditor('editor', {
 		        
-				imageUrl: "/admin/post/uploadImage",
+				imageUrl: "${CONTEXT_PATH}/admin/post/uploadImage",
 		        imagePath: "",
 		        imageFieldName: "upfile"
 		        
@@ -26,7 +26,7 @@
 </head>
 <body>
 
-	<form name="postForm" action="/admin/post/save" method="post">
+	<form name="postForm" action="${CONTEXT_PATH}/admin/post/save" method="post">
 		<input type="hidden" name="id" value="" />
 		
 		<div class="post-title">

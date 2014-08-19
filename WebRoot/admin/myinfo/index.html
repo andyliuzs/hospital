@@ -3,8 +3,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>我的信息</title>
-	<link rel="stylesheet" type="text/css" href="static/css/data.css" />
-	<script type="text/javascript" src="static/js/common.js"></script>
+	<link rel="stylesheet" type="text/css" href="${CONTEXT_PATH}/admin/static/css/data.css" />
+	<script type="text/javascript" src="${CONTEXT_PATH}/admin/static/js/common.js"></script>
 </head>
 <body>
 	<div style="margin: 20px;width: 500px;">
@@ -29,7 +29,7 @@
 				<tr>
 					<td>账号：</td>
 					<td>${doctor.account}</td>
-					<td rowspan="4"><img src="${doctor.image}" onload="resizeImage(this, 160, 240);"/></td>
+					<td rowspan="4"><img src="${CONTEXT_PATH}/${doctor.image}" onload="resizeImage(this, 160, 240);"/></td>
 				</tr>
 				<tr>
 					<td>角色：</td>

@@ -3,10 +3,23 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>名医荟萃</title>
-	<link rel="stylesheet" href="/static/css/home.css" type="text/css" />
-	<script type="text/javascript" src="/static/js/jquery-1.10.2.min.js"></script>
-	<script type="text/javascript" src="/static/js/common.js"></script>
+	<link rel="stylesheet" href="${CONTEXT_PATH}/static/css/home.css" type="text/css" />
+	<script type="text/javascript" src="${CONTEXT_PATH}/static/js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="${CONTEXT_PATH}/static/js/common.js"></script>
 	<script type="text/javascript">
+	
+		// 收藏本站
+		function favorite(title, url) {
+			try {
+		    	window.external.addFavorite(url, title);
+		  	} catch (e) {
+				try {
+			       window.sidebar.addPanel(title, url, "");
+			    } catch (e) {
+			         alert("抱歉，您所使用的浏览器无法完成此操作。\n\n加入收藏失败，请使用Ctrl+D进行添加");
+			    }
+			}
+		}
 	
 		//页面加载之后,设置.样式.  
 		$(function(){  
@@ -31,17 +44,19 @@
 	<div class="wrapper">
 		<div class="header">
 			<p class="logo"></p>
-			<p class="favorite"><a href="">点击收藏</a></p>
+			<p class="favorite">
+				<a href="javascript:void()" onclick="favorite('佳木斯中心医院', 'http://localhost:8080/')">点击收藏</a>
+			</p>
 		</div>
 		<div class="nav">
 			<ul>
-				<li><a href="/index.html">首&nbsp;&nbsp;页</a></li>
-				<li><a href="/intro.html">医院简介</a></li>
-				<li><a href="/news.html">新闻中心</a></li>
-				<li><a href="/department.html">科室介绍</a></li>
-				<li><a href="/doctor.html" class="current">名医荟萃</a></li>
-				<li><a href="/research.html">科研教学</a></li>
-				<li><a href="/register.html">预约挂号</a></li>
+				<li><a href="${CONTEXT_PATH}/index.html">首&nbsp;&nbsp;页</a></li>
+				<li><a href="${CONTEXT_PATH}/intro.html">医院简介</a></li>
+				<li><a href="${CONTEXT_PATH}/news.html">新闻中心</a></li>
+				<li><a href="${CONTEXT_PATH}/department.html">科室介绍</a></li>
+				<li><a href="${CONTEXT_PATH}/doctor.html" class="current">名医荟萃</a></li>
+				<li><a href="${CONTEXT_PATH}/research.html">科研教学</a></li>
+				<li><a href="${CONTEXT_PATH}/register.html">预约挂号</a></li>
 			</ul>
 		</div>
 		<div class="clear"></div>
@@ -52,10 +67,10 @@
 				 <#list doctors.list as doctor>
 					<div class="doctor-item">
 						<div class="doctor-image">
-							<a href="/doctor/detail/${doctor.id}"><img src="${(doctor.image)!}" onload="resizeImage(this, 120, 120)" /></a>
+							<a href="${CONTEXT_PATH}/doctor/detail/${doctor.id}"><img src="${CONTEXT_PATH}/${(doctor.image)!}" onload="resizeImage(this, 120, 120)" /></a>
 						</div>
 						<div class="doctor-desc">
-							<p><a href="/doctor/detail/${doctor.id}" class="name">${(doctor.name)!}</a></p>
+							<p><a href="${CONTEXT_PATH}/doctor/detail/${doctor.id}" class="name">${(doctor.name)!}</a></p>
 							<p><span class="role">${(doctor.getRole().name)!}&nbsp;[${(doctor.getDepartment().name)!}]</span></p>
 							<div class="clear"></div>
 							<p class="desc">${(doctor.desc)!}</p>
@@ -70,10 +85,10 @@
 				<p>
 					<span> 
 						总共${doctors.totalRow}条记录 共${doctors.totalPage}页 当前第${doctors.pageNumber}页 每页显示${doctors.pageSize}条数据
-						<a href="/doctor/1" >[首页]</a>
-						<a href="/doctor/<#if doctors.pageNumber lte 1>1<#else>${doctors.pageNumber - 1}</#if>" >[上一页]</a> 
-						<a href="/doctor/<#if doctors.pageNumber gte doctors.totalPage>${doctors.totalPage}<#else>${doctors.pageNumber + 1}</#if>" >[下一页]</a> 
-						<a href="/doctor/${doctors.totalPage}" >[末页]</a>
+						<a href="${CONTEXT_PATH}/doctor/1" >[首页]</a>
+						<a href="${CONTEXT_PATH}/doctor/<#if doctors.pageNumber lte 1>1<#else>${doctors.pageNumber - 1}</#if>" >[上一页]</a> 
+						<a href="${CONTEXT_PATH}/doctor/<#if doctors.pageNumber gte doctors.totalPage>${doctors.totalPage}<#else>${doctors.pageNumber + 1}</#if>" >[下一页]</a> 
+						<a href="${CONTEXT_PATH}/doctor/${doctors.totalPage}" >[末页]</a>
 					</span>
 				</p>
 			</div>

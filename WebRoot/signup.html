@@ -3,25 +3,43 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>用户注册</title>
-	<link rel="stylesheet" href="./static/css/home.css" type="text/css" />
-	<script type="text/javascript" src="./static/js/jquery-1.10.2.min.js"></script>
-	<script type="text/javascript" src="./static/js/common.js"></script>
+	<link rel="stylesheet" href="/static/css/home.css" type="text/css" />
+	<script type="text/javascript" src="${CONTEXT_PATH}/static/js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="${CONTEXT_PATH}/static/js/common.js"></script>
+	<script type="text/javascript">
+		
+		// 收藏本站
+		function favorite(title, url) {
+			try {
+		    	window.external.addFavorite(url, title);
+		  	} catch (e) {
+				try {
+			       window.sidebar.addPanel(title, url, "");
+			    } catch (e) {
+			         alert("抱歉，您所使用的浏览器无法完成此操作。\n\n加入收藏失败，请使用Ctrl+D进行添加");
+			    }
+			}
+		}
+		
+	</script>
 </head>
 <body>
 	<div class="wrapper">
 		<div class="header">
 			<p class="logo"></p>
-			<p class="favorite"><a href="">点击收藏</a></p>
+			<p class="favorite">
+				<a href="javascript:void()" onclick="favorite('佳木斯中心医院', 'http://localhost:8080/')">点击收藏</a>
+			</p>
 		</div>
 		<div class="nav">
 			<ul>
-				<li><a href="index.html" class="current">首&nbsp;&nbsp;页</a></li>
-				<li><a href="intro.html">医院简介</a></li>
-				<li><a href="news.html">新闻中心</a></li>
-				<li><a href="department.html">科室介绍</a></li>
-				<li><a href="doctor.html">名医荟萃</a></li>
-				<li><a href="research.html">科研教学</a></li>
-				<li><a href="register.html">预约挂号</a></li>
+				<li><a href="${CONTEXT_PATH}/index.html" class="current">首&nbsp;&nbsp;页</a></li>
+				<li><a href="${CONTEXT_PATH}/intro.html">医院简介</a></li>
+				<li><a href="${CONTEXT_PATH}/news.html">新闻中心</a></li>
+				<li><a href="${CONTEXT_PATH}/department.html">科室介绍</a></li>
+				<li><a href="${CONTEXT_PATH}/doctor.html">名医荟萃</a></li>
+				<li><a href="${CONTEXT_PATH}/research.html">科研教学</a></li>
+				<li><a href="${CONTEXT_PATH}/register.html">预约挂号</a></li>
 			</ul>
 		</div>
 		<div class="clear"></div>
@@ -29,7 +47,7 @@
 		<div class="gallery"></div>
 		<div class="container">
 			<div class="regist-wrapper">
-				<form name="registForm" method="post" action="/regist">
+				<form name="registForm" method="post" action="${CONTEXT_PATH}/regist">
 					<fieldset>
 						<legend>用户信息</legend>
 						<table>

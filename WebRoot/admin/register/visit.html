@@ -4,19 +4,20 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>挂号审核页面</title>
 	
-	<link rel="stylesheet" type="text/css" href="/admin/static/css/data.css" />
+	<link rel="stylesheet" type="text/css" href="${CONTEXT_PATH}/admin/static/css/data.css" />
 	
-	<script type="text/javascript" src="/admin/static/assets/jquery/jquery-1.10.2.min.js"></script>
-	<script type="text/javascript" src="/admin/static/assets/jquery/jquery.form.js"></script>
-	<script type="text/javascript" src="/admin/static/assets/artDialog/artDialog.js??skin=idialog"></script>
-	<script type="text/javascript" src="/admin/static/assets/artDialog/plugins/iframeTools.js"></script>
+	<script type="text/javascript" src="${CONTEXT_PATH}/admin/static/assets/jquery/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="${CONTEXT_PATH}/admin/static/assets/jquery/jquery.form.js"></script>
+	<script type="text/javascript" src="${CONTEXT_PATH}/admin/static/assets/artDialog/artDialog.js??skin=idialog"></script>
+	<script type="text/javascript" src="${CONTEXT_PATH}/admin/static/assets/artDialog/plugins/iframeTools.js"></script>
 	
 	<script type="text/javascript">
+		
 		function visit(doctorid,date,daya,departmentid){
 			var id = document.getElementById("registerId").value;
 			var remark = document.getElementById("remark").value;
 			$.ajax({
-				url : "/admin/register/visit/?registerId="+id+"&remark="+remark,
+				url : "${CONTEXT_PATH}/admin/register/visit/?registerId="+id+"&remark="+remark,
 				dataType : "json",
 				error : function(data) {
 					alert(data.data);
@@ -33,7 +34,7 @@
 
 </head>
 <body>
-	<form action="/admin/register/visit" name="visitForm" method="post">
+	<form action="${CONTEXT_PATH}/admin/register/visit" name="visitForm" method="post">
 		<input type="hidden" value="${(register.id)!}" name="registerId" id="registerId" />
 		<table class="gridtable" style="width: 100%">
 			<tr>

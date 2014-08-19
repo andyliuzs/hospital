@@ -3,19 +3,16 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>管理系统</title>
-	<link rel="stylesheet" href="./static/css/login.css" type="text/css"/>
-	<style></style>
-
+	<link rel="stylesheet" href="${CONTEXT_PATH}/admin/static/css/login.css" type="text/css"/>
 </head>
 
 <body>
-	<form name="loginForm" action="/admin/process" method="post">
+	<form name="loginForm" action="${CONTEXT_PATH}/admin/process" method="post">
 		<div class="login">
 			<div class="title">
-				<p>XXX医院预约挂号系统后台登录</p>
+				<p>佳木斯中心医院预约挂号系统后台登录</p>
 			</div>
 			<div class="content">
-
 				<div>
 					<label for="username">账号</label>&nbsp;&nbsp;
 					<input type="text" name="username" size="25" value="${username!}"/>
@@ -31,7 +28,6 @@
 					</#if>
 
 				</div>
-				
 				<div style="margin:auto">
 					<#if errorMsg??>
 					<label style="color:#FD8D66">${errorMsg}</label>
@@ -40,12 +36,10 @@
 				</div>
 
 			</div>
-			
 			<div class="bottom">
 				<input type="submit" value="登录" />
 
 			</div>
-
 		</div>
 	</form>
 </body>

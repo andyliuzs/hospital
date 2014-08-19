@@ -4,10 +4,9 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>科室列表</title>
 	
-	<link rel="stylesheet" type="text/css" href="../static/css/data.css" />
-	<script type="text/javascript"
-		src="../static/assets/jquery/jquery-1.10.2.min.js"></script>
-	<script type="text/javascript" src="../static/js/common.js"></script>
+	<link rel="stylesheet" type="text/css" href="${CONTEXT_PATH}/admin/static/css/data.css" />
+	<script type="text/javascript" src="${CONTEXT_PATH}/admin/static/assets/jquery/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="${CONTEXT_PATH}/admin/static/js/common.js"></script>
 	
 	<script type="text/javascript">
 		function del(url){
@@ -38,7 +37,7 @@
 <body>
 
 	<div class="search-box">
-		<form name="searchForm" action="/admin/department/search" method="post">
+		<form name="searchForm" action="${CONTEXT_PATH}/admin/department/search" method="post">
 			<span>科室名称：
 				<input type="text" name="name" id="name" value="${searchName!}" />&nbsp;
 				<select name="directorId">
@@ -77,16 +76,16 @@
 			<tbody>
 				<#list departmentList.list as department>
 					<tr>
-						<td align="center"><img src="${(department.image)!}" onload="resizeImage(this, 70, 70);" /></td>
+						<td align="center"><img src="${CONTEXT_PATH}/${(department.image)!}" onload="resizeImage(this, 70, 70);" /></td>
 						<td align="center">${department.name}</td>
 						<td align="center"><#if department.recommend == 1>重点<#else>普通</#if></td> 
 						<td><p class="desc">${department.desc}</p></td> 
 						<td align="center">${(department.getDirector().name)!}</td>
 						<td align="center">${department.sort}</td>
 						<td align="center">
-							<a href="/admin/department/edit/${department.id}">编辑</a>
+							<a href="${CONTEXT_PATH}/admin/department/edit/${department.id}">编辑</a>
 							&nbsp;&nbsp;
-							<a href="javascript:void(0)" onclick="del('/admin/department/delete/${department.id}')">删除</a>
+							<a href="javascript:void(0)" onclick="del('${CONTEXT_PATH}/admin/department/delete/${department.id}')">删除</a>
 						</td>
 					</tr>
 				</#list>
@@ -97,10 +96,10 @@
 	<div class="page-box">
 		<span style="margin-left: 10px"> 
 		共${departmentList.totalRow}条记录&nbsp;共${departmentList.totalPage}页  每页${departmentList.pageSize}条数据  当前第${departmentList.pageNumber}页     
-		<a href="/admin/department/?p=1<#if searchPage == 1>&s=1</#if>" >[首页]</a>
-		<a href="/admin/department/?p=<#if departmentList.pageNumber lte 1>1<#else>${departmentList.pageNumber - 1}</#if><#if searchPage == 1>&s=1</#if>" >[上一页]</a> 
-		<a href="/admin/department/?p=<#if departmentList.pageNumber gte departmentList.totalPage>${departmentList.totalPage}<#else>${departmentList.pageNumber + 1}</#if><#if searchPage == 1>&s=1</#if>" >[下一页]</a> 
-		<a href="/admin/department/?p=${departmentList.totalPage}<#if searchPage == 1>&s=1</#if>" >[末页]</a>
+		<a href="${CONTEXT_PATH}/admin/department/?p=1<#if searchPage == 1>&s=1</#if>" >[首页]</a>
+		<a href="${CONTEXT_PATH}/admin/department/?p=<#if departmentList.pageNumber lte 1>1<#else>${departmentList.pageNumber - 1}</#if><#if searchPage == 1>&s=1</#if>" >[上一页]</a> 
+		<a href="${CONTEXT_PATH}/admin/department/?p=<#if departmentList.pageNumber gte departmentList.totalPage>${departmentList.totalPage}<#else>${departmentList.pageNumber + 1}</#if><#if searchPage == 1>&s=1</#if>" >[下一页]</a> 
+		<a href="${CONTEXT_PATH}/admin/department/?p=${departmentList.totalPage}<#if searchPage == 1>&s=1</#if>" >[末页]</a>
 		 
 		</span>
 	</div>
