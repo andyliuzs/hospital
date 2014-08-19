@@ -76,7 +76,7 @@
 			<tbody>
 				<#list departmentList.list as department>
 					<tr>
-						<td align="center"><img src="${CONTEXT_PATH}/${(department.image)!}" onload="resizeImage(this, 70, 70);" /></td>
+						<td align="center"><img src="${CONTEXT_PATH}${(department.image)!}" onload="resizeImage(this, 70, 70);" /></td>
 						<td align="center">${department.name}</td>
 						<td align="center"><#if department.recommend == 1>重点<#else>普通</#if></td> 
 						<td><p class="desc">${department.desc}</p></td> 

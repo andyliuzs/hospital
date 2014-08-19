@@ -74,7 +74,7 @@
 						<#list doctors as doctor>
 							<div class="point-content">
 								<div class="point-image">
-									<a href="${CONTEXT_PATH}/doctor/detail/${doctor.id}"><img src="${CONTEXT_PATH}/${(doctor.image)!}" onload="resizeImage(this, 100, 100)" /></a>
+									<a href="${CONTEXT_PATH}/doctor/detail/${doctor.id}"><img src="${CONTEXT_PATH}${(doctor.image)!}" onload="resizeImage(this, 100, 100)" /></a>
 								</div>
 								<div class="point-desc">
 									<p><a href="${CONTEXT_PATH}/doctor/detail/${doctor.id}" class="name">${doctor.name}</a><span class="role">${doctor.getRole().name}</span></p>
@@ -92,7 +92,7 @@
 						<#list departments as department>
 							<div class="point-content">
 								<div class="point-image">
-									<a href="${CONTEXT_PATH}/department/detail/${department.id}"><img src="${CONTEXT_PATH}/${(department.image)!}" onload="resizeImage(this, 100, 100)" /></a>
+									<a href="${CONTEXT_PATH}/department/detail/${department.id}"><img src="${CONTEXT_PATH}${(department.image)!}" onload="resizeImage(this, 100, 100)" /></a>
 								</div>
 								<div class="point-desc">
 									<p><a href="${CONTEXT_PATH}/department/detail/${department.id}" class="name">${department.name}</a></p>

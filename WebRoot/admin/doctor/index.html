@@ -97,7 +97,7 @@
 		<tbody>
 			<#list doctorList.list as doctor>
 			<tr>
-				<td align="center"><img src="${CONTEXT_PATH}/${(doctor.image)!}" onload="resizeImage(this, 60, 60);" /></td>
+				<td align="center"><img src="${CONTEXT_PATH}${(doctor.image)!}" onload="resizeImage(this, 60, 60);" /></td>
 				<td align="center">${doctor.account}</td>
 				<td align="center">${doctor.name}</td> 
 				<td align="center"><#if doctor.sex ==1>男<#else>女</#if></td> 

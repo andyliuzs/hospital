@@ -67,7 +67,7 @@
 				<#list departments.list as department>
 					<div class="doctor-item">
 						<div class="doctor-image">
-							<a href="${CONTEXT_PATH}/department/detail/${department.id}"><img src="${CONTEXT_PATH}/${(department.image)!}" onload="resizeImage(this, 120, 120)" /></a>
+							<a href="${CONTEXT_PATH}/department/detail/${department.id}"><img src="${CONTEXT_PATH}${(department.image)!}" onload="resizeImage(this, 120, 120)" /></a>
 						</div>
 						<div class="doctor-desc">
 							<p><a href="${CONTEXT_PATH}/department/detail/${department.id}" class="name">${(department.name)!}</a></p>

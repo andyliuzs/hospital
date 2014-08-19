@@ -67,7 +67,7 @@
 				 <#list doctors.list as doctor>
 					<div class="doctor-item">
 						<div class="doctor-image">
-							<a href="${CONTEXT_PATH}/doctor/detail/${doctor.id}"><img src="${CONTEXT_PATH}/${(doctor.image)!}" onload="resizeImage(this, 120, 120)" /></a>
+							<a href="${CONTEXT_PATH}/doctor/detail/${doctor.id}"><img src="${CONTEXT_PATH}${(doctor.image)!}" onload="resizeImage(this, 120, 120)" /></a>
 						</div>
 						<div class="doctor-desc">
 							<p><a href="${CONTEXT_PATH}/doctor/detail/${doctor.id}" class="name">${(doctor.name)!}</a></p>
